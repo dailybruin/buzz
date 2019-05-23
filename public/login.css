@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-panel {
+  font-family: 'Work Sans', sans-serif;
+  text-align: center;
+  color: #02E382;
+  margin-top: -40vh;
+}
+
+.login-panel h1 {
+  font-size: 72px;
+  font-weight: 600;
+  margin: 0;
+
+  -webkit-animation: color-change 3s infinite alternate;
+  -moz-animation: color-change 3s infinite alternate;
+  -o-animation: color-change 3s infinite alternate;
+  -ms-animation: color-change 3s infinite alternate;
+  animation: color-change 3s infinite alternate;
+}
+
+@-webkit-keyframes color-change {
+    0% { color: #02E382; }
+    33% { color: #1AC4EB; }
+    66% { color: #B01362; }
+    100% { color: #E63C3C; }
+}
+@-moz-keyframes color-change {
+    0% { color: #02E382; }
+    33% { color: #1AC4EB; }
+    66% { color: #B01362; }
+    100% { color: #E63C3C; }
+}
+@-ms-keyframes color-change {
+    0% { color: #02E382; }
+    33% { color: #1AC4EB; }
+    66% { color: #B01362; }
+    100% { color: #E63C3C; }
+}
+@-o-keyframes color-change {
+    0% { color: #02E382; }
+    33% { color: #1AC4EB; }
+    66% { color: #B01362; }
+    100% { color: #E63C3C; }
+}
+@keyframes color-change {
+    0% { color: #02E382; }
+    33% { color: #1AC4EB; }
+    66% { color: #B01362; }
+    100% { color: #E63C3C; }
+}

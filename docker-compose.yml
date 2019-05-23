@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    env_file: .env
+    ports:
+      - "3000:3000"
+    links:
+      - db_mongo
+    volumes:
+      - .:/usr/src/app/:rw
+  db_mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
