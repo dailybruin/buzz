@@ -11,7 +11,7 @@ router.get('/login', (req, res) => {
 });
 
 // main route
-router.get('/', isAuthenticated, (req, res) => {
+router.get('*', isAuthenticated, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../public/index.html"))
 });
 

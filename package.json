@@ -16,6 +16,7 @@
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
     "express-session": "^1.16.1",
+    "history": "^4.9.0",
     "mongoose": "^5.5.10",
     "passport": "^0.4.0",
     "passport-slack": "^0.0.7",
@@ -23,6 +24,7 @@
     "react-app-polyfill": "^1.0.0",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.4",
+    "react-router-dom": "^5.0.0",
     "webpack": "^4.30.0",
     "webpack-dev-server": "3.2.1"
   },

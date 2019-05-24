@@ -30,9 +30,9 @@ app.use(cors({
 
 app.use(sessions);
 app.use(auth);
-app.use(router);
 
-// static assets
+// Static assets such as login.css
+// and index.bundle.js (the React app)
 app.use(express.static("public"));
 
 if (process.env.NODE_ENV !== "production") {
@@ -46,6 +46,13 @@ if (process.env.NODE_ENV !== "production") {
   app.use(require("webpack-hot-middleware")(compiler));
 }
 
+// This loads both the HTML file that renders
+// the actual React app and the login HTML file
+// We MUST place it last or else when the browser
+// makes a request to /login.css or /index.bundle.js
+// it will get swallowed up by the React app instead
+// of the server
+app.use(router);
 
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
