@@ -5,3 +5,7 @@
 .semibold {
   font-weight: 600;
 }
+
+.notbold {
+  font-weight: 400;
+}

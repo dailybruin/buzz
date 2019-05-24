@@ -21,10 +21,13 @@
     "passport": "^0.4.0",
     "passport-slack": "^0.0.7",
     "react": "^16.8.6",
+    "react-animate-height": "^2.0.9",
     "react-app-polyfill": "^1.0.0",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.4",
     "react-router-dom": "^5.0.0",
+    "react-super-responsive-table": "^4.3.12",
+    "react-tabs": "^3.0.0",
     "webpack": "^4.30.0",
     "webpack-dev-server": "3.2.1"
   },

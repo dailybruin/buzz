@@ -3,3 +3,52 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+h2 {
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+p {
+  font-size: 0.9em;
+}
+
+.react-tabs__tab-list {
+  margin-bottom: 0px !important;
+  font-weight: 600;
+  font-size: 18px;
+  border-bottom: 0px solid transparent !important
+}
+
+.react-tabs__tab {
+  border: 0px !important;
+}
+
+.react-tabs__tab--selected {
+  background-color: black !important;
+  color: white !important;
+}
+
+table {
+  border-spacing: 0;
+}
+
+table.responsiveTable thead {
+  background-color: black;
+  color: white;
+}
+
+table.responsiveTable thead tr th {
+  text-align: left;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+@media screen and (min-width: 641px) {
+  table.responsiveTable tbody tr td {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+}
