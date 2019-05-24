@@ -6,16 +6,16 @@ export const CreateTable = (data, columns) => (
   <Table>
     <Thead>
       <Tr>
-        {columns.map(x =>  <Th>{x}</Th>)}
+        {columns.map(x =>  <Th key={x}>{x}</Th>)}
       </Tr>
     </Thead>
     <Tbody>
-      {data.map(item => {
+      {data.map((item, index) => {
         return (
-          <Tr>
+          <Tr key={index}>
             {columns.map(property => {
               return (
-                <Td>{item[property.toLowerCase()]}</Td>
+                <Td key={`${property}-${item[property.toLowerCase()]}`}>{item[property.toLowerCase()]}</Td>
               )
             })}
           </Tr>

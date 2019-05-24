@@ -4,34 +4,49 @@ import AnimateHeight from "react-animate-height";
 
 import "react-tabs/style/react-tabs.css";
 import { CreateTable } from "../Shared/Table";
+import { newDesignNote, getDesignNotes } from '../../services/api';
 
 let myTable = CreateTable([{ "placement": "A", "slug": "news.measles" }, { "placement": "B", "slug": "op.measles" }, { "placement": "CP", "slug": "op.measles" }], ["placement", "slug"]);
 
 class ActualForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      placement: "A",
+      slug: "imdustin",
+      section: "test",
+      date: {
+        year: 2019,
+        month: 5,
+        day: 24
+      }
+    }
+  }
+
   render() {
     return (
       <div>
         <div>
-          <label for="placement">Placement</label>
+          <label htmlFor="placement">Placement</label>
           <input name="placement"></input>
         </div>
         <div>
-          <label for="slug">Slug</label>
+          <label htmlFor="slug">Slug</label>
           <input name="slug"></input>
         </div>
         <div>
-          <label for="art">Art/Flag</label>
+          <label htmlFor="art">Art/Flag</label>
           <input name="art"></input>
         </div>
         <div>
-          <label for="count">Word Count</label>
+          <label htmlFor="count">Word Count</label>
           <input name="count"></input>
         </div>
         <div>
-          <label for="status">Status</label>
+          <label htmlFor="status">Status</label>
           <input name="status"></input>
         </div>
-        <button>+ Create</button>
+        <button onClick={() => newDesignNote(this.state)}>+ Create</button>
       </div>
     )
   }
@@ -65,7 +80,23 @@ class NotesForm extends React.Component {
 }
 
 export class DesignNotes extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null,
+      loading: true,
+    }
+  };
+
+  componentDidMount() {
+    getDesignNotes().then(data => this.setState({data, loading: false}))
+  };
+
   render() {
+    if (this.state.loading) {
+      return null;
+    }
+    console.log(this.state.data)
     return (
       <>
       <Tabs>
@@ -80,7 +111,7 @@ export class DesignNotes extends React.Component {
             {myTable}
         </TabPanel>
         <TabPanel>
-            {CreateTable([{ "placement": "A", "slug": "op.measles" }, { "placement": "B", "slug": "op.measles" }, { "placement": "CP", "slug": "op.measles" }], ["placement", "slug"])}
+            {CreateTable(this.state.data, ["placement", "slug", "section"])}
         </TabPanel>
         <TabPanel>
             {myTable}

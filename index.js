@@ -9,6 +9,7 @@ const webpack = require("webpack");
 
 const sessions = require("./routes/session");
 const auth = require("./routes/auth");
+const api = require("./routes/api");
 const router = require("./routes");
 
 const webpackDevMiddleware = require("webpack-dev-middleware");
@@ -30,6 +31,7 @@ app.use(cors({
 
 app.use(sessions);
 app.use(auth);
+app.use('/api', api);
 
 // Static assets such as login.css
 // and index.bundle.js (the React app)

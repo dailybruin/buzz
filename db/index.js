@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const DesignNote = require('./models/DesignNote');
 
 mongoose.connect(process.env.MONGO_URL);
 
@@ -17,5 +18,6 @@ mongoose.connection.on('error', err => {
 });
 
 module.exports = {
-  User
+  User,
+  DesignNote
 };
