@@ -1,11 +1,16 @@
-.home_header {
-  font-weight: 400;
-}
-
 .semibold {
   font-weight: 600;
 }
 
 .notbold {
   font-weight: 400;
+}
+
+.customSubmitButton {
+  font-family: inherit;
+  font-size: 18px;
+  padding: 0.25em 0.5em;
+  border: none;
+  border-radius: 5px;
+  background-color: #02E382;
 }

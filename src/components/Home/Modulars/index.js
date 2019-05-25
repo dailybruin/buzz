@@ -31,7 +31,7 @@ export class Modulars extends React.Component {
         </TabList>
 
           {this.state.modulars.map(m => (
-            <TabPanel>
+            <TabPanel key={m}>
               <Modular category={m} fields={config[m]} />
             </TabPanel>
           ))}
