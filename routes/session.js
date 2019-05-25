@@ -29,7 +29,7 @@ router.use(passport.session());
 passport.use(new SlackStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: callbackURL
+  callbackURL: `${callbackURL}/auth/slack/callback`
 }, async (accessToken, refreshToken, profile, done) => {
   // This means it will only work for DB people
   // TODO: Open Source: Support predefined Slack orgs
