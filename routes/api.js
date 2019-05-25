@@ -1,7 +1,11 @@
 const Router = require("express-promise-router");
-const { DesignNote } = require("../db");
+const { DesignNote, Modular } = require("../db");
 
 const router = new Router();
+
+const handleError = (res) => {
+  res.json({"message": "bad"});
+}
 
 router.get('/designNotes/:year-:month-:day', async (req, res) => {
   let date;
@@ -9,7 +13,7 @@ router.get('/designNotes/:year-:month-:day', async (req, res) => {
     date = new Date(`${req.params.year}-${req.params.month}-${req.params.day}`);
   }
   catch (e) {
-    res.json({});
+    handleError(res);
   }
   let notes = await DesignNote.find({ date: date });
   res.json(notes);
@@ -19,15 +23,38 @@ router.post('/designNotes', async (req, res) => {
   const { section, placement, slug } = req.body;
   const { year, month, day } = req.body.date;
 
-  console.log(`${year}/${month}/${day}`);
   const date = new Date(`${year}-${month}-${day}`);
   await DesignNote.create({placement, slug, section, date}, (err, note) => {
     if (err) {
-      res.json({"message": "bad"})
+      handleError(res);
     }
 
     res.json(note);
   })
-})
+});
+
+router.get('/modular/:category?', async (req, res) => {
+  const { category } = req.params;
+  let modulars;
+  if (category) {
+    modulars = await Modular.find({"category": category});
+  } else {
+    modulars = await Modular.find({});
+  }
+  res.json(modulars);
+});
+
+router.post('/modular', async (req, res) => {
+  const { category, fields } = req.body;
+
+  if (fields == null) {
+    handleError(res);
+  }
+
+  const query = { "category": category };
+  const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+  const modular = await Modular.findOneAndUpdate(query, { $push: { entries: [fields] } }, options);
+  res.json(modular);
+});
 
 module.exports = router
