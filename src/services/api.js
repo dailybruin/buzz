@@ -4,6 +4,9 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 const SERVER_URL = "http://localhost:3000";
+const API_URL = SERVER_URL + "/api";
+
+const get = url => (axios.get(url, { withCredentials: true}));
 
 export const newDesignNote = ({placement, slug, section, date: { year, month, day}}) => {
   const req = {
@@ -18,7 +21,7 @@ export const newDesignNote = ({placement, slug, section, date: { year, month, da
   };
 
   return axios
-    .post(`${SERVER_URL}/api/designNotes/`, req)
+    .post(`${API_URL}/designNotes/`, req)
     .then(res => {
       return {
         data: res.data,
@@ -27,6 +30,6 @@ export const newDesignNote = ({placement, slug, section, date: { year, month, da
     });
 };
 
-export const getDesignNotes = () => (axios.get(`${SERVER_URL}/api/designNotes/2019-05-24`, {
-  withCredentials: true
-}).then(res => res.data));
+export const getDesignNotes = () => (get(`${API_URL}/designNotes/2019-05-24`).then(res => res.data));
+
+export const getModulars = category => (get(`${API_URL}/modular/${category}`).then(res => res.data));
