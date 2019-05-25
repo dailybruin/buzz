@@ -35,17 +35,25 @@ router.post('/designNotes', async (req, res) => {
 
 router.get('/modular/:category?', async (req, res) => {
   const { category } = req.params;
+  console.log(category);
   let modulars;
   if (category) {
-    modulars = await Modular.find({"category": category});
+    modulars = await Modular.findOne({"category": category});
+    if (modulars) {
+      modulars = modulars.entries;
+    }
   } else {
     modulars = await Modular.find({});
   }
   res.json(modulars);
 });
 
-router.post('/modular', async (req, res) => {
-  const { category, fields } = req.body;
+router.post('/modular/:category?', async (req, res) => {
+  const { category } = req.params;
+  const { fields } = req.body;
+  console.log("Post modular")
+  console.log(category);
+  console.log(fields);
 
   if (fields == null) {
     handleError(res);

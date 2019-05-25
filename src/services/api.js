@@ -33,3 +33,5 @@ export const newDesignNote = ({placement, slug, section, date: { year, month, da
 export const getDesignNotes = () => (get(`${API_URL}/designNotes/2019-05-24`).then(res => res.data));
 
 export const getModulars = category => (get(`${API_URL}/modular/${category}`).then(res => res.data));
+
+export const postModular = (category, fields) => (axios.post(`${API_URL}/modular/${category}`, { fields }).then(res => ({ data: res.data, status: res.status})));
