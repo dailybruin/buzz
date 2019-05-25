@@ -13,7 +13,7 @@ export class DesignNotesForm extends React.Component {
   }
 
   submitNote(values) {
-    newDesignNote(values);
+    newDesignNote(this.props.section, values);
   }
 
   render() {

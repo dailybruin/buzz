@@ -3,23 +3,13 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import "react-tabs/style/react-tabs.css";
 import { Modular } from './Modular';
-
-const config = {
-  "Public comment": ["name", "position", "comment", "explainer"],
-  "Comments from the web": ["comment", "username", "section", "headline"],
-  "USAC Comment": ["name", "position", "comment", "explainer"],
-  "Twitter" : [],
-  "OpinionHasOpinions": [],
-  "TBT Refer": [],
-  "TDTY": [],
-  "Stonewall": []
-};
+import config from "../../../config";
 
 export class Modulars extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modulars: ["Public comment", "Comments from the web", "USAC Comment", "Twitter", "OpinionHasOpinions", "TBT Refer", "TDTY", "Stonewall"]
+      modulars: Object.keys(config.modulars)
     }
   }
 
@@ -32,7 +22,7 @@ export class Modulars extends React.Component {
 
           {this.state.modulars.map(m => (
             <TabPanel key={m}>
-              <Modular category={m} fields={config[m]} />
+              <Modular category={m} fields={config.modulars[m]} />
             </TabPanel>
           ))}
       </Tabs>

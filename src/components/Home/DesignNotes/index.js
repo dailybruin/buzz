@@ -5,7 +5,7 @@ import "react-tabs/style/react-tabs.css";
 import { CreateTable } from "../../Shared/Table";
 import { getDesignNotes } from '../../../services/api';
 import { DesignNotesForm } from './Form';
-
+import config from "../../../config";
 
 export class DesignNotes extends React.Component {
   constructor(props) {
@@ -13,8 +13,8 @@ export class DesignNotes extends React.Component {
     this.state = {
       data: null,
       loading: true,
-      sections: ["news", "opinion", "sports", "arts", "inserts"],
-      properties: ["placement", "slug", "section"]
+      sections: config.designNotes.sections,
+      properties: config.designNotes.properties
     }
   };
 
@@ -37,10 +37,10 @@ export class DesignNotes extends React.Component {
           {this.state.sections.map(s => (
             <TabPanel key={s}>
               {CreateTable(this.state.data.filter(x => x.section === s), this.state.properties)}
+              <DesignNotesForm section={s} properties={this.state.properties} />
             </TabPanel>
             ))}
         </Tabs>
-        <DesignNotesForm properties={this.state.properties} />
       </>
     );
   }

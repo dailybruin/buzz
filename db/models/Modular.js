@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TWO_DAYS = 172800;
+const EXPIRATION = 2;
 
 const modularSchema = mongoose.Schema({
   category: { type: String, required: true },
@@ -9,7 +9,9 @@ const modularSchema = mongoose.Schema({
   expireAt: {
     type: Date,
     default: function () {
-      return new Date(new Date().valueOf() + TWO_DAYS);
+      const now = new Date();
+      now.setDate(now.getDate() + EXPIRATION)
+      return now;
     }
   }
 }, { timestamps: true, strict: false });

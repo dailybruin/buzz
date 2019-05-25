@@ -1,22 +1,22 @@
 import axios from "axios";
+import config from "../config";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
-const SERVER_URL = "http://localhost:3000";
-const API_URL = SERVER_URL + "/api";
+const API_URL = config.SERVER_URL + "/api";
 
 const get = url => (axios.get(url, { withCredentials: true}));
 
-export const newDesignNote = ({placement, slug, section, date: { year, month, day}}) => {
+export const newDesignNote = (section, {placement, slug}) => {
   const req = {
     placement, 
     slug, 
     section, 
     date: { 
-      year, 
-      month, 
-      day
+      year: "2019", 
+      month: "05", 
+      day: "24"
     }
   };
 

@@ -3,6 +3,7 @@ version: "3"
 services:
   web:
     build: .
+    image: swoop
     env_file: .env
     ports:
       - "3000:3000"
