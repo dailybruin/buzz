@@ -5,6 +5,7 @@ const passport = require('passport');
 const SlackStrategy = require('passport-slack').Strategy;
 
 const { User } = require('../db');
+const callbackURL = process.env.NODE_ENV === "production" ? "https://swoosh.dailybruin.com" : "http://localhost:3000";
 
 const router = new Router();
 
@@ -27,7 +28,8 @@ router.use(passport.session());
 
 passport.use(new SlackStrategy({
   clientID: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET
+  clientSecret: process.env.CLIENT_SECRET,
+  callbackURL: callbackURL
 }, async (accessToken, refreshToken, profile, done) => {
   // This means it will only work for DB people
   // TODO: Open Source: Support predefined Slack orgs
