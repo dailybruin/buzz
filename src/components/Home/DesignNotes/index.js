@@ -19,14 +19,14 @@ export class DesignNotes extends React.Component {
   };
 
   componentDidMount() {
-    getDesignNotes().then(data => this.setState({ data, loading: false }))
+    getDesignNotes(this.props.date).then(data => this.setState({ data, loading: false }))
   };
 
   render() {
     if (this.state.loading) {
       return null;
     }
-    console.log(this.state.data)
+
     return (
       <>
         <Tabs>
@@ -37,7 +37,7 @@ export class DesignNotes extends React.Component {
           {this.state.sections.map(s => (
             <TabPanel key={s}>
               {CreateTable(this.state.data.filter(x => x.section === s), this.state.properties)}
-              <DesignNotesForm section={s} properties={this.state.properties} />
+              <DesignNotesForm date={this.props.date} section={s} properties={this.state.properties} />
             </TabPanel>
             ))}
         </Tabs>

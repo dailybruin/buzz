@@ -22,7 +22,7 @@ export class Modulars extends React.Component {
 
           {this.state.modulars.map(m => (
             <TabPanel key={m}>
-              <Modular category={m} fields={config.modulars[m]} />
+              <Modular category={m} fields={config.modulars[m]} date={this.props.date} />
             </TabPanel>
           ))}
       </Tabs>

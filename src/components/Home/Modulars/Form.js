@@ -13,7 +13,7 @@ export class ModularForm extends React.Component {
   }
 
   submitModular(values) {
-    postModular(this.props.category, values);
+    postModular(this.props.category, this.props.date, values);
   }
 
   render() {

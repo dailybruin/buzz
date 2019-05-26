@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const User = require('./models/User');
 const DesignNote = require('./models/DesignNote');
 const InstagramStory = require('./models/InstagramStory');
-const Modular = require('./models/Modular');
+const { Modular, ModularCategory } = require('./models/Modular');
 
 mongoose.connect(process.env.MONGO_URL);
 
@@ -20,5 +20,6 @@ module.exports = {
   User,
   DesignNote,
   InstagramStory,
-  Modular
+  Modular,
+  ModularCategory
 };

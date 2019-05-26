@@ -8,30 +8,10 @@ const API_URL = config.SERVER_URL + "/api";
 
 const get = url => (axios.get(url, { withCredentials: true}));
 
-export const newDesignNote = (section, {placement, slug}) => {
-  const req = {
-    placement, 
-    slug, 
-    section, 
-    date: { 
-      year: "2019", 
-      month: "05", 
-      day: "24"
-    }
-  };
+export const postDesignNote = (date, data) => (axios.post(`${API_URL}/designNotes/${date}`, data).then(res => ({ data: res.data, status: res.status })));
 
-  return axios
-    .post(`${API_URL}/designNotes/`, req)
-    .then(res => {
-      return {
-        data: res.data,
-        status: res.status
-      };
-    });
-};
+export const getDesignNotes = date => (get(`${API_URL}/designNotes/${date}`).then(res => res.data));
 
-export const getDesignNotes = () => (get(`${API_URL}/designNotes/2019-05-24`).then(res => res.data));
+export const getModulars = (category, date) => (get(`${API_URL}/modular/${category}/${date}`).then(res => res.data));
 
-export const getModulars = category => (get(`${API_URL}/modular/${category}`).then(res => res.data));
-
-export const postModular = (category, fields) => (axios.post(`${API_URL}/modular/${category}`, { fields }).then(res => ({ data: res.data, status: res.status})));
+export const postModular = (category, date, fields) => (axios.post(`${API_URL}/modular/${category}/${date}`, { fields }).then(res => ({ data: res.data, status: res.status})));

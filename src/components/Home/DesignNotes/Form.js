@@ -1,7 +1,7 @@
 import React from 'react';
 import AnimateHeight from "react-animate-height";
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
-import { newDesignNote } from '../../../services/api';
+import { postDesignNote } from '../../../services/api';
 
 export class DesignNotesForm extends React.Component {
   constructor(props) {
@@ -13,7 +13,8 @@ export class DesignNotesForm extends React.Component {
   }
 
   submitNote(values) {
-    newDesignNote(this.props.section, values);
+    const req = Object.assign({}, values, { "section": this.props.section })
+    postDesignNote(this.props.date, req);
   }
 
   render() {

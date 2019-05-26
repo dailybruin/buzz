@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const EXPIRATION = 2;
 
 const modularSchema = mongoose.Schema({
-  category: { type: String, required: true },
-  entries: [mongoose.Schema.Types.Mixed],
   date: { type: Date },
   expireAt: {
     type: Date,
@@ -18,4 +16,15 @@ const modularSchema = mongoose.Schema({
 modularSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 let Modular = mongoose.model('Modular', modularSchema);
-module.exports = Modular;
+
+const modularCategorySchema = mongoose.Schema({
+  category: { type: String, required: true },
+  entries: [modularSchema]
+}, { timestamps: true });
+
+let ModularCategory = mongoose.model('ModularCategory', modularCategorySchema);
+
+module.exports = {
+  Modular,
+  ModularCategory
+}

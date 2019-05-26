@@ -13,7 +13,7 @@ export class Modular extends React.Component {
   }
 
   componentDidMount() {
-    getModulars(this.props.category).then(data => {
+    getModulars(this.props.category, this.props.date).then(data => {
       this.setState({
         data: data ? data : [],
         loading: false
@@ -28,7 +28,7 @@ export class Modular extends React.Component {
     return (
       <>
         {CreateTable(this.state.data, this.props.fields)}
-        <ModularForm category={this.props.category} fields={this.props.fields} />
+        <ModularForm date={this.props.date} category={this.props.category} fields={this.props.fields} />
       </>
     );
   }
