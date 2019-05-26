@@ -1,5 +1,5 @@
 const express = require("express");
-
+const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -11,6 +11,7 @@ const sessions = require("./routes/session");
 const auth = require("./routes/auth");
 const api = require("./routes/api");
 const router = require("./routes");
+const { isAuthenticated } = require("./controllers/auth");
 
 const webpackDevMiddleware = require("webpack-dev-middleware");
 const webpackConfig = require("./webpack.config.js");
@@ -35,7 +36,11 @@ app.use('/api', api);
 
 // Static assets such as login.css
 // and index.bundle.js (the React app)
-app.use(express.static("public"));
+app.use(express.static("public/login"));
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./public/login/login.html"))
+});
 
 if (process.env.NODE_ENV !== "production") {
   app.use(
@@ -54,7 +59,13 @@ if (process.env.NODE_ENV !== "production") {
 // makes a request to /login.css or /index.bundle.js
 // it will get swallowed up by the React app instead
 // of the server
-app.use(router);
+
+// main route
+app.get('/*', isAuthenticated, (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./public/index.html"))
+});
+
+app.use(express.static("public"));
 
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
