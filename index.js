@@ -36,11 +36,15 @@ app.use('/api', api);
 
 // Static assets such as login.css
 // and index.bundle.js (the React app)
-app.use(express.static("public/login"));
+app.use(express.static("login"));
 
 app.get('/login', (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./public/login/login.html"))
+  res.sendFile(path.resolve(__dirname, "./login/login.html"))
 });
+
+app.use(isAuthenticated);
+
+app.use(express.static("public"));
 
 if (process.env.NODE_ENV !== "production") {
   app.use(
@@ -53,19 +57,17 @@ if (process.env.NODE_ENV !== "production") {
   app.use(require("webpack-hot-middleware")(compiler));
 }
 
+// main route
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./public/index.html"))
+});
+
 // This loads both the HTML file that renders
 // the actual React app and the login HTML file
 // We MUST place it last or else when the browser
 // makes a request to /login.css or /index.bundle.js
 // it will get swallowed up by the React app instead
 // of the server
-
-// main route
-app.get('/*', isAuthenticated, (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./public/index.html"))
-});
-
-app.use(express.static("public"));
 
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
