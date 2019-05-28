@@ -3,7 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import "react-tabs/style/react-tabs.css";
 import { CreateTable } from "../../Shared/Table";
-import { getDesignNotes } from '../../../services/api';
+import { getDesignNotes, deleteDesignNote } from '../../../services/api';
 import { DesignNotesForm } from './Form';
 import config from "../../../config";
 
@@ -36,7 +36,7 @@ export class DesignNotes extends React.Component {
 
           {this.state.sections.map(s => (
             <TabPanel key={s}>
-              {CreateTable(this.state.data.filter(x => x.section === s), this.state.properties)}
+              {CreateTable(this.state.data.filter(x => x.section === s), this.state.properties, deleteDesignNote)}
               <DesignNotesForm date={this.props.date} section={s} properties={this.state.properties} />
             </TabPanel>
             ))}

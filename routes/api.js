@@ -33,6 +33,17 @@ router.post('/designNotes/:year-:month-:day', async (req, res) => {
   })
 });
 
+router.delete('/designNotes/:id', async (req, res) => {
+  let { id } = req.params;
+
+  let note = await DesignNote.findByIdAndRemove(id);
+  if (note) {
+    res.json(note);
+  } else {
+    res.json([]);
+  }
+});
+
 router.get('/modular/:category/:year-:month-:day', async (req, res) => {
   const { category, year, month, day } = req.params;
 

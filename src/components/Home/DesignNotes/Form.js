@@ -2,6 +2,7 @@ import React from 'react';
 import AnimateHeight from "react-animate-height";
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import { postDesignNote } from '../../../services/api';
+import config from "../../../config";
 
 export class DesignNotesForm extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export class DesignNotesForm extends React.Component {
 
   submitNote(values) {
     const req = Object.assign({}, values, { "section": this.props.section })
-    postDesignNote(this.props.date, req);
+    return postDesignNote(this.props.date, req);
   }
 
   render() {
@@ -33,8 +34,14 @@ export class DesignNotesForm extends React.Component {
                 acc[curr] = "";
                 return acc;
               }, {})}
-              onSubmit={(values, { setSubmitting }) => {
-                this.submitNote(values);
+              onSubmit={(values, actions) => {
+                this.submitNote(values).then(({ data, status}) => {
+                  if (status < 400) {
+                    if (window) {
+                      window.location.reload();
+                    }
+                  }
+                })
               }}
               render={({ errors, status, touched, isSubmitting }) => (
                 <FormikForm>
@@ -44,6 +51,7 @@ export class DesignNotesForm extends React.Component {
                       <Field
                         type="text"
                         name={f}
+                        placeholder={config.designNotes.placeholders[f] || null}
                       />
                       <ErrorMessage name={f} component="div" />
                     </div>
