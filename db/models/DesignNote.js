@@ -9,6 +9,7 @@ const designNoteSchema = mongoose.Schema({
   art: { type: String },
   comments: { type: String },
   date: { type: Date },
+  wordCount: { type: Number },
   expireAt: {
     type: Date,
     default: function () {

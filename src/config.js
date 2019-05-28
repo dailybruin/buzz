@@ -1,5 +1,5 @@
 const config = {
-  SERVER_URL: process.env.NODE_ENV === "production" ? "https://swoosh.dailybruin.com" : "http://localhost:3000",
+  SERVER_URL: process.env.NODE_ENV === "production" ? "https://buzz.dailybruin.com" : "http://localhost:3000",
   modulars: {
     "Public comment": ["name", "position", "comment", "explainer"],
     "Comments from the web": ["comment", "username", "section", "headline"],
@@ -12,7 +12,7 @@ const config = {
   },
   designNotes: {
     sections: ["news", "opinion", "sports", "arts", "inserts"],
-    properties: ["placement", "slug", "section"]
+    properties: ["placement", "slug", "section", "art", "wordCount"]
   }
 };
 

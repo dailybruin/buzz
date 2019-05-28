@@ -20,11 +20,11 @@ router.get('/designNotes/:year-:month-:day', async (req, res) => {
 });
 
 router.post('/designNotes/:year-:month-:day', async (req, res) => {
-  const { section, placement, slug } = req.body;
+  const { section, placement, slug, wordCount } = req.body;
   const { year, month, day } = req.params;
 
   const date = new Date(`${year}-${month}-${day}`);
-  await DesignNote.create({placement, slug, section, date}, (err, note) => {
+  await DesignNote.create({ placement, slug, section, wordCount, date,}, (err, note) => {
     if (err) {
       handleError(res);
     }
