@@ -16,7 +16,6 @@ export const CreateTable = (data, columns, deleteFunction) => (
     </Thead>
     <Tbody>
       {data.map((item, index) => {
-        console.log(data);
         return (
           <Tr key={index}>
             {columns.map(property => {
