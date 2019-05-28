@@ -3,6 +3,7 @@ const User = require('./models/User');
 const DesignNote = require('./models/DesignNote');
 const InstagramStory = require('./models/InstagramStory');
 const { Modular, ModularCategory } = require('./models/Modular');
+const { Schedule, ScheduleEntry } = require('./models/Schedule');
 
 mongoose.connect(process.env.MONGO_URL);
 
@@ -21,5 +22,7 @@ module.exports = {
   DesignNote,
   InstagramStory,
   Modular,
-  ModularCategory
+  ModularCategory,
+  Schedule,
+  ScheduleEntry
 };
