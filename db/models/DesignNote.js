@@ -18,7 +18,7 @@ const designNoteSchema = mongoose.Schema({
       return now;
     }
   }
-}, { timestamps: true });
+}, { timestamps: true, strict: false });
 designNoteSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 let DesignNote = mongoose.model('DesignNote', designNoteSchema);

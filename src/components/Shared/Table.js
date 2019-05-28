@@ -15,7 +15,7 @@ export const CreateTable = (data, columns) => (
           <Tr key={index}>
             {columns.map(property => {
               return (
-                <Td key={`${property}-${item[property]}`}>{item[property]}</Td>
+                <Td key={`${property}-${item[property]}`}>{item[property] ? item[property] : '\u00A0'}</Td>
               )
             })}
           </Tr>
