@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
   slack: {
     id: { type: String, required: [true, "can't be blank"], unique: true }
   }
-}, { timestamps: true });
+}, { timestamps: true, strict: false });
 
 let User = mongoose.model('User', userSchema);
 

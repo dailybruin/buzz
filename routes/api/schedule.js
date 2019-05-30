@@ -7,28 +7,49 @@ const handleError = (res) => {
   res.json({ "message": "bad" });
 }
 
+router.get('/:section/all', async (req, res) => {
+  const { section } = req.params;
+  let schedule = await Schedule.find({ section: section });
+  res.json(schedule);
+});
+
 router.get('/:section', async (req, res) => {
   const { section } = req.params;
-
-  let schedule = await Schedule.find({ section: section });
+  let schedule = await Schedule.findOne({ section: section });
   let entries = schedule ? schedule.entries : [];
   res.json(entries);
 });
 
-router.post('/:section', async (req, res) => {
-  const { person, day, start, end, shift } = req.body;
-  const { section } = req.params;
+router.post('/', async (req, res) => {
+  const adminArray = process.env.ADMINS ? process.env.ADMINS.split(",") : [];
+  const isAdmin = adminArray.includes(req.user.email);
 
-  let newEntry;
-  try {
-    newEntry = await ScheduleEntry.create({ person, day, start, end, shift });
+  if (!isAdmin) {
+    res.json([]);
+    return;
   }
-  catch (e) {
-    handleError(res);
-  }
+  
+  const { section, entries } = req.body;
+
   const options = { upsert: true, new: true, setDefaultsOnInsert: true };
-  await Schedule.findOneAndUpdate({ "section": section }, { $push: { entries: [newEntry] } }, options);
-  res.json(newEntry);
+  const sched = await Schedule.findOneAndUpdate({ "section": section }, { "$set": { "entries": entries } }, options);
+  res.json(sched);
+});
+
+router.patch('/', async (req, res) => {
+  const adminArray = process.env.ADMINS ? process.env.ADMINS.split(",") : [];
+  const isAdmin = adminArray.includes(req.user.email);
+
+  if (!isAdmin) {
+    res.json([]);
+    return;
+  }
+
+  const { section, id, newValue } = req.body;
+  console.log("PATCH " + section);
+  let entry = await Schedule.findOneAndUpdate({"section": section, "entries._id": id}, { "$set": { "entries.$.person": newValue }});
+  console.log(entry);
+  res.json(entry);
 });
 
 router.delete('/:id', async (req, res) => {

@@ -20,11 +20,19 @@ router.get('/:year-:month-:day', async (req, res) => {
 });
 
 router.post('/:year-:month-:day', async (req, res) => {
-  const { section, placement, slug, wordCount, art, comments } = req.body;
+  const { section, placement, slug, wordCount, art, status, comments } = req.body;
   const { year, month, day } = req.params;
 
   const date = new Date(`${year}-${month}-${day}`);
-  await DesignNote.create({ placement, slug, section, wordCount, art, comments, date, }, (err, note) => {
+
+  const query = { placement, slug, section, wordCount, art, comments, status, date };
+  if (section == "inserts") {
+    let expiration = new Date();
+    expiration.setDate(expiration.getDate() + 14);
+    query.expireAt = expiration;
+  }
+
+  await DesignNote.create(query, (err, note) => {
     if (err) {
       handleError(res);
     }

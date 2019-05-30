@@ -1,0 +1,19 @@
+table.data-grid {
+  width: 100%;
+}
+
+.data-grid-container .data-grid .cell {
+  overflow-wrap: break-word;
+}
+
+.data-grid-container .data-grid .cell.read-only {
+  background: white;
+  color: black;
+}
+
+.data-grid-container .data-grid .cell:first-child,
+.data-grid-container .data-grid tr:first-child td.cell{
+  background: black;
+  color: white;
+  border: 1px solid black;
+}

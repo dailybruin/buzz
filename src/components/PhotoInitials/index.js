@@ -1,5 +1,6 @@
 import React from 'react';
 import { CreateTable } from '../Shared/Table';
+import { Nav } from '../Shared/Nav';
 
 export class PhotoInitials extends React.Component {
   render() {

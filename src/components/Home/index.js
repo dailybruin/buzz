@@ -1,9 +1,11 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import "./style.css";
 import { DesignNotes } from './DesignNotes';
 import { Modulars } from './Modulars';
 import { InstagramStories } from './InstagramStories';
+import { Schedule } from './Schedules';
+import { Nav } from '../Shared/Nav';
 
 const dateMatcher = /(\d{4})\-(\d{1,2})\-(\d{1,2})/;
 
@@ -69,7 +71,7 @@ class Home extends React.Component {
       <>
         <h1 className="notbold">Production for: <span className="semibold" onClick={() => this.navigateDate(-1)}>&#8592;</span><span className="semibold">{formatDate(this.state.date)}</span><span className="semibold" onClick={() => this.navigateDate(1)}>&#8594;</span></h1>
         <h2>Callista<span className="notbold"> is currently on shift.</span></h2>
-        <p><u>View full Design schedule.</u></p>
+        <Schedule section="design" />
         <h2>Design Notes</h2>
         <DesignNotes date={this.state.dateString} />
         <h2>Instagram Stories</h2>

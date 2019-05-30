@@ -16,6 +16,10 @@ const config = {
     placeholders: {
       "comments": "refers/flags/etc."
     }
+  },
+  schedule: {
+    metrics: ["shift", "start", "end", "person", "day"],
+    sections: ["news", "opinion", "arts", "sports"]
   }
 };
 

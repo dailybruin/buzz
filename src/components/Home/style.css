@@ -20,3 +20,13 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  background: black;
+}
+
+nav a {
+  color: white;
+}

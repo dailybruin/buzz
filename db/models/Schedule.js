@@ -11,15 +11,15 @@ const scheduleEntrySchema = mongoose.Schema({
   day: Number,
   start: Number,
   end: Number,
-  person: Date,
+  person: String,
   shift: String
-}, { timestamps: true });
+}, { timestamps: true, strict: false });
 let ScheduleEntry = mongoose.model('ScheduleEntry', scheduleEntrySchema);
 
 const scheduleSchema = mongoose.Schema({
   section: { type: String, required: true, unique: true },
   entries: [scheduleEntrySchema]
-}, { timestamps: true });
+}, { timestamps: true, strict: false });
 let Schedule = mongoose.model('Schedule', scheduleSchema);
 
 module.exports = {
