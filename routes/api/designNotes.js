@@ -41,6 +41,21 @@ router.post('/:year-:month-:day', async (req, res) => {
   })
 });
 
+router.patch('/', async (req, res) => {
+  const { id, placement, slug, section, wordCount, art, comments, status, date } = req.body;
+  // TODO this is so bad
+  const query = {};
+  placement && (query.placement = placement);
+  slug && (query.slug = slug);
+  wordCount && (query.wordCount = wordCount);
+  art && (query.art = art);
+  comments && (query.comments = comments);
+  status && (query.status = status);
+
+  let entry = await DesignNote.findByIdAndUpdate(id, query);
+  res.json(entry);
+});
+
 router.delete('/:id', async (req, res) => {
   let { id } = req.params;
 

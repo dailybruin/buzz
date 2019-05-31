@@ -46,9 +46,7 @@ router.patch('/', async (req, res) => {
   }
 
   const { section, id, newValue } = req.body;
-  console.log("PATCH " + section);
   let entry = await Schedule.findOneAndUpdate({"section": section, "entries._id": id}, { "$set": { "entries.$.person": newValue }});
-  console.log(entry);
   res.json(entry);
 });
 

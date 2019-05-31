@@ -20,6 +20,9 @@ const config = {
   schedule: {
     metrics: ["shift", "start", "end", "person", "day"],
     sections: ["news", "opinion", "arts", "sports"]
+  },
+  stories: {
+    properties: ["figma" ]
   }
 };
 

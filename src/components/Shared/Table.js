@@ -2,12 +2,12 @@ import React from "react";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
-export const CreateTable = (data, columns, deleteFunction) => (
+export const CreateTable = (data, columns, deleteFunction, editFunction) => (
   <Table>
     <Thead>
       <Tr>
         {columns.map(x =>  <Th key={x}>{x}</Th>)}
-        {deleteFunction
+        {(deleteFunction || editFunction)
           ? (
             <Th key="actions">actions</Th>
           )
@@ -23,13 +23,18 @@ export const CreateTable = (data, columns, deleteFunction) => (
                 <Td key={`${property}-${item[property]}`}>{item[property] ? item[property] : '\u00A0'}</Td>
               )
             })}
-            {deleteFunction 
+            {(deleteFunction || editFunction)
               ? (<Td className="deleteTableData" key={`delete-${index}`}>
-                <span className="deleteButton" onClick={() => deleteFunction(item["_id"]).then(() => {
+                {deleteFunction 
+                ? (<span className="deleteButton" onClick={() => deleteFunction(item["_id"]).then(() => {
                   if (window) {
                     window.location.reload();
                   }
-                })}>Delete</span>
+                })}>Delete</span>)
+                : null}
+                {editFunction
+                  ? (<span className="editButton" onClick={() => editFunction(item)}>Edit</span>)
+                  : null}
               </Td>)
               : null}
           </Tr>

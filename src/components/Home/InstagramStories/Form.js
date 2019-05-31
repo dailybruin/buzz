@@ -1,21 +1,20 @@
 import React from 'react';
 import AnimateHeight from "react-animate-height";
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
-import { postDesignNote } from '../../../services/api';
+import { postStory } from '../../../services/api';
 import config from "../../../config";
 
-export class DesignNotesForm extends React.Component {
+export class StoryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
     };
-    this.submitNote = this.submitNote.bind(this);
+    this.submitStory = this.submitStory.bind(this);
   }
 
-  submitNote(values) {
-    const req = Object.assign({}, values, { "section": this.props.section });
-    return postDesignNote(this.props.date, req);
+  submitStory(values) {
+    return postStory(this.props.date, values);
   }
 
   render() {
@@ -35,7 +34,7 @@ export class DesignNotesForm extends React.Component {
                 return acc;
               }, {})}
               onSubmit={(values, actions) => {
-                this.submitNote(values).then(({ data, status}) => {
+                this.submitStory(values).then(({ data, status }) => {
                   if (status < 400) {
                     if (window) {
                       window.location.reload();
@@ -51,7 +50,6 @@ export class DesignNotesForm extends React.Component {
                       <Field
                         type="text"
                         name={f}
-                        placeholder={config.designNotes.placeholders[f] || null}
                       />
                       <ErrorMessage name={f} component="div" />
                     </div>

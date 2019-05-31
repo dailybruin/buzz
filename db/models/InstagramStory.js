@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const EXPIRATION = 2;
+const EXPIRATION = 7;
 
 const instagramStorySchema = mongoose.Schema({
-  image: { type: String },
+  figma: { type: String },
   caption: { type: String },
   date: { type: Date },
   expireAt: {

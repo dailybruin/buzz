@@ -19,6 +19,13 @@
   color: #E63C3C;
   text-decoration: underline;
   cursor: pointer;
+  margin-right: 2em;
+}
+
+.editButton {
+  color: #1AC4EB;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 nav {
@@ -29,4 +36,16 @@ nav {
 
 nav a {
   color: white;
+}
+
+@media screen and (max-width: 640px) {
+  .ReactModal__Overlay--after-open {
+    display: flex;
+    align-items: center;
+  }
+
+  .ReactModal__Overlay--after-open .ReactModal__Content--after-open {
+    top: auto !important;
+    bottom: auto !important;
+  }
 }

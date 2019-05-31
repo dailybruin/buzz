@@ -13,6 +13,8 @@ export const postDesignNote = (date, data) => (axios.post(`${API_URL}/designNote
 
 export const getDesignNotes = date => (get(`${API_URL}/designNotes/${date}`).then(res => res.data));
 
+export const patchDesignNote = id => data => (axios.patch(`${API_URL}/designNotes`, Object.assign(data, { "id": id })).then(res => ({ data: res.data, status: res.status })));
+
 export const deleteDesignNote = id => (fn_delete(`${API_URL}/designNotes/${id}`).then(res => res.data));
 
 export const getModulars = (category, date) => (get(`${API_URL}/modular/${category}/${date}`).then(res => res.data));
@@ -24,5 +26,9 @@ export const getSchedule = section => (get(`${API_URL}/schedule/${section}`).the
 export const postSchedule = data => (axios.post(`${API_URL}/schedule`, data).then(res => ({ data: res.data, status: res.status })));
 
 export const patchSchedule = data => (axios.patch(`${API_URL}/schedule`, data).then(res => ({ data: res.data, status: res.status })));
+
+export const getStories = date => (get(`${API_URL}/story/${date}`).then(res => res.data));
+
+export const postStory = (date, data) => (axios.post(`${API_URL}/story/${date}`, data).then(res => ({ data: res.data, status: res.status })));
 
 export const isAdmin = () => (get(`${API_URL}/isAdmin`).then(res => res.data.isAdmin));

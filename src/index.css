@@ -53,6 +53,12 @@ table.responsiveTable thead tr th {
   }
 }
 
+@media screen and (max-width: 40em) {
+  .responsiveTable td {
+    word-break: break-word;
+  }
+}
+
 form div {
   margin-top: 1em;
   margin-bottom: 1em;
