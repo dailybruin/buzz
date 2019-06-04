@@ -21,6 +21,10 @@ export const getModulars = (category, date) => (get(`${API_URL}/modular/${catego
 
 export const postModular = (category, date, fields) => (axios.post(`${API_URL}/modular/${category}/${date}`, { fields }).then(res => ({ data: res.data, status: res.status})));
 
+export const patchModular = id => data => (axios.patch(`${API_URL}/modular`, Object.assign({ "fields": data }, { "id": id })).then(res => ({ data: res.data, status: res.status })));
+
+export const deleteModular = id => (fn_delete(`${API_URL}/modular/${id}`).then(res => res.data));
+
 export const getSchedule = section => (get(`${API_URL}/schedule/${section}`).then(res => res.data));
 
 export const postSchedule = data => (axios.post(`${API_URL}/schedule`, data).then(res => ({ data: res.data, status: res.status })));

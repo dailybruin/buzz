@@ -18,7 +18,7 @@ router.get('/:category/:year-:month-:day', async (req, res) => {
     handleError(res);
   }
 
-  let modulars = await ModularCategory.findOne({ "category": category });
+  let modulars = await ModularCategory.findOne({ "category": category }).populate("entries");
   let entries = modulars ? modulars.entries.filter(x => x.date.toISOString() == date) : [];
   res.json(entries);
 });
@@ -49,9 +49,31 @@ router.post('/:category/:year-:month-:day', async (req, res) => {
   }
 
   const options = { upsert: true, new: true, setDefaultsOnInsert: true };
-  await ModularCategory.findOneAndUpdate({ "category": category }, { $push: { entries: [newModular] } }, options);
+  await ModularCategory.findOneAndUpdate({ "category": category }, { $push: { entries: [newModular._id] } }, options);
   res.json(newModular);
 });
+
+router.patch('/', async (req, res) => {
+  console.log("INSIDE PATCH");
+  const { id, fields } = req.body;
+  console.log(id);
+  console.log(fields);
+
+  let modular = await Modular.findByIdAndUpdate(id, fields);
+  res.json(modular);
+});
+
+router.delete('/:id', async (req, res) => {
+  let { id } = req.params;
+
+  let modular = await Modular.findByIdAndRemove(id);
+  if (modular) {
+    res.json(modular);
+  } else {
+    res.json([]);
+  }
+});
+
 
 router.get('/', async (req, res) => {
   let modulars = await Modular.find({});

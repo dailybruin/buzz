@@ -13,7 +13,7 @@ export class ModularForm extends React.Component {
   }
 
   submitModular(values) {
-    postModular(this.props.category, this.props.date, values);
+    return postModular(this.props.category, this.props.date, values);
   }
 
   render() {
@@ -33,7 +33,13 @@ export class ModularForm extends React.Component {
                 return acc;
               }, {})}
               onSubmit={(values, { setSubmitting }) => {
-                this.submitModular(values);
+                this.submitModular(values).then(({ data, status }) => {
+                  if (status < 400) {
+                    if (window) {
+                      window.location.reload();
+                    }
+                  }
+                })
               }}
               render={({ errors, status, touched, isSubmitting }) => (
                 <FormikForm>
@@ -42,6 +48,7 @@ export class ModularForm extends React.Component {
                         <label htmlFor={f}>{f}:{' '}</label>
                         <Field 
                           type="text" 
+                          component="textarea"
                           name={f}
                           />
                         <ErrorMessage name={f} component="div" />

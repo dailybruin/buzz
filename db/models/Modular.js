@@ -19,7 +19,10 @@ let Modular = mongoose.model('Modular', modularSchema);
 
 const modularCategorySchema = mongoose.Schema({
   category: { type: String, required: true },
-  entries: [modularSchema]
+  entries: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Modular"
+  }]
 }, { timestamps: true, strict: false });
 
 let ModularCategory = mongoose.model('ModularCategory', modularCategorySchema);

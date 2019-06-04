@@ -12,6 +12,8 @@ export class BuzzModal extends React.Component {
           initialValues={this.props.item}
           onSubmit={(values, actions) => {
             this.props.submitFunc(values).then(({ data, status }) => {
+              console.log(data);
+              console.log(status);
               if (status < 400) {
                 if (window) {
                   window.location.reload();

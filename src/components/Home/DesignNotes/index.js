@@ -6,7 +6,7 @@ import { CreateTable } from "../../Shared/Table";
 import { getDesignNotes, deleteDesignNote, patchDesignNote } from '../../../services/api';
 import { DesignNotesForm } from './Form';
 import config from "../../../config";
-import { createBuzzModal, BuzzModal } from '../../Shared/Modal';
+import { BuzzModal } from '../../Shared/Modal';
 
 export class DesignNotes extends React.Component {
   constructor(props) {
