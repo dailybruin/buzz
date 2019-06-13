@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Nav = () => (<nav>
-  <Link to="/">Home</Link>
-  <Link to="/photo">Photo</Link>
-  <Link to="/staff">Staff</Link>
-  <Link to="/linebreak">Linebreak</Link>
-  <Link to="/filler">Filler Text</Link>
+  <NavLink exact to="/">Home</NavLink>
+  <NavLink to="/photo">Photo</NavLink>
+  <NavLink to="/staff">Staff</NavLink>
+  <NavLink to="/linebreak">Linebreak</NavLink>
+  <NavLink to="/filler">Filler Text</NavLink>
 </nav>);

@@ -8,7 +8,8 @@ export class Linebreak extends React.Component {
       brackets: false,
       text: "",
       formattedText: "",
-      wordCount: null
+      wordCount: null,
+      copied: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.format = this.format.bind(this);
@@ -40,7 +41,8 @@ export class Linebreak extends React.Component {
 
     this.setState({
       formattedText: to,
-      wordCount
+      wordCount,
+      copied: true
     }, () => {
       this.focus();
       document.execCommand("copy");
@@ -51,7 +53,9 @@ export class Linebreak extends React.Component {
   render() {
     return (
       <div className="row">
+        <div className="linebreak-row">
         <button onClick={() => this.setState({ brackets: !this.state.brackets})}>{this.state.brackets ? "Remove brackets" : "Don't remove brackets"}</button>
+        </div>
         <div className="linebreak-row">
           <textarea value={this.state.text} onChange={this.handleChange} className="linebreak-row-item" placeholder="Place text here" />
           <div className="linebreak-middleutils linebreak-row-item">
@@ -59,6 +63,11 @@ export class Linebreak extends React.Component {
             <p>
               Approximate word count: <span>{this.state.wordCount}</span>
             </p>
+            {
+              this.state.copied && (
+                <p>Text copied to clipboard! Paste away!</p>
+              )
+            }
           </div>
           <textarea ref={this.textInput} value={this.state.formattedText} readOnly className="linebreak-row-item" placeholder="Updated text will appear here" />
         </div>
