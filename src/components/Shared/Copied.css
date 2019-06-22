@@ -1,0 +1,31 @@
+.copied {
+  text-align: center;
+  animation: copied 1s linear 3s 1 normal forwards;
+}
+
+@-moz-keyframes copied {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes copied {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes copied {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

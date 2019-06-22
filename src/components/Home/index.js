@@ -68,8 +68,7 @@ class Home extends React.Component {
 
     return (
       <>
-        <h1 className="notbold">Production for: <span className="semibold" onClick={() => this.navigateDate(-1)}>&#8592;</span><span className="semibold">{formatDate(this.state.date)}</span><span className="semibold" onClick={() => this.navigateDate(1)}>&#8594;</span></h1>
-        <h2>Callista<span className="notbold"> is currently on shift.</span></h2>
+        <h1 className="notbold">Production for: <span className="semibold pointer" onClick={() => this.navigateDate(-1)}>&#8592;</span><span className="semibold">{formatDate(this.state.date)}</span><span className="semibold pointer" onClick={() => this.navigateDate(1)}>&#8594;</span></h1>
         <Schedule section="design" />
         <h2>Design Notes</h2>
         <DesignNotes date={this.state.dateString} />

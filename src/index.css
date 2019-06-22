@@ -73,3 +73,42 @@ form div label {
 input {
   flex-grow: 1;
 }
+
+button {
+  padding: 0.5em;
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: inherit;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+button.primary {
+  background-color: #02E382;
+  color: black;
+  font-size: 18px;
+  padding: 0.25em 0.5em;
+}
+
+.delete {
+  color: #E63C3C;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 2em;
+}
+
+.edit {
+  color: #1AC4EB;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+button:hover {
+  -webkit-transform: translateY(-1px);
+  transform: translateY(-1px);
+  -webkit-box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);
+  box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);
+  -webkit-box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+  box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+}

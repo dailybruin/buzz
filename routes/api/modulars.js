@@ -54,10 +54,7 @@ router.post('/:category/:year-:month-:day', async (req, res) => {
 });
 
 router.patch('/', async (req, res) => {
-  console.log("INSIDE PATCH");
   const { id, fields } = req.body;
-  console.log(id);
-  console.log(fields);
 
   let modular = await Modular.findByIdAndUpdate(id, fields);
   res.json(modular);

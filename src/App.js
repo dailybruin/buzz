@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import { PhotoInitials } from "./components/PhotoInitials";
 import { Nav } from "./components/Shared/Nav";
 import { Linebreak } from "./components/Linebreak";
+import { Filler } from "./components/Filler";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/photo" component={PhotoInitials} />
         <Route path="/linebreak" component={Linebreak} />
+        <Route path="/filler" component={Filler} />
       </Switch>
     </div>
   );

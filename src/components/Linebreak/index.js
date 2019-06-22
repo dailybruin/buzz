@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.css";
+import { Copied } from "../Shared/Copied";
 
-export class Linebreak extends React.Component {
+export class Linebreak extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +25,6 @@ export class Linebreak extends React.Component {
   focus() {
     this.textInput.current.select();
   }
-
 
   format(e) {
     e.persist();
@@ -53,23 +53,21 @@ export class Linebreak extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="linebreak-row">
-        <button onClick={() => this.setState({ brackets: !this.state.brackets})}>{this.state.brackets ? "Remove brackets" : "Don't remove brackets"}</button>
+        <div className="flex-row">
+        <button className="toggleButton" onClick={() => this.setState({ brackets: !this.state.brackets})}>{this.state.brackets ? "Remove brackets" : "Don't remove brackets"}</button>
         </div>
-        <div className="linebreak-row">
-          <textarea value={this.state.text} onChange={this.handleChange} className="linebreak-row-item" placeholder="Place text here" />
-          <div className="linebreak-middleutils linebreak-row-item">
-            <button className="linebreakButton" onClick={(e) => this.format(e)}>Remove empty lines</button>
+        <div className="flex-row">
+          <textarea value={this.state.text} onChange={this.handleChange} className="flex-row-item" placeholder="Place text here" />
+          <div className="linebreak-middleutils flex-row-item">
+            <button className="primary" onClick={(e) => this.format(e)}>Remove empty lines</button>
             <p>
               Approximate word count: <span>{this.state.wordCount}</span>
             </p>
             {
-              this.state.copied && (
-                <p>Text copied to clipboard! Paste away!</p>
-              )
+              this.state.copied && <Copied />
             }
           </div>
-          <textarea ref={this.textInput} value={this.state.formattedText} readOnly className="linebreak-row-item" placeholder="Updated text will appear here" />
+          <textarea ref={this.textInput} value={this.state.formattedText} readOnly className="flex-row-item" placeholder="Updated text will appear here" />
         </div>
       </div>
     );

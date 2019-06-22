@@ -81,6 +81,7 @@ function shiftValueViewer({ shift, start, end }) {
 }
 
 export function scheduleToSpreadsheet(schedule) {
+  schedule.sort((a, b) => a.start - b.start);
   let spreadsheet = [[{ readOnly: true, value: '' }]];
   const len = schedule.length;
 
@@ -122,4 +123,11 @@ export function scheduleToSpreadsheet(schedule) {
   }
 
   return spreadsheet;
+}
+
+export function onShiftFromSchedule(schedule) {
+  const now = new Date();
+  const nowNum = timeStringToNum(`${now.getHours()}:${now.getMinutes()}`);
+  const people = schedule.filter(x => x.day === now.getDay() && x.start <= nowNum && x.end >= nowNum && x.person != "").map(x => x.person);
+  return people.length ? people.join(", ") : "No one ";
 }

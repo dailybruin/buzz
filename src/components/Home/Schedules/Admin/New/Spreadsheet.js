@@ -19,9 +19,12 @@ export class Spreadsheet extends React.Component {
       section: this.props.section,
       entries
     };
-    console.log(schedule);
-    postSchedule(schedule).then(res => {
-      console.log(res);
+    postSchedule(schedule).then(({ data, status }) => {
+      if (status < 400) {
+        if (window) {
+          window.location.reload();
+        }
+      }
     })
   }
 
@@ -41,7 +44,7 @@ export class Spreadsheet extends React.Component {
             this.setState({ data: grid })
           }}
         />
-        <button onClick={this.newSchedule} className="customSubmitButton" type="submit">
+        <button onClick={this.newSchedule} className="primary" type="submit">
           <span className="semibold">+</span> Create
         </button>
       </>

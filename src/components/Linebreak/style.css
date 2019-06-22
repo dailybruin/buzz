@@ -1,39 +1,28 @@
-.linebreak-row {
+.flex-row {
   display: flex;
   flex-direction: column;
   max-width: 75rem;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 2em;
 }
 
-.linebreak-row textarea {
+.flex-row textarea {
   height: 20rem;
   width: 100%;
   margin: auto;
   font-size: 1em;
 }
 
-.linebreak-row-item {
+.linebreak-middleutils {
+  display: flex;
+  flex-direction: column;
   padding-left: .9375rem;
   padding-right: .9375rem;
 }
 
-.linebreak-middleutils {
-  display: flex;
-  flex-direction: column;
-}
-
-.linebreakButton {
-  font-family: inherit;
-  font-size: 18px;
-  padding: 0.25em 0.5em;
-  border: none;
-  border-radius: 5px;
-  background-color: #02E382;
-}
-
 @media screen and (min-width: 641px) {
-  .linebreak-row {
+  .flex-row {
     flex-direction: row;
   }
 }

@@ -57,7 +57,7 @@ export class DesignNotesForm extends React.Component {
                     </div>
                   ))}
                   {status && status.msg && <div>{status.msg}</div>}
-                  <button className="customSubmitButton" type="submit" disabled={isSubmitting}>
+                  <button className="primary" type="submit" disabled={isSubmitting}>
                     <span className="semibold">+</span> Create
                   </button>
                 </FormikForm>

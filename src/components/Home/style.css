@@ -2,30 +2,12 @@
   font-weight: 600;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .notbold {
   font-weight: 400;
-}
-
-.customSubmitButton {
-  font-family: inherit;
-  font-size: 18px;
-  padding: 0.25em 0.5em;
-  border: none;
-  border-radius: 5px;
-  background-color: #02E382;
-}
-
-.deleteButton {
-  color: #E63C3C;
-  text-decoration: underline;
-  cursor: pointer;
-  margin-right: 2em;
-}
-
-.editButton {
-  color: #1AC4EB;
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 nav {

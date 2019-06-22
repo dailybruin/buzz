@@ -1,0 +1,7 @@
+.flex-item {
+  flex: 1 0 50%;
+}
+
+.flex-item textarea {
+  max-width: 100%;
+}

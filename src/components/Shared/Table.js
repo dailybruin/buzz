@@ -26,14 +26,14 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
             {(deleteFunction || editFunction)
               ? (<Td className="deleteTableData" key={`delete-${index}`}>
                 {deleteFunction 
-                ? (<span className="deleteButton" onClick={() => deleteFunction(item["_id"]).then(() => {
+                ? (<span className="delete" onClick={() => deleteFunction(item["_id"]).then(() => {
                   if (window) {
                     window.location.reload();
                   }
                 })}>Delete</span>)
                 : null}
                 {editFunction
-                  ? (<span className="editButton" onClick={() => editFunction(item)}>Edit</span>)
+                  ? (<span className="edit" onClick={() => editFunction(item)}>Edit</span>)
                   : null}
               </Td>)
               : null}

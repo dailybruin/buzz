@@ -12,8 +12,6 @@ export class BuzzModal extends React.Component {
           initialValues={this.props.item}
           onSubmit={(values, actions) => {
             this.props.submitFunc(values).then(({ data, status }) => {
-              console.log(data);
-              console.log(status);
               if (status < 400) {
                 if (window) {
                   window.location.reload();
@@ -35,7 +33,7 @@ export class BuzzModal extends React.Component {
                 </div>
               ))}
               {status && status.msg && <div>{status.msg}</div>}
-              <button className="customSubmitButton" type="submit" disabled={isSubmitting}>
+              <button className="primary" type="submit" disabled={isSubmitting}>
                 <span className="semibold">+</span> Create
                   </button>
             </FormikForm>);
