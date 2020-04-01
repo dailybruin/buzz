@@ -2,7 +2,7 @@ const Router = require("express-promise-router");
 const session = require("express-session");
 const MongoDBStore = require('connect-mongodb-session')(session);
 const passport = require('passport');
-const SlackStrategy = require('passport-slack').Strategy;
+const SlackStrategy = require('@aoberoi/passport-slack').default.Strategy;
 
 const { User } = require('../db');
 const callbackURL = process.env.NODE_ENV === "production" ? "https://buzz.dailybruin.com" : "http://localhost:3000";
@@ -29,14 +29,10 @@ router.use(passport.session());
 passport.use(new SlackStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: `${callbackURL}/auth/slack/callback`
-}, async (accessToken, refreshToken, profile, done) => {
-  // This means it will only work for DB people
-  // TODO: Open Source: Support predefined Slack orgs
-  if (profile.team.domain !== "dailybruin") {
-    done(new Error("Unsupported team."));
-  }
-
+  callbackURL: `${callbackURL}/auth/slack/callback`,
+  scope: ['identity.basic', 'identity.avatar', 'identity.email', 'identity.team'],
+  team: "T04FG3WDC"
+}, async (accessToken, scopes, team, { bot }, profile, done) => {
   // This is the ID that the user has from Slack
   const reqSlackId = profile.user.id;
   await User.findOne({ 'slack.id': reqSlackId }, (err, user) => {
@@ -48,12 +44,14 @@ passport.use(new SlackStrategy({
       // User already exists!
       done(null, user);
     } else {
+      console.log("User " + reqSlackId + " does not exist in Buzz. Creating...");
       // User does not exist
       // Let's create a new one
       let newUser = new User();
 
       newUser.email = profile.user.email;
       newUser.slack.id = reqSlackId;
+      console.log(newUser);
 
       // This is to be smart about slack names
       // They won't always be set in a certain way
@@ -69,6 +67,8 @@ passport.use(new SlackStrategy({
       // in the database
       newUser.save((err) => {
         if (err) {
+          console.log("Could not save user");
+          console.log(err);
           throw err;
         }
         done(null, newUser);

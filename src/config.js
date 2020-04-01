@@ -1,5 +1,6 @@
 const config = {
   SERVER_URL: process.env.NODE_ENV === "production" ? "https://buzz.dailybruin.com" : "http://localhost:3000",
+  auditSheet: "https://docs.google.com/spreadsheets/d/1dOOL9Y4eZaTOTrTLsjPGCcjE6euqXazfgeaK3DIu2jc/edit",
   modulars: {
     "Public comment": ["name", "position", "comment", "explainer"],
     "Comments from the web": ["comment", "username", "section", "headline"],

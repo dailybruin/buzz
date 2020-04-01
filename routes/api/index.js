@@ -3,6 +3,7 @@ const DesignNoteRouter = require("./designNotes");
 const ModularRouter = require("./modulars");
 const ScheduleRouter = require("./schedule");
 const StoryRouter = require("./story");
+const MemberRouter = require("./member");
 
 const router = new Router();
 
@@ -10,6 +11,7 @@ router.use('/designNotes', DesignNoteRouter);
 router.use('/modular', ModularRouter);
 router.use('/schedule', ScheduleRouter);
 router.use('/story', StoryRouter);
+router.use('/staff', MemberRouter);
 
 router.get('/isAdmin', async (req, res) => {
   const adminArray = process.env.ADMINS ? process.env.ADMINS.split(",") : [];

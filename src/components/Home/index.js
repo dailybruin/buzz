@@ -5,6 +5,7 @@ import { DesignNotes } from './DesignNotes';
 import { Modulars } from './Modulars';
 import { InstagramStories } from './InstagramStories';
 import { Schedule } from './Schedules';
+import config from '../../config';
 
 const dateMatcher = /(\d{4})\-(\d{1,2})\-(\d{1,2})/;
 
@@ -75,7 +76,7 @@ class Home extends React.Component {
         <h2>Instagram Stories</h2>
         <InstagramStories date={this.state.dateString}  />
         <h2>Audits</h2>
-        <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/spreadsheets/d/1qbUG4uckkvszNUMZbPkS1PYTr7RMHbR7PJ57ksiF8ZY/edit">Click here (new tab)</a>
+        <a target="_blank" rel="noopener noreferrer" href={config.auditSheet}>Click here (new tab)</a>
         <h2>Opinion Modulars</h2>
         <Modulars date={this.state.dateString}  />
       </>

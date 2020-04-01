@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
-export const CreateTable = (data, columns, deleteFunction, editFunction) => (
+export const CreateTable = (data, columns, deleteFunction, editFunction, sting) => (
   <Table>
     <Thead>
       <Tr>
@@ -23,7 +23,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                 <Td key={`${property}-${item[property]}`}>{item[property] ? item[property] : '\u00A0'}</Td>
               )
             })}
-            {(deleteFunction || editFunction)
+            {(deleteFunction || editFunction || sting)
               ? (<Td className="deleteTableData" key={`delete-${index}`}>
                 {deleteFunction 
                 ? (<span className="delete" onClick={() => deleteFunction(item["_id"]).then(() => {
@@ -34,6 +34,9 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                 : null}
                 {editFunction
                   ? (<span className="edit" onClick={() => editFunction(item)}>Edit</span>)
+                  : null}
+                {sting
+                  ? (<span className="sting" onClick={() => sting(item["_id"])}>Sting</span>)
                   : null}
               </Td>)
               : null}

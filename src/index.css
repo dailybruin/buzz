@@ -91,15 +91,27 @@ button.primary {
   padding: 0.25em 0.5em;
 }
 
-.delete {
+button.delete {
+  background-color: #E63C3C;
+  color: white;
+}
+
+span.delete {
   color: #E63C3C;
   text-decoration: underline;
   cursor: pointer;
   margin-right: 2em;
 }
 
-.edit {
+span.edit {
   color: #1AC4EB;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+span.sting {
+  background-color: yellow;
+  color: black;
   text-decoration: underline;
   cursor: pointer;
 }

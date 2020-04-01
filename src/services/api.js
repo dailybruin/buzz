@@ -35,4 +35,16 @@ export const getStories = date => (get(`${API_URL}/story/${date}`).then(res => r
 
 export const postStory = (date, data) => (axios.post(`${API_URL}/story/${date}`, data).then(res => ({ data: res.data, status: res.status })));
 
+export const getStaff = () => (get(`${API_URL}/staff`).then(res => res.data));
+
+export const getMultimedia = () => (get(`${API_URL}/staff/multimedia`).then(res => res.data));
+
+export const postMember = data => (axios.post(`${API_URL}/staff`, data).then(res => ({ data: res.data, status: res.status })));
+
+export const patchMember = slug => data => (axios.patch(`${API_URL}/staff/${slug}`, data).then(res => ({ data: res.data, status: res.status })));
+
+export const deleteMember = id => (fn_delete(`${API_URL}/staff/${id}`).then(res => res.data));
+
+export const stingMember = data => id => (axios.post(`${API_URL}/staff/${id}/sting`, { text: data }).then(res => ({ data: res.data, status: res.status })));
+
 export const isAdmin = () => (get(`${API_URL}/isAdmin`).then(res => res.data.isAdmin));

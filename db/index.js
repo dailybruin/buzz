@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const Member = require('./models/Member');
 const DesignNote = require('./models/DesignNote');
 const InstagramStory = require('./models/InstagramStory');
 const { Modular, ModularCategory } = require('./models/Modular');
@@ -19,6 +20,7 @@ mongoose.connection.on('error', err => {
 
 module.exports = {
   User,
+  Member,
   DesignNote,
   InstagramStory,
   Modular,
