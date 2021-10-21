@@ -20,12 +20,12 @@ router.get('/:year-:month-:day', async (req, res) => {
 });
 
 router.post('/:year-:month-:day', async (req, res) => {
-  const { section, placement, slug, wordCount, art, status, comments } = req.body;
+  const { section, placement, slug, wordCount, art, status, comments, referText } = req.body;
   const { year, month, day } = req.params;
 
   const date = new Date(`${year}-${month}-${day}`);
 
-  const query = { placement, slug, section, wordCount, art, comments, status, date };
+  const query = { placement, slug, section, wordCount, art, comments, status, referText, date };
   if (section == "inserts") {
     let expiration = new Date();
     expiration.setDate(expiration.getDate() + 14);
@@ -42,7 +42,7 @@ router.post('/:year-:month-:day', async (req, res) => {
 });
 
 router.patch('/', async (req, res) => {
-  const { id, placement, slug, section, wordCount, art, comments, status, date } = req.body;
+  const { id, placement, slug, section, wordCount, art, comments, status, date, referText } = req.body;
   // TODO this is so bad
   const query = {};
   placement && (query.placement = placement);
@@ -51,6 +51,7 @@ router.patch('/', async (req, res) => {
   art && (query.art = art);
   comments && (query.comments = comments);
   status && (query.status = status);
+  referText && (query.referText = referText);
 
   let entry = await DesignNote.findByIdAndUpdate(id, query);
   res.json(entry);
