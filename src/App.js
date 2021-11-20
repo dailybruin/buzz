@@ -9,7 +9,6 @@ import { Linebreak } from "./components/Linebreak";
 import { Filler } from "./components/Filler";
 import { StaffList } from "./components/Staff";
 
-
 function App() {
   return (
     <div className="App">
