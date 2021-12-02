@@ -13,7 +13,7 @@ const config = {
   },
   designNotes: {
     sections: ["news", "opinion", "sports", "arts", "inserts"],
-    properties: ["placement", "slug", "art", "wordCount", "comments", "status"],
+    properties: ["placement", "slug", "art", "wordCount", "comments", "status", "referText"],
     placeholders: {
       "comments": "refers/flags/etc."
     }

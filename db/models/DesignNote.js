@@ -14,6 +14,7 @@ const designNoteSchema = mongoose.Schema({
   // ranges so
   wordCount: { type: String },
   status: { type: String },
+  referText: { type: String },
   expireAt: {
     type: Date,
     default: function () {

@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
+import "./Table.css"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 export const CreateTable = (data, columns, deleteFunction, editFunction, sting) => (

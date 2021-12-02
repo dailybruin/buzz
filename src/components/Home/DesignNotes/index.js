@@ -17,7 +17,8 @@ export class DesignNotes extends React.Component {
       sections: config.designNotes.sections,
       properties: config.designNotes.properties,
       showModal: false,
-      modalItem: null
+      modalItem: null,
+      referText: null,
     };
     this.receiveItem = this.receiveItem.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -47,13 +48,13 @@ export class DesignNotes extends React.Component {
 
     return (
       <>
-        {this.state.showModal 
+        {this.state.showModal
           ? <BuzzModal
             submitFunc={this.state.submitFunc}
-            closeModal={this.closeModal} 
-            isOpen={this.state.showModal} 
-            item={this.state.modalItem} 
-          /> 
+            closeModal={this.closeModal}
+            isOpen={this.state.showModal}
+            item={this.state.modalItem}
+          />
           : null}
         <Tabs>
           <TabList>

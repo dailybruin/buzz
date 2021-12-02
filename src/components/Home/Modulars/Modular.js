@@ -52,7 +52,9 @@ export class Modular extends React.Component {
             item={this.state.modalItem}
           />
           : null}
-        {CreateTable(this.state.data, this.props.fields, deleteModular, this.receiveItem)}
+        <div style={{maxWidth:"100%"}}>
+          {CreateTable(this.state.data, this.props.fields, deleteModular, this.receiveItem)}
+        </div>
         <ModularForm date={this.props.date} category={this.props.category} fields={this.props.fields} />
       </>
     );
