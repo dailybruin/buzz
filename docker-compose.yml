@@ -9,8 +9,6 @@ services:
       - "3000:3000"
     links:
       - db_mongo
-    volumes:
-      - .:/usr/src/app/:rw
   db_mongo:
     image: mongo
     ports:
