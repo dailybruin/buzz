@@ -39,7 +39,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "build": "webpack",
+    "build": "webpack --config webpack.prod.js",
     "test": "node scripts/test.js"
   },
   "browserslist": {
@@ -61,6 +61,7 @@
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "webpack-dev-middleware": "^3.6.2",
-    "webpack-hot-middleware": "^2.24.4"
+    "webpack-hot-middleware": "^2.24.4",
+    "webpack-merge": "^5.8.0"
   }
 }
