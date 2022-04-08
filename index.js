@@ -14,8 +14,8 @@ const router = require("./routes");
 const { isAuthenticated } = require("./controllers/auth");
 
 const webpackDevMiddleware = require("webpack-dev-middleware");
-const webpackConfig = require("./webpack.config.js");
-const compiler = webpack(webpackConfig);
+const webpackDevConfig = require("./webpack.dev.js");
+const compiler = webpack(webpackDevConfig);
 
 dotenv.config();
 
@@ -50,7 +50,7 @@ if (process.env.NODE_ENV !== "production") {
   app.use(
     webpackDevMiddleware(compiler, {
       noInfo: true,
-      publicPath: webpackConfig.output.publicPath
+      publicPath: webpackDevConfig.output.publicPath
     })
   );
 

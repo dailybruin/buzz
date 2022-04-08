@@ -1,13 +1,6 @@
-const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
-  entry: {
-    index: [
-      "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000",
-      "./src/index.js"
-    ]
-  },
   output: {
     path: path.resolve(__dirname, "./public"),
     filename: "[name].bundle.js",
@@ -45,11 +38,4 @@ module.exports = {
       },
     ]
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
-  resolve: {
-    alias: {
-      "react-dom": "@hot-loader/react-dom"
-    }
-  }
 };
-
