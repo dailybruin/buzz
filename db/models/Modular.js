@@ -4,16 +4,16 @@ const EXPIRATION = 2;
 
 const modularSchema = mongoose.Schema({
   date: { type: Date },
-  expireAt: {
-    type: Date,
-    default: function () {
-      const now = new Date();
-      now.setDate(now.getDate() + EXPIRATION)
-      return now;
-    }
-  }
+  // expireAt: {
+  //   type: Date,
+  //   default: function () {
+  //     const now = new Date();
+  //     now.setDate(now.getDate() + EXPIRATION)
+  //     return now;
+  //   }
+  // }
 }, { timestamps: true, strict: false });
-modularSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+// modularSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 let Modular = mongoose.model('Modular', modularSchema);
 

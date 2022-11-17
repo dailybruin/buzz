@@ -8,6 +8,7 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "@hot-loader/react-dom": "^16.8.6",
+    "all": "^0.0.0",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.5",
     "body-parser": "^1.19.0",
