@@ -16,16 +16,17 @@ router.get('/:year-:month-:day', async (req, res) => {
     handleError(res);
   }
   let notes = await DesignNote.find({ date: date });
+  console.log('notes', notes);
   res.json(notes);
 });
 
 router.post('/:year-:month-:day', async (req, res) => {
-  const { section, placement, slug, wordCount, art, status, comments, referText } = req.body;
+  const { section, placement, slug, wordCount, art, artIn, status, comments, referText } = req.body;
   const { year, month, day } = req.params;
 
   const date = new Date(`${year}-${month}-${day}`);
 
-  const query = { placement, slug, section, wordCount, art, comments, status, referText, date };
+  const query = { placement, slug, section, wordCount, art, artIn, comments, status, referText, date };
   // if (section == "inserts") {
   //   let expiration = new Date();
   //   expiration.setDate(expiration.getDate() + 14);
@@ -36,19 +37,19 @@ router.post('/:year-:month-:day', async (req, res) => {
     if (err) {
       handleError(res);
     }
-
     res.json(note);
   })
 });
 
 router.patch('/', async (req, res) => {
-  const { id, placement, slug, section, wordCount, art, comments, status, date, referText } = req.body;
+  const { id, placement, slug, section, wordCount, art, artIn, comments, status, date, referText } = req.body;
   // TODO this is so bad
   const query = {};
   placement && (query.placement = placement);
   slug && (query.slug = slug);
   wordCount && (query.wordCount = wordCount);
   art && (query.art = art);
+  artIn && (query.artIn = artIn);
   comments && (query.comments = comments);
   status && (query.status = status);
   referText && (query.referText = referText);

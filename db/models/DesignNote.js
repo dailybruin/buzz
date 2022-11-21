@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
-const EXPIRATION = 2;
+// const EXPIRATION = 2;
 
 const designNoteSchema = mongoose.Schema({
   section: { type: String },
   placement: { type: String },
   slug: { type: String },
   art: { type: String },
+  artIn: { type: String },
   comments: { type: String },
   date: { type: Date },
   // You would think this would be a number
