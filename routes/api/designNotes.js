@@ -16,13 +16,11 @@ router.get('/:year-:month-:day', async (req, res) => {
     handleError(res);
   }
   let notes = await DesignNote.find({ date: date });
-  console.log('notes', notes);
   res.json(notes);
 });
 
 router.post('/:year-:month-:day', async (req, res) => {
   const { section, placement, slug, wordCount, art, artStatus, status, comments, referText } = req.body;
-  console.log('artStatus', artStatus);
   const { year, month, day } = req.params;
   const date = new Date(`${year}-${month}-${day}`);
   const query = { placement, slug, section, wordCount, art, artStatus, comments, status, referText, date };
