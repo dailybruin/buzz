@@ -9,7 +9,15 @@ const { Schedule, ScheduleEntry } = require('./models/Schedule');
 mongoose.connect(process.env.MONGO_URL);
 
 // When successfully connected
-mongoose.connection.on('connected', () => {
+mongoose.connection.on('connected', async () => {
+  await User.syncIndexes();
+  await Member.syncIndexes();
+  await DesignNote.syncIndexes();
+  await InstagramStory.syncIndexes();
+  await Modular.syncIndexes();
+  await ModularCategory.syncIndexes();
+  await Schedule.syncIndexes();
+  await ScheduleEntry.syncIndexes();
   console.log('Mongoose default connection open to ' + process.env.MONGO_URL);
 });
 
