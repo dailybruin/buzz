@@ -3,29 +3,20 @@ const mongoose = require('mongoose');
 // const EXPIRATION = 2;
 
 const designNoteSchema = mongoose.Schema({
-  section: { type: String },
-  placement: { type: String },
-  slug: { type: String },
-  art: { type: String },
-  artIn: { type: String },
-  comments: { type: String },
-  date: { type: Date },
+  section: { type: String, default: "" },
+  placement: { type: String, default: "" },
+  slug: { type: String, default: "" },
+  art: { type: String, default: "" },
+  artStatus: { type: String, default: "" },
+  comments: { type: String, default: "" },
+  date: { type: Date, defautl: Date.now },
   // You would think this would be a number
   // but people often approximate or give
   // ranges so
-  wordCount: { type: String },
-  status: { type: String },
-  referText: { type: String },
-  // expireAt: {
-  //   type: Date,
-  //   default: function () {
-  //     const now = new Date();
-  //     now.setDate(now.getDate() + EXPIRATION)
-  //     return now;
-  //   }
-  // }
+  wordCount: { type: String, default: "" },
+  status: { type: String, default: "" },
+  referText: { type: String, default: "" },
 }, { timestamps: true, strict: false });
-// designNoteSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 let DesignNote = mongoose.model('DesignNote', designNoteSchema);
 module.exports = DesignNote;
