@@ -7,6 +7,5 @@ const instagramStorySchema = mongoose.Schema({
   caption: { type: String },
   date: { type: Date },
 }, { timestamps: true, strict: false });
-
 let InstagramStory = mongoose.model('InstagramStory', instagramStorySchema);
 module.exports = InstagramStory;
