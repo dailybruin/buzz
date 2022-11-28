@@ -45,17 +45,36 @@ export class DesignNotesForm extends React.Component {
               }}
               render={({ errors, status, touched, isSubmitting }) => (
                 <FormikForm>
-                  {this.props.properties.map(f => (
-                    <div key={f}>
-                      <label htmlFor={f}>{f}:{' '}</label>
-                      <Field
-                        type="text"
-                        name={f}
-                        placeholder={config.designNotes.placeholders[f] || null}
-                      />
-                      <ErrorMessage name={f} component="div" />
-                    </div>
-                  ))}
+                  {this.props.properties.map((f) => {
+                    if (f === "artStatus") {
+                      return (
+                        <div key={f}>
+                          <label htmlFor={f}>{f}:{' '}</label>
+                          <Field
+                            component="select"
+                            name={f}
+                          >
+                            <option value="Art In">Art In</option>
+                            <option value="Photo edited, no Camayak">Photo edited, no Camayak</option>
+                            <option value="Waiting for courtesies">Waiting for courtesies</option>
+                          </Field>
+                          <ErrorMessage name={f} component="div" />
+                        </div>
+                      )
+                    } else {
+                      return (
+                        <div key={f}>
+                          <label htmlFor={f}>{f}:{' '}</label>
+                          <Field
+                            type="text"
+                            name={f}
+                            placeholder={config.designNotes.placeholders[f] || null}
+                          />
+                          <ErrorMessage name={f} component="div" />
+                        </div>
+                      )
+                    }
+                  })}
                   {status && status.msg && <div>{status.msg}</div>}
                   <button className="primary" type="submit" disabled={isSubmitting}>
                     <span className="semibold">+</span> Create
