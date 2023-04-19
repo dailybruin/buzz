@@ -17,19 +17,29 @@ export class DesignNotesForm extends React.Component {
     super(props);
     this.state = {
       open: false,
-      artStatus: '',
+      textFields: {},
     };
     this.submitNote = this.submitNote.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
   submitNote(values) {
-    const req = Object.assign({}, values, { "section": this.props.section });
+    const req = Object.assign({}, this.state.textFields, { "section": this.props.section });
     return postDesignNote(this.props.date, req);
   }
 
-  handleChange(event) {
-    this.setState({ artStatus: event.target.value });
+  handleStatusChange(event) {
+    let oldFields = this.state.textFields;
+    oldFields['artStatus'] = event.target.value
+    this.setState({ textFields: oldFields });
+  }
+
+  handleTextChange(event) {
+    const tag = event.target.id
+    let oldFields = this.state.textFields;
+    oldFields[tag] = event.target.value;
+    this.setState({ textFields: oldFields });
   }
 
   render() {
@@ -71,7 +81,7 @@ export class DesignNotesForm extends React.Component {
                                 id="demo-simple-select-standard"
                                 label="Art Status"
                                 value={this.state.artStatus}
-                                onChange={this.handleChange}
+                                onChange={this.handleStatusChange}
                                 inputProps={{
                                   name: "artStatus",
                                   id: "artStatus",
@@ -95,6 +105,7 @@ export class DesignNotesForm extends React.Component {
                             label={f}
                             type="text"
                             name={f}
+                            onChange={this.handleTextChange}
                             placeholder={config.designNotes.placeholders[f] || null}
                             multiline
                             fullWidth
