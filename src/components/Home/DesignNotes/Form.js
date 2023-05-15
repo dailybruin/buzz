@@ -49,10 +49,7 @@ export class DesignNotesForm extends React.Component {
           <p><u>{this.state.open ? "Close Form" : "Open Form"}</u></p>
         </div>
         <AnimateHeight height={this.state.open ? "auto" : 0}>
-          <div style={{
-            border: "1px solid black",
-            padding: "1.5em 1em"
-          }}>
+          <div>
             <Formik
               initialValues={this.props.properties.reduce((acc, curr, index) => {
                 acc[curr] = "";
@@ -68,7 +65,7 @@ export class DesignNotesForm extends React.Component {
                 })
               }}
               render={({ errors, status, touched, isSubmitting }) => (
-                <FormikForm className="design-notes-form">
+                <FormikForm className="design-notes-form" style={{ paddingLeft: 100, paddingRight: 100, paddingTop: 20, paddingBottom: 30 }}>
                   {this.props.properties.map((f) => {
                     if (f === "artStatus") {
                       return (
@@ -117,7 +114,9 @@ export class DesignNotesForm extends React.Component {
                     }
                   })}
                   {status && status.msg && <div>{status.msg}</div>}
-                  <Button className="create-button" variant="contained" color="primary" type="submit" disabled={isSubmitting} sx={{ mt: 2 }}>
+                  <Button className="create-button" variant="contained" color="primary" type="submit" disabled={isSubmitting} sx={{
+                    mt: 2, fontWeight: 'bold', color: 'white', backgroundColor: 'black',
+                  }}>
                     Create
                   </Button>
                 </FormikForm>

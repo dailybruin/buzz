@@ -12,5 +12,7 @@ form div {
 }
 
 .design-notes-form {
-    padding: 1rem 3rem 2rem 3rem;
+    padding: 2rem 3rem;
+    background-color: rgb(245, 245, 245);
+    border-radius: 1rem;
 }
