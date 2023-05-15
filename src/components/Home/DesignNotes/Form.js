@@ -65,7 +65,7 @@ export class DesignNotesForm extends React.Component {
                 })
               }}
               render={({ errors, status, touched, isSubmitting }) => (
-                <FormikForm className="design-notes-form" style={{ paddingLeft: 100, paddingRight: 100, paddingTop: 20, paddingBottom: 30 }}>
+                <FormikForm className="design-notes-form" style={{ paddingLeft: 100, paddingRight: 100 }}>
                   {this.props.properties.map((f) => {
                     if (f === "artStatus") {
                       return (
