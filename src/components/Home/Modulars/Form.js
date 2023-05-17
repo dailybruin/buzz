@@ -24,8 +24,8 @@ export class ModularForm extends React.Component {
     this.setState({ textFields: oldFields });
   }
 
-  submitModular(values) {
-    return postModular(this.props.category, this.props.date, values);
+  submitModular() {
+    return postModular(this.props.category, this.props.date, this.state.textFields);
   }
 
   render() {
@@ -41,8 +41,8 @@ export class ModularForm extends React.Component {
                 acc[curr] = "";
                 return acc;
               }, {})}
-              onSubmit={(values, { setSubmitting }) => {
-                this.submitModular(values).then(({ data, status }) => {
+              onSubmit={({ setSubmitting }) => {
+                this.submitModular().then(({ data, status }) => {
                   if (status < 400) {
                     if (window) {
                       window.location.reload();

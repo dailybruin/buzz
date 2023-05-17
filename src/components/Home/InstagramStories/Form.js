@@ -25,8 +25,8 @@ export class StoryForm extends React.Component {
     this.setState({ textFields: oldFields });
   }
 
-  submitStory(values) {
-    return postStory(this.props.date, values);
+  submitStory() {
+    return postStory(this.props.date, this.state.textFields);
   }
 
   render() {
@@ -42,8 +42,8 @@ export class StoryForm extends React.Component {
                 acc[curr] = "";
                 return acc;
               }, {})}
-              onSubmit={(values, actions) => {
-                this.submitStory(values).then(({ data, status }) => {
+              onSubmit={() => {
+                this.submitStory().then(({ data, status }) => {
                   if (status < 400) {
                     if (window) {
                       window.location.reload();
