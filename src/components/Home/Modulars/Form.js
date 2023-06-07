@@ -2,18 +2,30 @@ import React from 'react';
 import AnimateHeight from "react-animate-height";
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import { postModular } from '../../../services/api';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import "./style.css";
 
 export class ModularForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
+      textFields: {},
     };
     this.submitModular = this.submitModular.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
-  submitModular(values) {
-    return postModular(this.props.category, this.props.date, values);
+  handleTextChange(event) {
+    const tag = event.target.id
+    let oldFields = this.state.textFields;
+    oldFields[tag] = event.target.value;
+    this.setState({ textFields: oldFields });
+  }
+
+  submitModular() {
+    return postModular(this.props.category, this.props.date, this.state.textFields);
   }
 
   render() {
@@ -23,17 +35,14 @@ export class ModularForm extends React.Component {
           <p><u>{this.state.open ? "Close Form" : "Open Form"}</u></p>
         </div>
         <AnimateHeight height={this.state.open ? "auto" : 0}>
-          <div style={{
-            border: "1px solid black",
-            padding: "1.5em 1em"
-          }}>
+          <div>
             <Formik
               initialValues={this.props.fields.reduce((acc, curr, index) => {
                 acc[curr] = "";
                 return acc;
               }, {})}
-              onSubmit={(values, { setSubmitting }) => {
-                this.submitModular(values).then(({ data, status }) => {
+              onSubmit={({ setSubmitting }) => {
+                this.submitModular().then(({ data, status }) => {
                   if (status < 400) {
                     if (window) {
                       window.location.reload();
@@ -42,22 +51,32 @@ export class ModularForm extends React.Component {
                 })
               }}
               render={({ errors, status, touched, isSubmitting }) => (
-                <FormikForm>
-                    {this.props.fields.map(f => (
-                      <div key={f}>
-                        <label htmlFor={f}>{f}:{' '}</label>
-                        <Field 
-                          type="text" 
-                          component="textarea"
+                <FormikForm className='opinion-modulars-form' style={{ paddingLeft: 100, paddingRight: 100 }}>
+                  {this.props.fields.map((f) => {
+                    return (
+                      <div key={f} htmlFor={f}>
+                        <TextField
+                          className="home-text-field"
+                          variant="standard"
+                          label={f}
+                          type="text"
                           name={f}
-                          />
+                          onChange={this.handleTextChange}
+                          placeholder={null}
+                          multiline
+                          fullWidth
+                          id={f}
+                        />
                         <ErrorMessage name={f} component="div" />
                       </div>
-                    ))}
+                    )
+                  })}
                   {status && status.msg && <div>{status.msg}</div>}
-                  <button className="primary" type="submit" disabled={isSubmitting}>
-                    <span className="semibold">+</span> Create
-                  </button>
+                  <Button className="create-button" variant="contained" color="primary" type="submit" disabled={isSubmitting} sx={{
+                    mt: 2, fontWeight: 'bold', color: 'white', backgroundColor: 'black',
+                  }}>
+                    Create
+                  </Button>
                 </FormikForm>
               )}
             />

@@ -1,9 +1,4 @@
 table.responsiveTable {
-    table-layout: fixed !important;
+    /* table-layout: fixed !important; */
     max-width: 100% !important;
 }
-
-table.responsiveTable td {
-    word-wrap: break-word !important;
-}
-    

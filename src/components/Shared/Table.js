@@ -7,8 +7,8 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
   <Table>
     <Thead>
       <Tr>
-        {columns.map(x =>  <Th key={x}>{x}</Th>)}
-        {(deleteFunction || editFunction)
+        {columns.map(x => <Th key={x}>{x}</Th>)}
+        {(editFunction || deleteFunction)
           ? (
             <Th key="actions">actions</Th>
           )
@@ -24,17 +24,17 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
                 <Td key={`${property}-${item[property]}`}>{item[property] ? item[property] : '\u00A0'}</Td>
               )
             })}
-            {(deleteFunction || editFunction || sting)
+            {(editFunction || deleteFunction || sting)
               ? (<Td className="deleteTableData" key={`delete-${index}`}>
-                {deleteFunction 
-                ? (<span className="delete" onClick={() => deleteFunction(item["_id"]).then(() => {
-                  if (window) {
-                    window.location.reload();
-                  }
-                })}>Delete</span>)
-                : null}
                 {editFunction
                   ? (<span className="edit" onClick={() => editFunction(item)}>Edit</span>)
+                  : null}
+                {deleteFunction
+                  ? (<span className="delete" onClick={() => deleteFunction(item["_id"]).then(() => {
+                    if (window) {
+                      window.location.reload();
+                    }
+                  })}>Delete</span>)
                   : null}
                 {sting
                   ? (<span className="sting" onClick={() => sting(item["_id"])}>Sting</span>)

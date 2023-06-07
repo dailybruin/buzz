@@ -2,6 +2,7 @@ body {
   font-family: 'Work Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 3rem;
 }
 
 h2 {
@@ -14,7 +15,7 @@ p {
 }
 
 .react-tabs__tab-list {
-  margin-bottom: 0px !important;
+  margin-bottom: 1px !important;
   font-weight: 600;
   font-size: 18px;
   border-bottom: 0px solid transparent !important
@@ -34,16 +35,17 @@ table {
 }
 
 table.responsiveTable thead {
-  background-color: black;
-  color: white;
+  background-color: rgb(227, 227, 227);
+  color: black;
+  /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); */
+  /* box-shadow: 0px 1.5px 0px rgba(0, 0, 0, 0.2); */
 }
 
 table.responsiveTable thead tr th {
   text-align: left;
   font-weight: 600;
   text-transform: capitalize;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding: 0.75rem;
 }
 
 @media screen and (min-width: 641px) {
@@ -51,11 +53,10 @@ table.responsiveTable thead tr th {
     padding-top: 1em;
     padding-bottom: 1em;
   }
-}
 
-@media screen and (max-width: 40em) {
-  .responsiveTable td {
-    word-break: break-word;
+  table.responsiveTable td {
+    padding: 0.5rem 10px;
+    border-bottom: 1px solid rgb(226, 226, 226);
   }
 }
 
@@ -91,22 +92,24 @@ button.primary {
   padding: 0.25em 0.5em;
 }
 
-button.delete {
-  background-color: #E63C3C;
-  color: white;
-}
-
 span.delete {
   color: #E63C3C;
-  text-decoration: underline;
   cursor: pointer;
-  margin-right: 2em;
+  margin-left: 1.3rem;
 }
 
 span.edit {
-  color: #1AC4EB;
-  text-decoration: underline;
+  color: white;
+  font-weight: 600;
   cursor: pointer;
+  background-color: #1976d2;
+  outline: 1px solid #1976d2;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.3rem;
+}
+
+span.edit:hover {
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 span.sting {
