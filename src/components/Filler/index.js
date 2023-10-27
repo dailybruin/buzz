@@ -8,11 +8,14 @@ export class Filler extends React.PureComponent {
     super(props);
     this.state = {
       paragraphCount: 3,
+      paragraphText: "3",
       wordcount: 500,
+      wordText: "500",
       copied: false
     };
     this.textareaRef = React.createRef();
     this.updateWordcount =  this.updateWordcount.bind(this);
+    this.updateParagraphcount = this.updateParagraphcount.bind(this);
   }
 
   generateText() {
@@ -44,7 +47,23 @@ export class Filler extends React.PureComponent {
   }
 
   updateWordcount(wordcount) {
-    this.setState({ wordcount: wordcount > 99 ? parseInt(wordcount) : 500, copied: true }, () => {
+    this.setState({
+      wordText: wordcount && /^\d+$/.test(wordcount) && wordcount.charAt(0) !== "0" ? wordcount : "",
+      wordcount: wordcount && /^\d+$/.test(wordcount) && wordcount >= 0 ? parseInt(wordcount) : 0, // check for integer values >= 0
+      copied: true
+    }, () => {
+      this.textareaRef.current.select();
+      document.execCommand("copy");
+      this.textareaRef.current.focus();
+    })
+  }
+
+  updateParagraphcount(paragraphCount) {
+    this.setState({
+      paragraphText: paragraphCount && /^\d+$/.test(paragraphCount) && paragraphCount.charAt(0) !== "0" ? paragraphCount : "",
+      paragraphCount: paragraphCount && /^\d+$/.test(paragraphCount) && paragraphCount >= 1 ? parseInt(paragraphCount) : 1, // check for integer values >= 1
+      copied: true
+    }, () => {
       this.textareaRef.current.select();
       document.execCommand("copy");
       this.textareaRef.current.focus();
@@ -59,17 +78,13 @@ export class Filler extends React.PureComponent {
         <div className="flex-item">
           <div>
           <label htmlFor="wordcount">Word count:</label>
-          <input onChange={e => this.updateWordcount(e.target.value)} value={this.state.wordcount} step="100" type="number" name="wordcount" min="0" />
+          <input onChange={e => this.updateWordcount(e.target.value)} value={this.state.wordText} step="100" type="number" name="wordcount" min="0" />
             <span className="semibold pointer" onClick={() => this.updateWordcount(Math.ceil((this.state.wordcount + 99) / 100) * 100)}>&#8593;</span>
             <span className="semibold pointer" onClick={() => this.updateWordcount(Math.round((this.state.wordcount - 99) / 100) * 100)}>&#8595;</span>
           </div>
           <div>
           <label htmlFor="paragraphs">Paragraphs:</label>
-            <input onChange={e => this.setState({ paragraphCount: parseInt(e.target.value), copied: true }, () => {
-              this.textareaRef.current.select();
-              document.execCommand("copy");
-              this.textareaRef.current.focus();
-            })} value={this.state.paragraphCount} type="number" name="paragraphs" min="1" />
+            <input onChange={e => this.updateParagraphcount(e.target.value)} value={this.state.paragraphText} type="number" name="paragraphs" min="1" />
         </div>
         {this.state.copied && <Copied />}
         </div>
