@@ -11,8 +11,3 @@ table.responsiveTable > thead {
     background-color: #ffdd36;
     color: black;
 }
-
-nav > a.active {
-    background-color: #ffdd36;
-    color: black;
-}
