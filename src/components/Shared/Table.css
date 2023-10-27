@@ -7,7 +7,12 @@ table.responsiveTable td {
     word-wrap: break-word !important;
 }
 
-table.responsiveTable thead {
+table.responsiveTable > thead {
+    background-color: #ffdd36;
+    color: black;
+}
+
+nav > a.active {
     background-color: #ffdd36;
     color: black;
 }
