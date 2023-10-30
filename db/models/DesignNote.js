@@ -15,6 +15,7 @@ const designNoteSchema = mongoose.Schema({
   // ranges so
   wordCount: { type: String, default: "" },
   status: { type: String, default: "" },
+  link: { type: String, default: "" },
   referText: { type: String, default: "" },
 }, { timestamps: true, strict: false });
 
