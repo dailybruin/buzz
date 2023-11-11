@@ -20,8 +20,15 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
         return (
           <Tr key={index}>
             {columns.map(property => {
+              const value = item[property];
+              try {
+                if (property === "link" && value && new URL(value).hostname === "dailybruin.com") {
+                  return (<Td key={`${property}-${value}`}><a href={value} target="_blank">{value}</a></Td>)
+                }
+              }
+              catch { }
               return (
-                <Td key={`${property}-${item[property]}`}>{item[property] ? item[property] : '\u00A0'}</Td>
+                <Td key={`${property}-${value}`}>{value ? value : '\u00A0'}</Td>
               )
             })}
             {(deleteFunction || editFunction || sting)
