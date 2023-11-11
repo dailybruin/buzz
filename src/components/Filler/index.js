@@ -47,6 +47,7 @@ export class Filler extends React.PureComponent {
   }
 
   updateWordcount(wordcount) {
+    wordcount = wordcount?.toString();
     this.setState({
       wordText: wordcount && /^\d+$/.test(wordcount) && wordcount.charAt(0) !== "0" ? wordcount : "",
       wordcount: wordcount && /^\d+$/.test(wordcount) && wordcount >= 0 ? parseInt(wordcount) : 0, // check for integer values >= 0
