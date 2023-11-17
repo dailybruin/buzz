@@ -6,4 +6,8 @@ table.responsiveTable {
 table.responsiveTable td {
     word-wrap: break-word !important;
 }
-    
+
+table.responsiveTable > thead {
+    background-color: #ffdd36;
+    color: black;
+}

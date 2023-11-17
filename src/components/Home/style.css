@@ -24,8 +24,8 @@ nav a {
 }
 
 nav a.active {
-  background-color: black;
-  color: white;
+  background-color: #ffdd36;
+  color: black;
 }
 
 @media screen and (max-width: 640px) {
