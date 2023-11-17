@@ -6,6 +6,10 @@ import { Modulars } from './Modulars';
 import { InstagramStories } from './InstagramStories';
 import { Schedule } from './Schedules';
 import config from '../../config';
+import { Calendar, TimePicker, Button } from "antd";
+import moment from "moment";
+import { setAppElement } from 'react-modal';
+
 
 const dateMatcher = /(\d{4})\-(\d{1,2})\-(\d{1,2})/;
 
@@ -22,10 +26,12 @@ class Home extends React.Component {
     this.state = {
       loading: true,
       date: null,
-      dateString: null
+      dateString: null,
+      selectedDate: null,
     };
     this.parseParams = this.parseParams.bind(this);
     this.navigateDate = this.navigateDate.bind(this);
+    this.handleCalendarChange = this.handleCalendarChange.bind(this);
   }
 
   parseParams() {
@@ -52,14 +58,42 @@ class Home extends React.Component {
   }
 
   navigateDate(amount) {
-    const next = new Date(this.state.date);
+    const next = new Date(this.state.selectedDate);
     next.setDate(next.getDate() + amount);
     const year = next.getFullYear();
     const month = next.getMonth() + 1;
     const day = next.getDate();
+    this.setState({selectedDate: next});
     if (window) {
       window.location = `/?date=${year}-${month}-${day}`;
     }
+  }
+
+  handleCalendarChange(selectedDate) {
+
+    const next = new Date(selectedDate);
+    console.log({next}, {selectedDate})
+    // next instead of selectedDate
+    const amount = Math.floor((next - this.state.date) / (1000 * 60 * 60 * 24));
+    // this.navigateDate(amount);
+
+    console.log(amount);
+    next.setDate(next.getDate() + amount);
+    // this.state.date = next;
+    this.setState({selectedDate: next}, () => {
+        const year = selectedDate.year();
+        const month = selectedDate.month() + 1;
+        const day = selectedDate.date();
+    
+        if (window) {
+          window.location = `/?date=${year}-${month}-${day}`;
+        }
+      
+    });
+
+    console.log(this.state.selectedDate, 'this.state.selecteddate', )
+
+
   }
 
   render() {
@@ -67,9 +101,15 @@ class Home extends React.Component {
       return null;
     }
 
+    console.log(this.state.selectedDate, 'redner() this.state.selectedDate')
+    
     return (
       <>
-        <h1 className="notbold">Production for: <span className="semibold pointer" onClick={() => this.navigateDate(-1)}>&#8592;</span><span className="semibold">{formatDate(this.state.date)}</span><span className="semibold pointer" onClick={() => this.navigateDate(1)}>&#8594;</span></h1>
+        <Calendar
+          value={this.state.selectedDate ? moment(this.state.selectedDate) : undefined}
+          fullscreen={false}
+          onChange={this.handleCalendarChange}
+        />
         <Schedule section="design" />
         <h2>Design Notes</h2>
         <DesignNotes date={this.state.dateString} />
