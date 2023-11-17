@@ -76,7 +76,7 @@ class Home extends React.Component {
         <h2>Instagram Stories</h2>
         <InstagramStories date={this.state.dateString}  />
         <h2>Audits</h2>
-        <a target="_blank" rel="noopener noreferrer" href={config.auditSheet}>Click here (new tab)</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/spreadsheets/d/1pg1fk2PGo11Vjddbm3YYCHjiTYIkCXH0Y4nTYPIwK0E/edit#gid=1278101952">Click here (new tab)</a>
         <h2>Opinion Modulars</h2>
         <Modulars date={this.state.dateString}  />
       </>
