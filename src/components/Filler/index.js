@@ -54,8 +54,22 @@ export class Filler extends React.PureComponent {
 
     // more words should be added
     if (words.length < wordCount) {
-      const tail = lorem.generateWords(wordCount - words.length);
-      text = text.slice(0, -1) + " " + tail + ".";
+      const newWords = lorem.generateWords(wordCount - words.length).split(' ');
+      let add = wordCount - words.length;
+      // find the paragraph to start removing from
+      let i = paragraphs.length - 1;
+      while (add > 0) {
+        // slice(0, -1) necessary to remove the full stop at the end
+        paragraphs[i] = paragraphs[i].slice(0, -1) + " " + newWords.pop() + ".";
+        add -= 1;
+
+        // loop to an earlier paragraph for next rounds of addition
+        i -= 1;
+        if (i < 0) {
+          i = paragraphs.length - 1;
+        }
+      }
+      text = paragraphs.join('\n');
     } else if (words.length > wordCount) {
       // words should be removed
 
@@ -85,7 +99,7 @@ export class Filler extends React.PureComponent {
         }
 
         // loop to an earlier paragraph for next rounds of removal
-        i -= 1
+        i -= 1;
         if (i < 0) {
           i = paragraphs.length - 1;
         }
