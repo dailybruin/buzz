@@ -8,87 +8,160 @@ export class Filler extends React.PureComponent {
     super(props);
     this.state = {
       paragraphCount: 3,
-      paragraphText: "3",
-      wordcount: 500,
-      wordText: "500",
+      wordCount: 500,
+      text: "",
+      error: "",
       copied: false
     };
     this.textareaRef = React.createRef();
-    this.updateWordcount =  this.updateWordcount.bind(this);
-    this.updateParagraphcount = this.updateParagraphcount.bind(this);
+    this.updateCount =  this.updateCount.bind(this);
+    this.updateValues = this.updateValues.bind(this);
+    this.copyText = this.copyText.bind(this);
   }
 
-  generateText() {
-    const wordsPerSentence = this.state.wordcount / this.state.paragraphCount / 4;
+  generateText(wordCount, paragraphCount) {
+    const wordsPerSentence = wordCount / paragraphCount / 4;
+    let lorem;
 
-    const lorem = new LoremIpsum({
-      sentencesPerParagraph: {
-        min: 4,
-        max: 4
-      },
-      wordsPerSentence: {
-        min: Math.floor(wordsPerSentence),
-        max: Math.ceil(wordsPerSentence)
-      },
-    });
-
-    let text = lorem.generateParagraphs(this.state.paragraphCount);
-    let numWords = text.split(" ");
-    const correctedLength = numWords.length + this.state.paragraphCount - 1;
-    if (correctedLength < this.state.wordcount) {
-      const tail = lorem.generateWords(this.state.wordcount - numWords.length);
-      return text + " " + tail;
-    } else if (correctedLength > this.state.wordcount) {
-      const shortenedArray = numWords.slice(0, this.state.wordcount - this.state.paragraphCount + 1);
-      return shortenedArray.join(" ");
+    // check if wordCount is close to paragraphCount
+    if (wordsPerSentence >= 2) {
+      lorem = new LoremIpsum({
+        sentencesPerParagraph: {
+          min: 4,
+          max: 4
+        },
+        wordsPerSentence: {
+          min: Math.floor(wordsPerSentence),
+          max: Math.ceil(wordsPerSentence)
+        },
+      });
     } else {
-      return text;
+      // if wordCount is close to paragraphCount, display fewer sentences per paragraph
+      lorem = new LoremIpsum({
+        sentencesPerParagraph: {
+          min: 1,
+          max: 2
+        },
+        wordsPerSentence: {
+          min: 1,
+          max: Math.ceil(wordCount / paragraphCount / 2)
+        },
+      });
+    }
+    let text = lorem.generateParagraphs(paragraphCount);
+    let words = text.split(/[\s\n]+/);  // split based on both whitespace and newlines
+    let paragraphs = text.split('\n');
+
+    // more words should be added
+    if (words.length < wordCount) {
+      const tail = lorem.generateWords(wordCount - words.length);
+      text = text.slice(0, -1) + " " + tail + ".";
+    } else if (words.length > wordCount) {
+      // words should be removed
+
+      // first, calculate number of words to be removed
+      let remove = words.length - wordCount;
+      // find the paragraph to start removing from
+      let i = paragraphs.length - 1;
+
+      while (remove > 0) {
+        let splitParagraph = paragraphs[i].split(' ')
+        // make sure removing words from current paragraph will not remove the entire paragraph
+        if (splitParagraph.length > 1) {
+          if (splitParagraph.length <= remove) {
+            // always leave at least 1 word per paragraph, to not remove the entire paragraph
+            paragraphs[i] = splitParagraph.slice(0, -splitParagraph.length + 1).join(' ');
+            remove -= splitParagraph.length - 1;
+          } else {
+            // paragraph contains enough words to complete removal of all words necessary
+            paragraphs[i] = splitParagraph.slice(0, -remove).join(' ');
+            remove = 0;
+          }
+        }
+        
+        // make sure last word ends with a full stop
+        if (paragraphs[i].slice(-1) != '.') {
+          paragraphs[i] += '.';
+        }
+
+        // loop to an earlier paragraph for next rounds of removal
+        i -= 1
+        if (i < 0) {
+          i = paragraphs.length - 1;
+        }
+      }
+      text = paragraphs.join('\n');
+    }
+
+    return text;
+  }
+
+  updateCount(count, type) {
+    // check string contains only digits
+    const isNumber = /^\d+$/.test(count);
+    if (isNumber || count.length == 0) {
+      // type determines whether to change wordCount or paragraphCount
+      if (type == "word") {
+        this.setState({wordCount: Number(count)});
+      } else {
+        this.setState({paragraphCount: Number(count)});
+      }
     }
   }
 
-  updateWordcount(wordcount) {
-    this.setState({
-      wordText: wordcount && /^\d+$/.test(wordcount) && wordcount.charAt(0) !== "0" ? wordcount : "",
-      wordcount: wordcount && /^\d+$/.test(wordcount) && wordcount >= 0 ? parseInt(wordcount) : 0, // check for integer values >= 0
-      copied: true
-    }, () => {
-      this.textareaRef.current.select();
-      document.execCommand("copy");
-      this.textareaRef.current.focus();
-    })
+  updateValues() {
+    this.setState({copied: false});
+    // verify wordCount and paragraphCount are valid
+    if (this.state.wordCount < this.state.paragraphCount) {
+      this.setState({error: "Invalid word count. Please input a word count greater than paragraph count."});
+      return;
+    } else if (this.state.wordCount > 5000 || this.state.wordCount < 1) {
+      this.setState({error: "Invalid word count. Please input a word count between 1 and 5000."});
+      return;
+    } else if (this.state.paragraphCount > 100 || this.state.paragraphCount < 1) {
+      this.setState({error: "Invalid paragraph count. Please input a paragraph count between 1 and 100."});
+      return;
+    }
+
+    // clear error message if exists
+    if (this.state.error) this.setState({error: ""});
+
+    // generate text and store in state
+    const text = this.generateText(this.state.wordCount, this.state.paragraphCount);
+    this.setState({text: text});
   }
 
-  updateParagraphcount(paragraphCount) {
-    this.setState({
-      paragraphText: paragraphCount && /^\d+$/.test(paragraphCount) && paragraphCount.charAt(0) !== "0" ? paragraphCount : "",
-      paragraphCount: paragraphCount && /^\d+$/.test(paragraphCount) && paragraphCount >= 1 ? parseInt(paragraphCount) : 1, // check for integer values >= 1
-      copied: true
-    }, () => {
-      this.textareaRef.current.select();
-      document.execCommand("copy");
-      this.textareaRef.current.focus();
-    })
+  copyText() {
+    if (this.state.text) {
+      navigator.clipboard.writeText(this.state.text);
+      this.setState({copied: true});
+    }
   }
 
   render() {
-    const text = this.generateText();
-
     return (
       <div className="flex-row">
         <div className="flex-item">
           <div>
-          <label htmlFor="wordcount">Word count:</label>
-          <input onChange={e => this.updateWordcount(e.target.value)} value={this.state.wordText} step="100" type="number" name="wordcount" min="0" />
-            <span className="semibold pointer" onClick={() => this.updateWordcount(Math.ceil((this.state.wordcount + 99) / 100) * 100)}>&#8593;</span>
-            <span className="semibold pointer" onClick={() => this.updateWordcount(Math.round((this.state.wordcount - 99) / 100) * 100)}>&#8595;</span>
+            <label htmlFor="wordCount">Words: </label>
+            <input onChange={e => this.updateCount(e.target.value, "word")} value={this.state.wordCount} name="wordCount" />
           </div>
           <div>
-          <label htmlFor="paragraphs">Paragraphs:</label>
-            <input onChange={e => this.updateParagraphcount(e.target.value)} value={this.state.paragraphText} type="number" name="paragraphs" min="1" />
+            <label htmlFor="paragraphCount">Paragraphs: </label>
+            <input onChange={e => this.updateCount(e.target.value, "paragraph")} value={this.state.paragraphCount} name="paragraphCount" />
+          </div>
+          <div>
+            <button onClick={e => this.updateValues()}>Submit</button>
+          </div>
+          <div>
+            <p className="error">{this.state.error}</p>
+          </div>
         </div>
-        {this.state.copied && <Copied />}
+        <div className="flex-item">
+          <textarea ref={this.textareaRef} readOnly value={this.state.text} />
+          <button onClick={e => this.copyText()}>Copy</button>
+          <p>{this.state.copied ? "Copied to clipboard!" : ""}</p>
         </div>
-        <div className="flex-item"><textarea ref={this.textareaRef} style={this.textareaRef.current ? {height: this.textareaRef.current.scrollHeight + "px" } : {}} readOnly value={text} /></div>
       </div>
     );
   }
