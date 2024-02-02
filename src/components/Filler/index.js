@@ -94,7 +94,7 @@ export class Filler extends React.PureComponent {
         }
         
         // make sure last word ends with a full stop
-        if (paragraphs[i].slice(-1) != '.') {
+        if (paragraphs[i].slice(-1) !== '.') {
           paragraphs[i] += '.';
         }
 
@@ -113,9 +113,9 @@ export class Filler extends React.PureComponent {
   updateCount(count, type) {
     // check string contains only digits
     const isNumber = /^\d+$/.test(count);
-    if (isNumber || count.length == 0) {
+    if (isNumber || count.length === 0) {
       // type determines whether to change wordCount or paragraphCount
-      if (type == "word") {
+      if (type === "word") {
         this.setState({wordCount: Number(count)});
       } else {
         this.setState({paragraphCount: Number(count)});
