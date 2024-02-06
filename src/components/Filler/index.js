@@ -165,7 +165,7 @@ export class Filler extends React.PureComponent {
             <input onChange={e => this.updateCount(e.target.value, "paragraph")} value={this.state.paragraphCount} name="paragraphCount" />
           </div>
           <div>
-            <button onClick={e => this.updateValues()}>Submit</button>
+            <button onClick={e => this.updateValues()}>Generate</button>
           </div>
           <div>
             <p className="error">{this.state.error}</p>
