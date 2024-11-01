@@ -1,4 +1,6 @@
 # Buzz! 🐝🍯
+A tool where content sections store the stories/other info that go into that days print/paper. Used by Design as a reference point, regularly used by news arts, sports, opinion;
+enterprise, prime quad (occasionally).
 
 ## Getting Started
 
