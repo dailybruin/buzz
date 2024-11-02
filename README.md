@@ -17,6 +17,20 @@ There will be a new Figma and Design doc coming soon!
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white) 
 ![Kubernetes](https://img.shields.io/badge/-Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
 
+## How do I install Buzz?
+To install buzz onto your local machine. 
+1. Clone the Repository
+```
+git clone https://github.com/dailybruin/buzz.git
+```
+2. Go into the /buzz directory
+```
+cd buzz
+```
+3. Install all dependencies
+```
+npm install 
+```
 
 ## Getting Setup
 
