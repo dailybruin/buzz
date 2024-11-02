@@ -1,6 +1,6 @@
 # Buzz! 🐝🍯
 
-Buzz A tool where content sections store the stories/other info that go into that days print/paper. Used by Design as a reference point, regularly used by news arts, sports, opinion;
+Buzz is a tool where content sections store the stories/other info that go into that days print/paper. Used by Design as a reference point, regularly used by news arts, sports, opinion;
 enterprise, prime quad (occasionally). Typically, it is filled out a couple of hours before the paper is designed, a day before it is put on stands. These notes include what art or articles will be used and how the newspaper should be laid out. The Content section fills this out, while Design Editors use it to design and lay out the paper.
 
 ![Buzz Example](./public/Buzz_Ex.png)
