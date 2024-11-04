@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "./Table.css"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import { FaRegCopy } from "react-icons/fa";
 
 export const CreateTable = (data, columns, deleteFunction, editFunction, sting) => (
   <Table>
@@ -23,7 +24,29 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
               const value = item[property];
               try {
                 if (property === "link" && value && new URL(value).hostname === "dailybruin.com") {
-                  return (<Td key={`${property}-${value}`}><a href={value} target="_blank">{value}</a></Td>)
+                  return (
+                    <Td key={`${property}-${value}`}>
+                    <a href={value} target="_blank" rel="noopener noreferrer">
+                      {value}
+                    </a>
+                    {/* Add Copy Button for the link */}
+                    <button 
+                      onClick={() => navigator.clipboard.writeText(value)} 
+                      style={{ marginLeft: '2px', backgroundColor: 'white', color: 'black' }}
+                    >
+                      <FaRegCopy />
+                    </button>
+                  </Td>
+                  )
+                }
+                else if (property === "slug" && value) {
+                  return (
+                  <Td key={`${property}-${value}`}>
+                    {value} 
+                    <button onClick={() => navigator.clipboard.writeText(value)} style={{ marginLeft: '2px',backgroundColor: "white", color: "black" }}>
+                    <FaRegCopy/>
+                    </button>
+                  </Td>)
                 }
               }
               catch { }
