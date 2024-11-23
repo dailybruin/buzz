@@ -1,3 +1,10 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
 body {
   font-family: 'Work Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -11,6 +18,18 @@ h2 {
 
 p {
   font-size: 0.9em;
+}
+
+.app-container {
+  display: flex;
+  overflow: visible;
+  height: 100vh;
+}
+
+.main-content {
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: #f8f8f8;
 }
 
 .react-tabs__tab-list {
