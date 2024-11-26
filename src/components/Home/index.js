@@ -9,12 +9,32 @@ import config from '../../config';
 
 const dateMatcher = /(\d{4})\-(\d{1,2})\-(\d{1,2})/;
 
-const formatDate = dateObject => ((dateObject.getDate() === new Date().getDate() ? "Today, " : dateObject.getDate() === new Date().getDate() + 1 ? "Tomorrow, " : "") + new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "2-digit"
-  }).format(dateObject)
-)
+const formatDate = dateObject => {
+  const now = new Date();
+  const isToday = dateObject.getDate() === now.getDate() && dateObject.getMonth() === now.getMonth() && dateObject.getFullYear() === now.getFullYear();
+  const isTomorrow = dateObject.getDate() === now.getDate() + 1 && dateObject.getMonth() === now.getMonth() && dateObject.getFullYear() === now.getFullYear();
+
+  if (isToday) {
+    return "Today, " + new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit"
+    }).format(dateObject);
+  } else if (isTomorrow) {
+    return "Tomorrow, " + new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit"
+    }).format(dateObject);
+  } else {
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit"
+    }).format(dateObject);
+  }
+};
+
 
 class Home extends React.Component {
   constructor(props) {
