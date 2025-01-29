@@ -17,35 +17,35 @@ export const Nav = () => {
         <span>Buzz</span>
       </div>
       <nav className="nav-list">
-        <NavLink exact to="/" activeClassName="active-link">
+        <NavLink exact to="/" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
           <span className="nav-item">
             <GoHomeFill className="icon active-icon" />
             <GoHome className="icon inactive-icon" />
             Home
           </span>
         </NavLink>
-        <NavLink to="/photo" activeClassName="active-link">
+        <NavLink to="/photo" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
           <span className="nav-item">
             <TbCameraFilled className="icon active-icon" />
             <TbCamera className="icon inactive-icon" />
             Photo
           </span>
         </NavLink>
-        <NavLink to="/staff" activeClassName="active-link">
+        <NavLink to="/staff" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
           <span className="nav-item">
             <FaUser className="icon active-icon" />
             <FaRegUser className="icon inactive-icon" />
             Staff
           </span>
         </NavLink>
-        <NavLink to="/linebreak" activeClassName="active-link">
+        <NavLink to="/linebreak" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
           <span className="nav-item">
             <LuWrapText className="icon active-icon" />
             <BsTextWrap className="icon inactive-icon" />
             Linebreak
           </span>
         </NavLink>
-        <NavLink to="/filler" activeClassName="active-link">
+        <NavLink to="/filler" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
           <span className="nav-item">
             <PiTextAlignLeftFill className="icon active-icon"/>
             <PiTextAlignLeft className="icon inactive-icon" />
