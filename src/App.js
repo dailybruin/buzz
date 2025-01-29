@@ -11,15 +11,17 @@ import { StaffList } from "./components/Staff";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app-container">
       <Nav />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/photo" component={PhotoInitials} />
-        <Route path="/staff" component={StaffList} />
-        <Route path="/linebreak" component={Linebreak} />
-        <Route path="/filler" component={Filler} />
-      </Switch>
+      <main className="main-content">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/photo" component={PhotoInitials} />
+          <Route path="/staff" component={StaffList} />
+          <Route path="/linebreak" component={Linebreak} />
+          <Route path="/filler" component={Filler} />
+        </Switch>
+      </main>
     </div>
   );
 }
