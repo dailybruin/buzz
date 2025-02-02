@@ -1,4 +1,5 @@
 table.responsiveTable {
+    border-collapse: collapse;
     table-layout: fixed !important;
     max-width: 100% !important;
 }
@@ -8,6 +9,18 @@ table.responsiveTable td {
 }
 
 table.responsiveTable > thead {
-    background-color: #ffdd36;
+    background-color: #FFE082;
     color: black;
+}
+
+.tableRows {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.statusCallout {
+    padding: 0.5em 1em;
+    background-color: #FFF4D3;
+    border-radius: 2em;
+    width: fit-content;
 }
