@@ -31,7 +31,7 @@ router.post('/:year-:month-:day', async (req, res) => {
     if (err) {
       handleError(res);
     }
-
+    
     res.json(story);
   })
 });

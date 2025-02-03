@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-
 import "react-tabs/style/react-tabs.css";
+import "../../Shared/Tabs.css";
 import { Modular } from './Modular';
 import config from "../../../config";
 

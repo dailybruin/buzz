@@ -5,9 +5,37 @@ table.responsiveTable {
 
 table.responsiveTable td {
     word-wrap: break-word !important;
+    border-bottom: 1.5px solid lightgrey;
+    padding-left: 10px;
 }
 
 table.responsiveTable > thead {
-    background-color: #ffdd36;
+    background-color: rgb(255, 224, 130);
     color: black;
+}
+
+table.responsiveTable > thead > tr {
+    height: 50px;
+}
+
+table.responsiveTable > thead > tr > th {
+    padding-left: 10px;
+    font-size: 18px;
+}
+
+.delete svg {
+    width: 27px;
+    height: 27px;
+}
+
+.edit svg {
+    width: 27px;
+    height: 27px;
+    margin-right: 15px;
+}
+
+td.deleteTableData.pivoted {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: right;
 }

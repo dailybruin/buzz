@@ -39,3 +39,28 @@ nav a.active {
     bottom: auto !important;
   }
 }
+
+.home-title {
+  font-weight: bold;
+}
+
+.audit-link {
+  border: 3px solid black;
+  width: fit-content;
+  padding: 10px;
+  background-color: rgb(255, 224, 130);
+  border-radius: 7px;
+  margin-bottom: 70px;
+}
+
+.audit-link a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.audit-link svg {
+  width: 15px;
+  height: 15px;
+  padding-right: 10px;
+}
