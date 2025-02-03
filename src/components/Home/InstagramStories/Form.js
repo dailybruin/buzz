@@ -49,11 +49,11 @@ export class StoryForm extends React.Component {
               onSubmit={(values, actions) => {
                 this.submitStory(values).then(({ data, status }) => {
                   console.log(data)
-                  // if (status < 400) {
-                  //   if (window) {
-                  //     window.location.reload();
-                  //   }
-                  // }
+                   if (status < 400) {
+                     if (window) {
+                       window.location.reload();
+                     }
+                   }
                 })
               }}
               render={({ errors, status, touched, isSubmitting }) => (
