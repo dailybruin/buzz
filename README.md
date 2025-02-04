@@ -6,6 +6,7 @@ enterprise, prime quad (occasionally). Typically, it is filled out a couple of h
 ![Buzz Example](./public/Buzz_Ex.png)
 
 There will be a new Figma and Design doc coming soon!
+Figma Link: https://www.figma.com/design/r2RNwGFdQtzBkVkH7v93uS/Buzz?node-id=11-176&p=f
 
 ## Technology Stack
 

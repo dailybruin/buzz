@@ -2,7 +2,7 @@
 import React from 'react';
 // import { Switch, Route } from 'react-router'
 import { Routes, Route } from 'react-router-dom';
-import {Home} from "./components/Home";
+import Home from "./components/Home";
 import {PhotoInitials} from "./components/PhotoInitials";
 import {Nav} from "./components/Shared/Nav";
 import {Linebreak} from "./components/Linebreak";
