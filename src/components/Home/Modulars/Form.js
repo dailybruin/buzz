@@ -82,27 +82,34 @@ const ModularForm = ({ category, date, fields }) => {
 
   return (
     <div>
-      <div onClick={() => this.setState({ open: !this.state.open })} style={{
-            border: "3px solid black",
-            width: "fit-content",
-            padding: "10px",
-            backgroundColor: "rgb(255, 224, 130)",
-            borderRadius: "7px",
-            marginTop: "30px",
-            marginBottom: "20px",
-          }}>
-            <div style={{
-              fontWeight: 600,
-              paddingLeft: "20px",
-              paddingRight: "20px",
-            }}>{this.state.open ? "Close Form" : "+ Add Item"}</div>
-          </div>
-          <AnimateHeight height={this.state.open ? "auto" : 0}>
-            <div style={{
-              border: "1px solid black",
-              padding: "1.5em 1em",
-              marginBottom: "70px",
-            }}>
+      <div 
+        onClick={() => setOpen(!open)}
+        style={{
+          border: "3px solid black",
+          width: "fit-content",
+          padding: "10px",
+          backgroundColor: "rgb(255, 224, 130)",
+          borderRadius: "7px",
+          marginTop: "30px",
+          marginBottom: "20px",
+          cursor: "pointer"
+        }}
+      >
+        <div style={{
+          fontWeight: 600,
+          paddingLeft: "20px",
+          paddingRight: "20px",
+        }}>
+          {open ? "Close Form" : "+ Add Item"} 
+        </div>
+      </div>
+
+      <AnimateHeight height={open ? "auto" : 0}>
+        <div style={{
+          border: "1px solid black",
+          padding: "1.5em 1em",
+          marginBottom: "70px",
+        }}>
           <Formik
             initialValues={fields.reduce((acc, field) => {
               acc[field] = "";
@@ -111,9 +118,7 @@ const ModularForm = ({ category, date, fields }) => {
             onSubmit={(values, { setSubmitting }) => {
               submitModular(values).then(({ status }) => {
                 if (status < 400) {
-                  if (window) {
-                    window.location.reload();
-                  }
+                  window.location.reload();
                 }
               });
             }}

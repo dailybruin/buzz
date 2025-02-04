@@ -78,7 +78,7 @@ const Modular = ({ category, date, fields }) => {
 
   useEffect(() => {
     getModulars(category, date).then((fetchedData) => {
-      setData(fetchedData || []);
+      setData(Array.isArray(fetchedData) ? fetchedData : []);
       setLoading(false);
     });
   }, [category, date]);
@@ -115,7 +115,7 @@ const Modular = ({ category, date, fields }) => {
 
   const indexOfLastItem = currentPage * rowsPerPage;
   const indexOfFirstItem = indexOfLastItem - rowsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = Array.isArray(data) ? data.slice(indexOfFirstItem, indexOfLastItem) : [];
 
   return (
     <>

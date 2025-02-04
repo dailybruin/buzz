@@ -11,7 +11,7 @@
     font-size: 14px;
     text-align: center;
     color: #8a8988;
-    height: 80%;
+    height: 30px !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,4 +23,8 @@
     color:  black !important;
     border-top: 4px solid black !important;
     border-radius: 0 0 0 0;
+}
+
+.react-tabs__tab--focus {
+    border-bottom: 0px !important;
 }

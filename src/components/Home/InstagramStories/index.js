@@ -4,106 +4,83 @@ import config from "../../../config";
 import { getStories, deleteStory } from '../../../services/api';
 import { StoryForm } from './Form';
 
-export class InstagramStories extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      loading: true,
-      properties: config.stories.properties,
-      showModal: false,
-      modalItem: null,
-      currentPage: 1,
-      rowsPerPage: 5,
-    };
-  
-    this.handlePageChange = this.handlePageChange.bind(this); 
-    this.handleRowsPerPageChange = this.handleRowsPerPageChange.bind(this);
-  }
+const InstagramStories = ({ date }) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [modalItem, setModalItem] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const properties = config.stories.properties;
 
-  componentDidMount() {
-    getStories(this.props.date).then(data => this.setState({ data, loading: false }));
+  useEffect(() => {
+    getStories(date).then(fetchedData => {
+      setData(fetchedData);
+      setLoading(false);
+    });
+  }, [date]);
+
+  const closeModal = () => setShowModal(false);
+
+  const receiveItem = (item) => {
+    let modalItemData = config.designNotes.properties.reduce((acc, curr) => ({ ...acc, [curr]: item[curr] }), {});
+    setModalItem(modalItemData);
+    setShowModal(true);
   };
 
-  closeModal() {
-    this.setState({ showModal: false });
-  }
+  const getTotalPages = () => Math.max(1, Math.ceil(data.length / rowsPerPage));
 
-  receiveItem(item) {
-    let modalItem = config.designNotes.properties.reduce((acc, curr) => ({ ...acc, [curr]: item[curr] }), {});
-    this.setState({
-      showModal: true,
-      submitFunc: patchDesignNote(item["_id"]),
-      modalItem
-    });
-  }
-
-  handlePageChange(newPage) {
-    if (newPage >= 1 && newPage <= this.getTotalPages()) {
-      this.setState({ currentPage: newPage });
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= getTotalPages()) {
+      setCurrentPage(newPage);
     }
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(1);
+  };
+
+  if (loading) {
+    return null;
   }
-  
-  handleRowsPerPageChange(event) {
-    const newRowsPerPage = parseInt(event.target.value, 10);
-    this.setState({ rowsPerPage: newRowsPerPage, currentPage: 1 });
-  }
 
-getTotalPages() {
-  return Math.max(1, Math.ceil(this.state.data.length / this.state.rowsPerPage));
-}
-
-  render() {
-    if (this.state.loading) {
-      return null;
-    }
-
-    const { data, properties, currentPage, rowsPerPage } = this.state;
-  
   const indexOfLastItem = currentPage * rowsPerPage;
   const indexOfFirstItem = indexOfLastItem - rowsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = this.getTotalPages();
-  
+  const totalPages = getTotalPages();
+
   return (
     <>
-      {CreateTable(currentItems, properties, deleteStory, this.receiveItem)}
-  
+      {CreateTable(currentItems, properties, deleteStory, receiveItem)}
+
       <div className="pagination-container">
         <div className="pagination-info">
           {`${indexOfFirstItem + 1}-${Math.min(indexOfLastItem, data.length)} of ${data.length}`}
         </div>
-  
+
         <div className="rows-per-page-dropdown">
           <label>Rows per page: </label>
-          <select 
-            value={rowsPerPage} 
-            onChange={this.handleRowsPerPageChange}
-          >
+          <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
             {[5, 10, 20].map(size => (
               <option key={size} value={size}>{size}</option>
             ))}
           </select>
         </div>
-  
+
         <div className="pagination-arrows">
-          <button 
-            onClick={() => this.handlePageChange(currentPage - 1)} 
-            disabled={currentPage === 1}
-          >
+          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
             &lt;
           </button>
           
-          <button 
-            onClick={() => this.handlePageChange(currentPage + 1)} 
-            disabled={currentPage >= totalPages}
-          >
+          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage >= totalPages}>
             &gt;
           </button>
         </div>
       </div>
-        <StoryForm date={this.props.date} properties={properties} />
+      <StoryForm date={date} properties={properties} />
     </>
   );
-}
-}
+};
+
+export default InstagramStories;
