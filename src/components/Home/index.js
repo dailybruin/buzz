@@ -29,7 +29,7 @@ const Home = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
 
-  const history = useHistory();
+  // const history = useHistory();
   const location = useLocation();
 
   // const handleDateChange = (date) => {

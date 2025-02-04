@@ -83,3 +83,5 @@ export const DesignNotesForm = ( {date, section, properties } ) => {
     </div>
   );
 };
+
+// export DesignNotesForm;

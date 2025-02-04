@@ -1,9 +1,7 @@
-// import { hot } from "react-hot-loader/root";
 import React from 'react';
-// import { Switch, Route } from 'react-router'
 import { Routes, Route } from 'react-router-dom';
 import Home from "./components/Home";
-import {PhotoInitials} from "./components/PhotoInitials";
+import PhotoInitials from "./components/PhotoInitials";
 import {Nav} from "./components/Shared/Nav";
 import {Linebreak} from "./components/Linebreak";
 import {Filler} from "./components/Filler";
