@@ -10,10 +10,14 @@ export class Modular extends React.Component {
     super(props);
     this.state = {
       data: [],
-      loading: true
+      loading: true,
+      currentPage: 1,   
+      rowsPerPage: 5,    
     };
     this.receiveItem = this.receiveItem.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleRowsPerPageChange = this.handleRowsPerPageChange.bind(this);
   }
 
   componentDidMount() {
@@ -21,8 +25,8 @@ export class Modular extends React.Component {
       this.setState({
         data: data ? data : [],
         loading: false
-      })
-    })
+      });
+    });
   }
 
   closeModal() {
@@ -38,23 +42,78 @@ export class Modular extends React.Component {
     });
   }
 
+  handlePageChange(newPage) {
+    if (newPage >= 1 && newPage <= this.getTotalPages()) {
+      this.setState({ currentPage: newPage });
+    }
+  }
+  
+  handleRowsPerPageChange(event) {
+    const newRowsPerPage = parseInt(event.target.value, 10);
+    this.setState({ rowsPerPage: newRowsPerPage, currentPage: 1 }); // Reset page
+  }
+
+  getTotalPages() {
+    return Math.max(1, Math.ceil(this.state.data.length / this.state.rowsPerPage));
+  }
+
   render() {
     if (this.state.loading) {
       return null;
     }
+
+    const { data, currentPage, rowsPerPage } = this.state;
+    const totalPages = this.getTotalPages();
+
+    const indexOfLastItem = currentPage * rowsPerPage;
+    const indexOfFirstItem = indexOfLastItem - rowsPerPage;
+    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+    
     return (
       <>
-        {this.state.showModal
-          ? <BuzzModal
+        {this.state.showModal && (
+          <BuzzModal
             submitFunc={this.state.submitFunc}
             closeModal={this.closeModal}
             isOpen={this.state.showModal}
             item={this.state.modalItem}
           />
-          : null}
-        <div style={{maxWidth:"100%"}}>
-          {CreateTable(this.state.data, this.props.fields, deleteModular, this.receiveItem)}
+        )}
+        <div style={{ maxWidth: '100%' }}>
+          {CreateTable(currentItems, this.props.fields, deleteModular, this.receiveItem)}
+
+          <div className="pagination-container">
+            <div className="pagination-info">
+              {`${indexOfFirstItem + 1}-${Math.min(indexOfLastItem, data.length)} of ${data.length}`}
+            </div>
+            <div className="rows-per-page-dropdown">
+              <label>Rows per page: </label>
+              <select value={rowsPerPage} onChange={this.handleRowsPerPageChange}>
+                {[5, 10, 20].map(size => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="pagination-arrows">
+              <button
+                onClick={() => this.handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                &lt;
+              </button>
+
+              <button
+                onClick={() => this.handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                &gt;
+              </button>
+            </div>
+          </div>
         </div>
+
         <ModularForm date={this.props.date} category={this.props.category} fields={this.props.fields} />
       </>
     );
