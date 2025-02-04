@@ -40,10 +40,6 @@ nav a.active {
   }
 }
 
-.home-title {
-  font-weight: bold;
-}
-
 .audit-link {
   border: 3px solid black;
   width: fit-content;
@@ -128,4 +124,58 @@ nav a.active {
 
 .pagination-arrows button:disabled {
   cursor: not-allowed;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.left-column {
+  flex: 1;
+  max-width: 400px;
+}
+
+.date-input-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.right-column {
+  flex: 1;
+  max-width: 300px;
+  margin-right: 40px;
+}
+
+.quick-access-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.quick-access-item {
+  border: 1px solid;
+  padding: 1rem;
+  text-align: left;
+  border-radius: 7px;
+  font-weight: 500;
+  color: #333;
+  font-size: 16px;
+  text-decoration: none;
+  width: 130px;
+}
+
+.quick-access-item:hover {
+  background: #eee;
+}
+
+.icon-item {
+  display: flex;
+  gap: 8px;
+  text-align:left; 
+  align-items:center;
 }

@@ -1,46 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CreateTable } from '../Shared/Table';
 import { getMultimedia } from '../../services/api';
 
-export class PhotoInitials extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      loading: true
+const PhotoInitials = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getMultimedia();
+      const transformedData = res.map(x => ({
+        _id: x._id,
+        name: `${x.firstName} ${x.lastName}`,
+        initials: x.initials || "",
+        position: x.position || "",
+      }));
+      setData(transformedData);
+      setLoading(false);
     };
-    this.transformData = this.transformData.bind(this);
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return null;
   }
 
-  componentDidMount() {
-    getMultimedia().then(res => {
-      const data = this.transformData(res);
-      this.setState({
-        data,
-        loading: false
-      })
-    })
-  }
+  return (
+    <>
+      <h1>Photo Initials</h1>
+      {CreateTable(data, ["initials", "name", "position"])}
+    </>
+  );
+};
 
-  transformData(data) {
-    return data.map(x => ({
-      _id: x._id,
-      name: `${x.firstName} ${x.lastName}`,
-      initials: x.initials || "",
-      position: x.position || "",
-    }))
-  }
-
-  render() {
-    if (this.state.loading) {
-      return null;
-    }
-
-    return (
-      <>
-        <h1>Photo Initials</h1>
-        {CreateTable(this.state.data, ["initials", "name", "position"])}
-      </>
-    );
-  }
-}
+export default PhotoInitials;
