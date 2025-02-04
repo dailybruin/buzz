@@ -25,12 +25,12 @@ p {
   display: flex;
   overflow: visible;
   height: 100vh;
+  background-color: #FFFCF4;
 }
 
 .main-content {
-  padding: 2rem;
+  padding: 70px;
   overflow-y: auto;
-  background-color: #f8f8f8;
 }
 
 .react-tabs__tab-list {

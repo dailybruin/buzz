@@ -30,10 +30,10 @@
   }
 
   .nav-item {
-    display: flex; /* Enables horizontal alignment of icon and text */
-    align-items: center; /* Centers icon and text vertically */
-    gap: 0.1rem; /* Space between the icon and the text */
-    line-height: 1; /* Prevents extra space affecting alignment */
+    display: flex;
+    align-items: center;
+    gap: 0.1rem; 
+    line-height: 1; 
   }
   
   .nav-list {
