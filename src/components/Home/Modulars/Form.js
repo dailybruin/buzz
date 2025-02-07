@@ -104,45 +104,47 @@ const ModularForm = ({ category, date, fields }) => {
         </div>
       </div>
 
-      <AnimateHeight height={open ? "auto" : 0}>
-        <div style={{
-          border: "1px solid black",
-          padding: "1.5em 1em",
-          marginBottom: "70px",
-        }}>
-          <Formik
-            initialValues={fields.reduce((acc, field) => {
-              acc[field] = "";
-              return acc;
-            }, {})}
-            onSubmit={(values, { setSubmitting }) => {
-              submitModular(values).then(({ status }) => {
-                if (status < 400) {
-                  window.location.reload();
-                }
-              });
-            }}
-          >
-            {({ isSubmitting }) => (
-              <FormikForm>
-                {fields.map((field) => (
-                  <div key={field}>
-                    <label htmlFor={field}>{field}:{' '}</label>
-                    <Field 
-                      type="text" 
-                      component="textarea"
-                      name={field}
-                    />
-                    <ErrorMessage name={field} component="div" />
-                  </div>
-                ))}
-                <button className="primary" type="submit" disabled={isSubmitting}>
-                  <span className="semibold">+</span> Create
-                </button>
-              </FormikForm>
-            )}
-          </Formik>
-        </div>
+      <AnimateHeight key={open ? "open" : "closed"} height={open ? "auto" : 0} duration={500}>
+        {open && (
+          <div style={{
+            border: "1px solid black",
+            padding: "1.5em 1em",
+            marginBottom: "70px",
+          }}>
+            <Formik
+              initialValues={fields.reduce((acc, field) => {
+                acc[field] = "";
+                return acc;
+              }, {})}
+              onSubmit={(values, { setSubmitting }) => {
+                submitModular(values).then(({ status }) => {
+                  if (status < 400) {
+                    window.location.reload();
+                  }
+                });
+              }}
+            >
+              {({ isSubmitting }) => (
+                <FormikForm>
+                  {fields.map((field) => (
+                    <div key={field}>
+                      <label htmlFor={field}>{field}:{' '}</label>
+                      <Field 
+                        type="text" 
+                        component="textarea"
+                        name={field}
+                      />
+                      <ErrorMessage name={field} component="div" />
+                    </div>
+                  ))}
+                  <button className="primary" type="submit" disabled={isSubmitting}>
+                    <span className="semibold">+</span> Create
+                  </button>
+                </FormikForm>
+              )}
+            </Formik>
+          </div>
+        )}
       </AnimateHeight>
     </div>
   );

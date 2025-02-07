@@ -1,26 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AnimateHeight from "react-animate-height";
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import { postStory } from '../../../services/api';
-import config from "../../../config";
 
-export class StoryForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-    };
-    this.submitStory = this.submitStory.bind(this);
-  }
+const StoryForm = ({ date, properties }) => {
+  const [open, setOpen] = useState(false);
 
-  submitStory(values) {
-    return postStory(this.props.date, values);
-  }
+  const submitStory = (values) => {
+    return postStory(date, values);
+  };
 
-  render() {
-    return (
-      <div>
-        <div onClick={() => this.setState({ open: !this.state.open })} style={{
+  return (
+    <div>
+      <div
+        onClick={() => setOpen(!open)}
+        style={{
           border: "3px solid black",
           width: "fit-content",
           padding: "10px",
@@ -28,56 +22,47 @@ export class StoryForm extends React.Component {
           borderRadius: "7px",
           marginTop: "30px",
           marginBottom: "20px",
-        }}>
-          <div style={{
-            fontWeight: 600,
-            paddingLeft: "20px",
-            paddingRight: "20px",
-          }}>{this.state.open ? "Close Form" : "+ Add Item"}</div>
+          cursor: "pointer",
+        }}
+      >
+        <div style={{ fontWeight: 600, padding: "0 20px" }}>
+          {open ? "Close Form" : "+ Add Item"}
         </div>
-        <AnimateHeight height={this.state.open ? "auto" : 0}>
-          <div style={{
-            border: "1px solid black",
-            padding: "1.5em 1em",
-            marginBottom: "70px",
-          }}>
+      </div>
+
+      <AnimateHeight key={open ? "open" : "closed"} height={open ? "auto" : 0} duration={500}>
+        {open && (
+          <div style={{ border: "1px solid black", padding: "1.5em 1em", marginBottom: "70px" }}>
             <Formik
-              initialValues={this.props.properties.reduce((acc, curr, index) => {
-                acc[curr] = "";
-                return acc;
-              }, {})}
-              onSubmit={(values, actions) => {
-                this.submitStory(values).then(({ data, status }) => {
-                  console.log(data)
-                   if (status < 400) {
-                     if (window) {
-                       window.location.reload();
-                     }
-                   }
-                })
+              initialValues={properties.reduce((acc, prop) => ({ ...acc, [prop]: "" }), {})}
+              onSubmit={async (values, { setSubmitting }) => {
+                submitStory(values).then(({ status }) => {
+                  if (status < 400) {
+                    window.location.reload();
+                  }
+                });
               }}
-              render={({ errors, status, touched, isSubmitting }) => (
+            >
+              {({ isSubmitting }) => (
                 <FormikForm>
-                  {this.props.properties.map(f => (
-                    <div key={f}>
-                      <label htmlFor={f}>{f}:{' '}</label>
-                      <Field
-                        type="text"
-                        name={f}
-                      />
-                      <ErrorMessage name={f} component="div" />
+                  {properties.map((field) => (
+                    <div key={field}>
+                      <label htmlFor={field}>{field}:{' '}</label>
+                      <Field type="text" name={field} />
+                      <ErrorMessage name={field} component="div" />
                     </div>
                   ))}
-                  {status && status.msg && <div>{status.msg}</div>}
                   <button className="primary" type="submit" disabled={isSubmitting}>
                     <span className="semibold">+</span> Create
                   </button>
                 </FormikForm>
               )}
-            />
+            </Formik>
           </div>
-        </AnimateHeight>
-      </div>
-    )
-  }
-}
+        )}
+      </AnimateHeight>
+    </div>
+  );
+};
+
+export default StoryForm;

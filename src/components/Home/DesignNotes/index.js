@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import { CreateTable } from "../../Shared/Table";
 import { getDesignNotes, deleteDesignNote, patchDesignNote } from '../../../services/api';
-import {DesignNotesForm} from './Form';
+import { DesignNotesForm } from './Form';
 import config from "../../../config";
 import { BuzzModal } from '../../Shared/Modal';
 

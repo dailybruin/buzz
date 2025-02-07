@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CreateTable } from '../../Shared/Table';
 import config from "../../../config";
 import { getStories, deleteStory } from '../../../services/api';
-import { StoryForm } from './Form';
+import StoryForm from './Form';
 
 const InstagramStories = ({ date }) => {
   const [data, setData] = useState([]);
