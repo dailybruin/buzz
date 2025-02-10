@@ -52,12 +52,6 @@ nav a.active {
   max-width: 400px;
 }
 
-.date-input-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
 .right-column {
   flex: 1;
   max-width: 300px;
@@ -92,4 +86,58 @@ nav a.active {
   gap: 8px;
   text-align:left; 
   align-items:center;
+}
+.date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 280px;
+  border: 2px solid #9C9C9C;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.custom-date-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  padding: 5px 0 2px 0;
+  position: relative;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.custom-date-input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.floating-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  background: #fafafa;
+  padding: 0 4px;
+}
+
+.custom-date-input:focus + .floating-label,
+.custom-date-input:not(:placeholder-shown) + .floating-label {
+  top: 0;
+  left: 10px;
+  font-size: 15px;
+  color: #9C9C9C;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 12px;
+  font-size: 10px;
+  cursor: pointer;
 }
