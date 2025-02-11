@@ -78,7 +78,6 @@ git push
 *The first push will require a push upstream 
 ```git push --set-upstream origin <branch_name>```
 
-
 3. Make a Pull Request (PR) on GitHub, usually you will need to visit the exact branch in GitHub and then creating a PR. 
 ![PR Image](./public/PR_instructions.png)
 Hit Create Pull Request. Then await for approval from an administrator.
