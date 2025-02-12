@@ -1,6 +1,6 @@
 // import React from "react";
 // import "./style.css";
-// import { Copied } from "../Shared/Copied";
+import { Copied } from "../Shared/Copied";
 
 // export class Linebreak extends React.PureComponent {
 //   constructor(props) {
@@ -165,7 +165,7 @@ export const Linebreak = () => {
       </div>
 
       <div className="middleutils">
-        <button id="remove-button" className="primary" onClick={format}>Remove Empty Lines</button>
+        <button id="remove-button" className="primary" type="button" onClick={format}>Remove Empty Lines</button>
         {copied && <Copied />}
       </div>
     </div>
