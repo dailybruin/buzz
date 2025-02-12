@@ -75,6 +75,7 @@
 // }
 
 import React, { useState, useRef } from "react";
+import "./style.css";
 
 export const Linebreak = () => {
   const [brackets, setBrackets] = useState(false);
@@ -118,37 +119,54 @@ export const Linebreak = () => {
 
   return (
     <div className="row">
-      <div className="flex-row">
-        <button 
-          className="toggleButton" 
-          onClick={() => setBrackets(!brackets)}
-        >
-          {brackets ? "Remove brackets" : "Don't remove brackets"}
-        </button>
+      <div className="info-box">
+        Linebreak Formatter
       </div>
-      <div className="flex-row">
-        <textarea
-          value={text}
-          onChange={handleChange}
-          className="flex-row-item"
-          placeholder="Place text here"
-        />
-        <div className="linebreak-middleutils flex-row-item">
-          <button className="primary" onClick={format}>
-            Remove empty lines
-          </button>
-          <p>
-            Approximate word count: <span>{wordCount}</span>
-          </p>
-          {copied && <Copied />}
+      <div className="label-container">
+        <div className="Original">Original</div>
+        <div className="Result">Result</div>
+      </div>
+
+      <div className="input-container">
+        <div className="flex-row">
+          <textarea
+            value={text}
+            onChange={handleChange}
+            className="flex-row-item"
+            placeholder="Input text here..."
+          />
         </div>
-        <textarea
-          ref={textInput}
-          value={formattedText}
-          readOnly
-          className="flex-row-item"
-          placeholder="Updated text will appear here"
-        />
+        <div className="flex-row">
+          <textarea
+            ref={textInput}
+            value={formattedText}
+            readOnly
+            className="flex-row-item2"
+            placeholder="Output text will appear here..."
+          />
+        </div>
+      </div>
+
+      <div className="word-count-container">
+        <p className="word-count">Approximate word count: <span>{wordCount}</span></p>
+      </div>
+
+      <div className="flex-row">
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            checked={brackets}
+            onChange={() => setBrackets(!brackets)}
+            id="checkbox-color"
+            className="checkbox-input"
+          />
+          Don't remove brackets
+        </label>
+      </div>
+
+      <div className="middleutils">
+        <button id="remove-button" className="primary" onClick={format}>Remove Empty Lines</button>
+        {copied && <Copied />}
       </div>
     </div>
   );
