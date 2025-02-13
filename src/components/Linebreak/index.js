@@ -94,8 +94,10 @@ export const Linebreak = () => {
     textInput.current.select();
   };
 
-  const format = (e) => {
+  const format = async (e) => {
     e.persist();
+    setCopied(false); // Reset copied state first
+
     let to = text.replace(/\n\n\n/g, "\n");
     to = to.replace(/\n\n/g, "\n");
 
@@ -110,10 +112,16 @@ export const Linebreak = () => {
 
     setFormattedText(to);
     setWordCount(wordCount);
-    setCopied(true);
 
     focus();
-    document.execCommand("copy");
+
+    try {
+      await navigator.clipboard.writeText(to);
+      setCopied(true); // Set copied to true after successful copy
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+    
     e.target.focus();
   };
 
