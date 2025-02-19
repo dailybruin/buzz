@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { LoremIpsum } from "lorem-ipsum";
 import "./style.css";
 import { Copied } from "../Shared/Copied";
 
-export class Filler extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      paragraphCount: 3,
-      wordcount: 500,
-      copied: false
-    };
-    this.textareaRef = React.createRef();
-    this.updateWordcount =  this.updateWordcount.bind(this);
-  }
+export const Filler = () => {
+  const [paragraphCount, setParagraphCount] = useState("3");
+  const [wordCount, setWordCount] = useState("500");
+  const [copied, setCopied] = useState(false);
+  const [shouldCopy, setShouldCopy] = useState(false); // Flag to trigger copying
+  const textareaRef = useRef(null);
 
-  generateText() {
-    const wordsPerSentence = this.state.wordcount / this.state.paragraphCount / 4;
+  function generateText() {
+    const parsedWordCount = !isNaN(parseInt(paragraphCount)) && parseInt(wordCount) > 0 ? parseInt(wordCount) : 0;
+    const parsedParagraphCount = !isNaN(parseInt(paragraphCount)) && parseInt(paragraphCount) > 0 ? parseInt(paragraphCount) : 1;
+    const wordsPerSentence = parsedWordCount / parsedParagraphCount / 4;
 
     const lorem = new LoremIpsum({
       sentencesPerParagraph: {
@@ -29,52 +26,78 @@ export class Filler extends React.PureComponent {
       },
     });
 
-    let text = lorem.generateParagraphs(this.state.paragraphCount);
+    let text = lorem.generateParagraphs(parsedParagraphCount);
     let numWords = text.split(" ");
-    const correctedLength = numWords.length + this.state.paragraphCount - 1;
-    if (correctedLength < this.state.wordcount) {
-      const tail = lorem.generateWords(this.state.wordcount - numWords.length);
+    const correctedLength = numWords.length + parsedParagraphCount - 1;
+    if (correctedLength < parsedWordCount) {
+      const tail = lorem.generateWords(parsedWordCount - numWords.length);
       return text + " " + tail;
-    } else if (correctedLength > this.state.wordcount) {
-      const shortenedArray = numWords.slice(0, this.state.wordcount - this.state.paragraphCount + 1);
+    } else if (correctedLength > parsedWordCount) {
+      const shortenedArray = numWords.slice(0, parsedWordCount - parsedParagraphCount + 1);
       return shortenedArray.join(" ");
     } else {
       return text;
     }
   }
 
-  updateWordcount(wordcount) {
-    this.setState({ wordcount: wordcount > 99 ? parseInt(wordcount) : 500, copied: true }, () => {
-      this.textareaRef.current.select();
-      document.execCommand("copy");
-      this.textareaRef.current.focus();
-    })
-  }
+  const handleWordCountChange = (e) => {
+    setWordCount(e.target.value);
+    setCopied(false);
+  };
 
-  render() {
-    const text = this.generateText();
+  const handleParagraphCountChange = (e) => {
+    setParagraphCount(e.target.value);
+    setCopied(false);
+  };
 
-    return (
-      <div className="flex-row">
-        <div className="flex-item">
-          <div>
+  useEffect(() => {
+    if (shouldCopy && textareaRef.current) {
+      navigator.clipboard.writeText(textareaRef.current.value)
+        .then(() => setCopied(true))
+        .catch(() => console.error("Failed to copy text"));
+
+      setCopied(!copied);
+      setShouldCopy(false); // Reset flag after copying
+    }
+  }, [shouldCopy]); // Runs only when shouldCopy changes to true
+
+  const text = useMemo(generateText, [wordCount, paragraphCount]);
+
+  return (
+    <div className="flex-row">
+      <div className="flex-item">
+        <div>
           <label htmlFor="wordcount">Word count:</label>
-          <input onChange={e => this.updateWordcount(e.target.value)} value={this.state.wordcount} step="100" type="number" name="wordcount" min="0" />
-            <span className="semibold pointer" onClick={() => this.updateWordcount(Math.ceil((this.state.wordcount + 99) / 100) * 100)}>&#8593;</span>
-            <span className="semibold pointer" onClick={() => this.updateWordcount(Math.round((this.state.wordcount - 99) / 100) * 100)}>&#8595;</span>
-          </div>
-          <div>
+          <input 
+            onChange={handleWordCountChange}
+            value={wordCount}
+            step="100"
+            type="number"
+            name="wordcount"
+            min="0"
+          />
+        </div>
+        <div>
           <label htmlFor="paragraphs">Paragraphs:</label>
-            <input onChange={e => this.setState({ paragraphCount: parseInt(e.target.value), copied: true }, () => {
-              this.textareaRef.current.select();
-              document.execCommand("copy");
-              this.textareaRef.current.focus();
-            })} value={this.state.paragraphCount} type="number" name="paragraphs" min="1" />
+          <input 
+            onChange={handleParagraphCountChange}
+            value={paragraphCount}
+            type="number"
+            name="paragraphs"
+            min="1"
+          />
         </div>
-        {this.state.copied && <Copied />}
-        </div>
-        <div className="flex-item"><textarea ref={this.textareaRef} style={this.textareaRef.current ? {height: this.textareaRef.current.scrollHeight + "px" } : {}} readOnly value={text} /></div>
+        <button onClick={() => setShouldCopy(true)}>Copy</button>
+        {copied && <Copied/>}
       </div>
-    );
-  }
-}
+      <div className="flex-item">
+        <textarea 
+          ref={textareaRef} 
+          style={textareaRef.current ? {height: textareaRef.current.scrollHeight + "px"} : {}} 
+          readOnly 
+          value={text} 
+        />
+      </div>
+    </div>
+  );
+};
