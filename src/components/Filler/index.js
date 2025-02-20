@@ -6,16 +6,14 @@ import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 
 export const Filler = () => {
-  const [paragraphCount, setParagraphCount] = useState("3");
-  const [wordCount, setWordCount] = useState("500");
+  const [paragraphCount, setParagraphCount] = useState(3);
+  const [wordCount, setWordCount] = useState(500);
   const [copied, setCopied] = useState(false); // flag for Copied component animation
   const [shouldCopy, setShouldCopy] = useState(false); // flag for the copy button
   const textareaRef = useRef(null);
 
   function generateText() {
-    const parsedWordCount = !isNaN(parseInt(paragraphCount)) && parseInt(wordCount) > 0 ? parseInt(wordCount) : 0;
-    const parsedParagraphCount = !isNaN(parseInt(paragraphCount)) && parseInt(paragraphCount) > 0 ? parseInt(paragraphCount) : 1;
-    const wordsPerSentence = parsedWordCount / parsedParagraphCount / 4;
+    const wordsPerSentence = wordCount / paragraphCount / 4;
 
     const lorem = new LoremIpsum({
       sentencesPerParagraph: {
@@ -28,17 +26,16 @@ export const Filler = () => {
       },
     });
 
-    let text = lorem.generateParagraphs(parsedParagraphCount);
+    let text = lorem.generateParagraphs(paragraphCount);
     let wordsOfText = text.split(/\s+/); // regex matching spaces (and any repeated)
     let numWords = wordsOfText.length;
 
-    if (numWords < parsedWordCount) {
-      const tail = lorem.generateWords(parsedWordCount - numWords);
+    if (numWords < wordCount) {
+      const tail = lorem.generateWords(wordCount - numWords);
       return text + " " + tail;
     } 
-    else if (numWords > parsedWordCount) {    
-      console.log(`numWords > parsedWordCount\nnumwords:${numWords}`);
-      const shortenedArray = wordsOfText.slice(0, parsedWordCount);
+    else if (numWords > wordCount) {    
+      const shortenedArray = wordsOfText.slice(0, wordCount);
       return shortenedArray.join(" ");
     } 
     else {
@@ -46,16 +43,36 @@ export const Filler = () => {
     }
   }
 
+  const handleWCPCInput = (value, type, max) => {
+    const isWCInput = type === "WC";
+    const isPCInput = type === "PC";
+    let targetVal = isWCInput ? wordCount : paragraphCount;
+    const potentialVal = parseInt(value);
+  
+    if (value === "") {
+      targetVal = 0;
+    } else if (isNaN(potentialVal)) {
+      return;
+    } else {
+      targetVal = potentialVal;
+    }
+  
+    if (targetVal < 0) targetVal = 0;
+    else if (targetVal > max) targetVal = max;
+  
+    if (isWCInput) setWordCount(targetVal);
+    else if (isPCInput) setParagraphCount(targetVal);
+  };
+
   function incOrDecWCPC(action, type) {
     const isIncrease = action === "increase";
     const isDecrease = action === "decrease";
 
-    if (!isIncrease && !isDecrease)
-      return;
+    if (!isIncrease && !isDecrease) return;
 
     const updateValue = (curr, delta, min) => {
-      const newValue = parseInt(curr) + delta;
-      return newValue >= min ? String(newValue) : String(min);
+      const newValue = curr + delta;
+      return newValue >= min ? newValue : min;
     }
 
     const updateAction = {
@@ -63,7 +80,7 @@ export const Filler = () => {
       PC: () => setParagraphCount(updateValue(paragraphCount, (isIncrease ? 1 : -1), 0))
     };
 
-    if (updateAction[type])
+    if (updateAction[type]) 
       updateAction[type]();
   }
 
@@ -93,8 +110,8 @@ export const Filler = () => {
               <FaMinus className="filler-icon"/>
             </button>
             <input 
-              onChange={(e) => setWordCount(e.target.value)}
-              value={wordCount}
+              onChange={(e) => handleWCPCInput(e.target.value, "WC", 100000)}
+              value={String(wordCount)}
               step="50"
               type="number"
               name="wordcount"
@@ -112,8 +129,8 @@ export const Filler = () => {
               <FaMinus className="filler-icon"/>
             </button>
             <input 
-              onChange={(e) => setParagraphCount(e.target.value)}
-              value={paragraphCount}
+              onChange={(e) => handleWCPCInput(e.target.value, "PC", 10000)}
+              value={String(paragraphCount)}
               type="number"
               name="paragraphs"
               min="1"
