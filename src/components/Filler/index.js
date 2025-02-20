@@ -9,7 +9,7 @@ export const Filler = () => {
   const [paragraphCount, setParagraphCount] = useState("3");
   const [wordCount, setWordCount] = useState("500");
   const [copied, setCopied] = useState(false); // flag for Copied component animation
-  const [shouldCopy, setShouldCopy] = useState(false); // flag for 
+  const [shouldCopy, setShouldCopy] = useState(false); // flag for the copy button
   const textareaRef = useRef(null);
 
   function generateText() {
@@ -29,60 +29,49 @@ export const Filler = () => {
     });
 
     let text = lorem.generateParagraphs(parsedParagraphCount);
-    let numWords = text.split(" ");
-    const correctedLength = numWords.length + parsedParagraphCount - 1;
-    if (correctedLength < parsedWordCount) {
-      const tail = lorem.generateWords(parsedWordCount - numWords.length);
+    let wordsOfText = text.split(/\s+/); // regex matching spaces (and any repeated)
+    let numWords = wordsOfText.length;
+
+    if (numWords < parsedWordCount) {
+      const tail = lorem.generateWords(parsedWordCount - numWords);
       return text + " " + tail;
-    } else if (correctedLength > parsedWordCount) {
-      const shortenedArray = numWords.slice(0, parsedWordCount - parsedParagraphCount + 1);
+    } 
+    else if (numWords > parsedWordCount) {    
+      console.log(`numWords > parsedWordCount\nnumwords:${numWords}`);
+      const shortenedArray = wordsOfText.slice(0, parsedWordCount);
       return shortenedArray.join(" ");
-    } else {
+    } 
+    else {
       return text;
     }
   }
 
-  const handleWordCountChange = (e) => {
-    setWordCount(e.target.value);
-  };
+  function incOrDecWCPC(action, type) {
+    const isIncrease = action === "increase";
+    const isDecrease = action === "decrease";
 
-  const handleParagraphCountChange = (e) => {
-    setParagraphCount(e.target.value);
-  };
+    if (!isIncrease && !isDecrease)
+      return;
 
-  const incOrDecWCPC = (action, type) => {
-    if (action === "increase")
-    {
-      if (type === "WC")
-      {
-        const newValue = parseInt(wordCount) + 50;
-        setWordCount(String(newValue));
-      }
-      else if (type === "PC")
-      {
-        const newValue = parseInt(paragraphCount) + 1;
-        setParagraphCount(String(newValue));
-      }
+    const updateValue = (curr, delta, min) => {
+      const newValue = parseInt(curr) + delta;
+      return newValue >= min ? String(newValue) : String(min);
     }
-    else if (action === "decrease")
-    {
-      if (type === "WC" && parseInt(wordCount) > 49)
-      {
-        const newValue = parseInt(wordCount) - 50;
-        setWordCount(String(newValue));
-      }
-      else if (type === "PC" && parseInt(paragraphCount) > 0)
-      {
-        const newValue = parseInt(paragraphCount) - 1;
-        setParagraphCount(String(newValue));
-      }
-    }
+
+    const updateAction = {
+      WC: () => setWordCount(updateValue(wordCount, (isIncrease ? 50 : -50), 0)),
+      PC: () => setParagraphCount(updateValue(paragraphCount, (isIncrease ? 1 : -1), 0))
+    };
+
+    if (updateAction[type])
+      updateAction[type]();
   }
 
   useEffect(() => {
     if (shouldCopy && textareaRef.current) {
       navigator.clipboard.writeText(textareaRef.current.value)
         .then(() => {
+          // kind of busted, but this is so that the Copied animation shows up
           setCopied(false);
           setTimeout(() => setCopied(true), 2);
         })
@@ -104,7 +93,7 @@ export const Filler = () => {
               <FaMinus className="filler-icon"/>
             </button>
             <input 
-              onChange={handleWordCountChange}
+              onChange={(e) => setWordCount(e.target.value)}
               value={wordCount}
               step="50"
               type="number"
@@ -123,7 +112,7 @@ export const Filler = () => {
               <FaMinus className="filler-icon"/>
             </button>
             <input 
-              onChange={handleParagraphCountChange}
+              onChange={(e) => setParagraphCount(e.target.value)}
               value={paragraphCount}
               type="number"
               name="paragraphs"
