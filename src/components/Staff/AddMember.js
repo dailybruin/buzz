@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BuzzModal } from "../Shared/Modal";
 import { postMember } from "../../services/api";
 
@@ -14,47 +14,47 @@ const modalItem = {
   initials: "",
 };
 
-export class AddMember extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal: false
-    };
-    this.closeModal = this.closeModal.bind(this);
-    this.prepareModal = this.prepareModal.bind(this);
-  }
+export const AddMember = () => {
+  const [showModal, setShowModal] = useState(false);
 
-  closeModal() {
-    this.setState({ showModal: false });
-  }
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
-  prepareModal() {
-    this.setState({
-      showModal: true
-    });
-  }
+  const prepareModal = () => {
+    setShowModal(true);
+  };
 
-  render() {
-    return (
-      <>
-        {
-          this.state.showModal
-            ? <BuzzModal
-              submitFunc={postMember}
-              closeModal={this.closeModal}
-              isOpen={this.state.showModal}
-              item={modalItem}
-            />
-            : null
-        }
-        <div style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          padding: "0.5em 2em"
-        }}>
-          <button onClick={this.prepareModal}>+ Add Member</button>
-        </div>
-      </>
-    )
-  }
-}
+  return (
+    <>
+      {showModal && (
+        <BuzzModal
+          submitFunc={postMember}
+          closeModal={closeModal}
+          isOpen={showModal}
+          item={modalItem}
+        />
+      )}
+      <div style={{
+        display: "flex",
+        justifyContent: "flex-start",
+        padding: "2em 0em"
+      }}>
+        <button 
+          style={{
+            background: "#FFE082",
+            border: "0.15em solid black",
+            borderRadius: "0.8em",
+            color: "black",
+            fontWeight: "600",
+            fontSize: "1em",
+            padding: "0.7em 1.4em 0.7em 1.4em"
+          }}
+          onClick={prepareModal}
+          >
+            + Add Member
+          </button>
+      </div>
+    </>
+  );
+};
