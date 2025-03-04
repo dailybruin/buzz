@@ -1,66 +1,60 @@
-import React from "react";
-import { getStaff, deleteMember, stingMember } from "../../services/api";
+import React, { useState, useEffect } from "react";
+import { getStaff, deleteMember, stingMember, postMember } from "../../services/api";
 import { CreateTable } from "../Shared/Table";
 import { AddMember } from "./AddMember";
 
 const StingText = `🐝 Buzzzzz
 
-You’ve been stung to update something on Buzz! Take a look at https://buzz.dailybruin.com.`;
+You've been stung to update something on Buzz! Take a look at https://buzz.dailybruin.com.`;
 
-export class StaffList extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      loading: true
-    };
-    this.transformData = this.transformData.bind(this);
-    this.tagline = this.tagline.bind(this);
-    this.sting = this.sting.bind(this);
-  }
+export const StaffList = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  componentDidMount() {
-    getStaff().then(res => {
-      const data = this.transformData(res);
-      this.setState({
-        data,
-        loading: false
-      })
-    })
-  }
-
-  tagline(someone) {
-    if (someone.twitter && someone.twitter!="") {
-      return `Email ${someone.lastName} at ${someone.slug}@dailybruin.com or tweet @${someone.twitter}.`
+  const tagline = (someone) => {
+    if (someone.twitter && someone.twitter !== "") {
+      return `Email ${someone.lastName} at ${someone.slug}@dailybruin.com or tweet @${someone.twitter}.`;
     }
-    return `Email ${someone.lastName} at ${someone.slug}@dailybruin.com.`
-  }
+    return `Email ${someone.lastName} at ${someone.slug}@dailybruin.com.`;
+  };
 
-  transformData(data) {
-    return data.map(x => ({
+  const transformData = (rawData) => {
+    return rawData.map((x) => ({
       _id: x._id,
       name: `${x.firstName} ${x.lastName}`,
       position: x.position || "",
       twitter: x.twitter || "",
-      tagline: this.tagline(x)
-    }))
-  }
+      tagline: tagline(x)
+    }));
+  };
 
-  sting(someone) {
+  const sting = (someone) => {
     stingMember(someone._id);
+  };
+
+  useEffect(() => {
+    getStaff().then((res) => {
+      const transformedData = transformData(res);
+      setData(transformedData);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return null;
   }
 
-  render() {
-    if (this.state.loading) {
-      return null;
-    }
-
-    return (
-      <>
-        <h1>Staff List</h1>
-        <AddMember />
-        {CreateTable(this.state.data, ["name", "position", "twitter", "tagline"], deleteMember, undefined, stingMember(StingText))}
-      </>
-    )
-  }
-}
+  return (
+    <>
+      <h1>Staff List</h1>
+      <AddMember />
+      {CreateTable(
+        data,
+        ["name", "position", "twitter", "tagline"],
+        deleteMember,
+        undefined,
+        () => stingMember(StingText)
+      )}
+    </>
+  );
+};
