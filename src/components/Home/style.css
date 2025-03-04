@@ -66,11 +66,11 @@ nav a.active {
   justify-content: flex-end;
   align-items: center;
   margin-top: 16px;
+  gap: 20px;
 }
 
 /* Rows Per Page Dropdown */
 .rows-per-page-dropdown {
-  order: -1; /* Moves this to appear before pagination-info */
   margin-right: 16px;
   align-items: center; /* Vertically center label and select */
   gap: 5px; /* Add space between label and dropdown */
@@ -81,7 +81,7 @@ nav a.active {
   margin-right: 10px;
   font-family: "Work Sans", sans-serif;
   font-size: 16px;
-  color: #9C9C9C;
+  color: black;
 }
 
 .rows-per-page-dropdown label {
@@ -98,7 +98,7 @@ nav a.active {
   cursor: pointer;
   font-family: "Work Sans", sans-serif;
   font-size: 16px;
-  color: #9C9C9C;
+  color: black;
 }
 
 .rows-per-page-dropdown select:focus {
@@ -109,22 +109,23 @@ nav a.active {
 .pagination-arrows {
   background: none;
   display: flex;
-  gap: 5px;
+  gap: 15px;
   color: #9C9C9C;
   border: none;
   font-family: "Work Sans", sans-serif;
-
+  appearance: none;
 }
 
-.pagination-arrows button {
+.pagination-arrows div {
   cursor: pointer;
   font-size: 16px;
   padding: 0;
+  font-weight: bold;
 }
 
-.pagination-arrows button:disabled {
+/* .pagination-arrows button:disabled {
   cursor: not-allowed;
-}
+} */
 
 .top-row {
   display: flex;
