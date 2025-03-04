@@ -55,10 +55,6 @@ const InstagramStories = ({ date }) => {
       {CreateTable(currentItems, properties, deleteStory, receiveItem)}
 
       <div className="pagination-container">
-        <div className="pagination-info">
-          {`${indexOfFirstItem + 1}-${Math.min(indexOfLastItem, data.length)} of ${data.length}`}
-        </div>
-
         <div className="rows-per-page-dropdown">
           <label>Rows per page: </label>
           <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
@@ -66,16 +62,19 @@ const InstagramStories = ({ date }) => {
               <option key={size} value={size}>{size}</option>
             ))}
           </select>
+          <span>▾</span>
         </div>
-
+        <div className="pagination-info">
+          {`${indexOfFirstItem + 1}-${Math.min(indexOfLastItem, data.length)} of ${data.length}`}
+        </div>
         <div className="pagination-arrows">
-          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+          <div onClick={() => handlePageChange(currentPage - 1)}>
             &lt;
-          </button>
+          </div>
           
-          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage >= totalPages}>
+          <div onClick={() => handlePageChange(currentPage + 1)}>
             &gt;
-          </button>
+          </div>
         </div>
       </div>
       <StoryForm date={date} properties={properties} />

@@ -126,9 +126,6 @@ const Modular = ({ category, date, fields }) => {
         {CreateTable(currentItems, fields, deleteModular, receiveItem)}
 
         <div className="pagination-container">
-          <div className="pagination-info">
-            {`${indexOfFirstItem + 1}-${Math.min(indexOfLastItem, data.length)} of ${data.length}`}
-          </div>
           <div className="rows-per-page-dropdown">
             <label>Rows per page: </label>
             <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
@@ -138,14 +135,18 @@ const Modular = ({ category, date, fields }) => {
                 </option>
               ))}
             </select>
+            <span>▾</span> 
+          </div>
+          <div className="pagination-info">
+            {`${indexOfFirstItem + 1}-${Math.min(indexOfLastItem, data.length)} of ${data.length}`}
           </div>
           <div className="pagination-arrows">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            <div onClick={() => handlePageChange(currentPage - 1)}>
               &lt;
-            </button>
-            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === getTotalPages()}>
+            </div>
+            <div onClick={() => handlePageChange(currentPage + 1)}>
               &gt;
-            </button>
+            </div>
           </div>
         </div>
       </div>
