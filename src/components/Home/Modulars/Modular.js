@@ -73,10 +73,12 @@ const Modular = ({ category, date, fields }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalItem, setModalItem] = useState(null);
   const [submitFunc, setSubmitFunc] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     getModulars(category, date).then((fetchedData) => {
-      setData(fetchedData || []);
+      setData(Array.isArray(fetchedData) ? fetchedData : []);
       setLoading(false);
     });
   }, [category, date]);
@@ -88,26 +90,65 @@ const Modular = ({ category, date, fields }) => {
   const receiveItem = (item) => {
     const modalItem = config.modulars[category].reduce((acc, curr) => ({ ...acc, [curr]: item[curr] }), {});
     setModalItem(modalItem);
-    setSubmitFunc(() => patchModular(item["_id"])); // Set the submit function for modal
+    setSubmitFunc(() => patchModular(item['_id'])); // Set the submit function for modal
     setShowModal(true);
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= getTotalPages()) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(1); // Reset to first page
+  };
+
+  const getTotalPages = () => {
+    return Math.max(1, Math.ceil(data.length / rowsPerPage));
   };
 
   if (loading) {
     return null;
   }
 
+  const indexOfLastItem = currentPage * rowsPerPage;
+  const indexOfFirstItem = indexOfLastItem - rowsPerPage;
+  const currentItems = Array.isArray(data) ? data.slice(indexOfFirstItem, indexOfLastItem) : [];
+
   return (
     <>
       {showModal && (
-        <BuzzModal
-          submitFunc={submitFunc}
-          closeModal={closeModal}
-          isOpen={showModal}
-          item={modalItem}
-        />
+        <BuzzModal submitFunc={submitFunc} closeModal={closeModal} isOpen={showModal} item={modalItem} />
       )}
-      <div style={{ maxWidth: "100%" }}>
-        {CreateTable(data, fields, deleteModular, receiveItem)}
+      <div style={{ maxWidth: '100%' }}>
+        {CreateTable(currentItems, fields, deleteModular, receiveItem)}
+
+        <div className="pagination-container">
+          <div className="rows-per-page-dropdown">
+            <label>Rows per page: </label>
+            <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
+              {[5, 10, 20].map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+            <span>▾</span> 
+          </div>
+          <div className="pagination-info">
+            {`${indexOfFirstItem + 1}-${Math.min(indexOfLastItem, data.length)} of ${data.length}`}
+          </div>
+          <div className="pagination-arrows">
+            <div onClick={() => handlePageChange(currentPage - 1)}>
+              &lt;
+            </div>
+            <div onClick={() => handlePageChange(currentPage + 1)}>
+              &gt;
+            </div>
+          </div>
+        </div>
       </div>
       <ModularForm date={date} category={category} fields={fields} />
     </>

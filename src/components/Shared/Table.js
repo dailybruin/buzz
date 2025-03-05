@@ -14,7 +14,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
         {columns.map(x =>  <Th key={x}>{x}</Th>)}
         {(deleteFunction || editFunction)
           ? (
-            <Th key="actions">actions</Th>
+            <Th key="actions"></Th>
           )
           : null}
       </Tr>

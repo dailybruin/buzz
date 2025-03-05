@@ -35,6 +35,8 @@ export const getStories = date => (get(`${API_URL}/story/${date}`).then(res => r
 
 export const postStory = (date, data) => (axios.post(`${API_URL}/story/${date}`, data).then(res => ({ data: res.data, status: res.status })));
 
+export const deleteStory = id => (fn_delete(`${API_URL}/story/${id}`).then(res => res.data));
+
 export const getStaff = () => (get(`${API_URL}/staff`).then(res => res.data));
 
 export const getMultimedia = () => (get(`${API_URL}/staff/multimedia`).then(res => res.data));

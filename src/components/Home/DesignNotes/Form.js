@@ -16,10 +16,30 @@ export const DesignNotesForm = ( {date, section, properties } ) => {
 
   return (
     <div>
-      <div onClick={() => setOpen(!open)}>
-        <p><u>{open ? "Close Form" : "Open Form"}</u></p>
+      <div 
+        onClick={() => setOpen(!open)}
+        style={{
+          border: "3px solid black",
+          width: "fit-content",
+          padding: "10px",
+          backgroundColor: "rgb(255, 224, 130)",
+          borderRadius: "7px",
+          marginTop: "30px",
+          marginBottom: "20px",
+          cursor: "pointer"
+        }}
+      >
+        <div style={{
+          fontWeight: 600,
+          paddingLeft: "20px",
+          paddingRight: "20px",
+        }}>
+          {open ? "Close Form" : "+ Add Item"} 
+        </div>
       </div>
-      <AnimateHeight height={open ? "auto" : 0}>
+
+      <AnimateHeight key={open ? "open" : "closed"} height={open ? "auto" : 0} duration={500}>
+        {open && (
         <div style={{
           border: "1px solid black",
           padding: "1.5em 1em"
@@ -79,6 +99,7 @@ export const DesignNotesForm = ( {date, section, properties } ) => {
             )}
           </Formik>
         </div>
+        )}
       </AnimateHeight>
     </div>
   );

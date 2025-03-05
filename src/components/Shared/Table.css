@@ -6,6 +6,8 @@ table.responsiveTable {
 
 table.responsiveTable td {
     word-wrap: break-word !important;
+    border-bottom: 1.5px solid lightgrey;
+    padding-left: 10px;
 }
 
 table.responsiveTable > thead {

@@ -40,6 +40,86 @@ nav a.active {
   }
 }
 
+.audit-link {
+  border: 3px solid black;
+  width: fit-content;
+  padding: 10px;
+  background-color: rgb(255, 224, 130);
+  border-radius: 7px;
+  margin-bottom: 70px;
+}
+
+.audit-link a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.audit-link svg {
+  width: 15px;
+  height: 15px;
+  padding-right: 10px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 16px;
+  gap: 20px;
+}
+
+.rows-per-page-dropdown {
+  margin-right: 16px;
+  align-items: center;
+  gap: 5px;
+}
+
+.pagination-info {
+  margin-right: 10px;
+  font-family: "Work Sans", sans-serif;
+  font-size: 16px;
+  color: black;
+}
+
+.rows-per-page-dropdown label {
+  border: none;
+  font-size: 16px;
+  font-family: "Work Sans", sans-serif;
+  color: #9C9C9C;
+  white-space: nowrap;
+}
+
+.rows-per-page-dropdown select {
+  border: none;
+  appearance: none;
+  cursor: pointer;
+  font-family: "Work Sans", sans-serif;
+  font-size: 16px;
+  color: black;
+}
+
+.rows-per-page-dropdown select:focus {
+  outline: none;
+}
+
+.pagination-arrows {
+  background: none;
+  display: flex;
+  gap: 15px;
+  color: #9C9C9C;
+  border: none;
+  font-family: "Work Sans", sans-serif;
+  appearance: none;
+}
+
+.pagination-arrows div {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  font-weight: bold;
+}
+
 .top-row {
   display: flex;
   justify-content: space-between;

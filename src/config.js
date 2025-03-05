@@ -2,11 +2,11 @@ const config = {
   SERVER_URL: process.env.NODE_ENV === "production" ? "https://buzz.dailybruin.com" : "http://localhost:3000",
   auditSheet: "https://docs.google.com/spreadsheets/d/1pg1fk2PGo11Vjddbm3YYCHjiTYIkCXH0Y4nTYPIwK0E/edit",
   modulars: {
-    "Public comment": ["name", "position", "comment", "explainer"],
-    "Comments from the web": ["comment", "username", "section", "headline"],
+    "Public Comment": ["name", "position", "comment", "explainer"],
+    "Web Comment": ["comment", "username", "section", "headline"],
     "USAC Comment": ["name", "position", "comment", "explainer"],
     "Twitter": ["name", "handle", "tweet", "explainer"],
-    "OpinionHasOpinions": ["name", "handle", "tweet", "explainer", "question"],
+    "OpinionHas Opinions": ["name", "handle", "tweet", "explainer", "question"],
     "TBT Refer": ["title", "blurb"],
     "TDTY": ["title", "blurb"],
     "Stonewall": ["header", "body"]
