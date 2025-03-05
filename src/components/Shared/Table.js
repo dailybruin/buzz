@@ -26,7 +26,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
             {columns.map(property => {
               const value = item[property];
               try {
-                if (property === "link" && value && new URL(value).hostname === "dailybruin.com") {
+                if (property === "link" && value) {
                   return (
                     <Td key={`${property}-${value}`}>
                     <a href={value} target="_blank" rel="noopener noreferrer">
