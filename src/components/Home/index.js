@@ -10,17 +10,10 @@ import AuditIcon from './icons/Audit.svg';
 import DesignIcon from './icons/Design.svg';
 import InstaIcon from './icons/Instagram.svg';
 import BubbleIcon from './icons/Bubble.svg';
+import CalendarIcon from './icons/Calendar.svg';
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 
-const dateMatcher = /\d{4}-\d{1,2}-\d{1,2}/;
-
-// const formatDate = (dateObject) => ((dateObject.getDate() === new Date().getDate() ? "Today, " : dateObject.getDate() === new Date().getDate() + 1 ? "Tomorrow, " : "") + new Intl.DateTimeFormat("en-US", {
-//     year: "numeric",
-//     month: "short",
-//     day: "2-digit"
-//   }).format(dateObject)
-// )
 
 const Home = () => {
   const[loading, setLoading] = useState(true);
@@ -31,6 +24,7 @@ const Home = () => {
 
   // const history = useHistory();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // const handleDateChange = (date) => {
   //   setSelectedDate(date);
@@ -40,19 +34,22 @@ const Home = () => {
     if (window) {
       const urlParams = new URLSearchParams(window.location.search);
       const dateString = urlParams.get('date');
-      const YMDArr = dateMatcher.exec(dateString);
-      if (YMDArr) {
-        YMDArr.shift();
+
+      if (dateString) {
+        const YMDArr = dateString.split("-");
         const now = new Date();
-        return new Date(YMDArr[0], YMDArr[1] - 1, YMDArr[2], now.getHours(), now.getMinutes(), now.getSeconds())
+        // return new Date(YMDArr[0], YMDArr[1] - 1, YMDArr[2], now.getHours(), now.getMinutes(), now.getSeconds())
+        return new Date(YMDArr[0], YMDArr[1] - 1, YMDArr[2])
       }
     }
-    return null;
+    return new Date();
   };
 
   const navigateDate = (amount) => {
     const date = amount.target.value;
+    console.log("heres teh date", date);
     if (!date) return;
+    setDateString(date);
     const [year,month, day] = date.split('-');
     navigate(`/?date=${year}-${month}-${day}`);
   };
@@ -75,19 +72,16 @@ const Home = () => {
         <div className="top-row">
           <div className="left-column">
             <h2>Production for</h2>
-            <div className="data-input-row">
-              <label htmlFor="production-date">Date</label>
+            <div className="date-input-wrapper">
               <input
                 id="production-date"
                 type="date"
-                value={dateString} 
-                onChange={navigateDate} 
+                value={dateString}
+                onChange={navigateDate}
+                className="custom-date-input"
               />
-              {/* <DatePicker
-                selected={selectedDate}
-                onChange={handleDateChange}
-                dateFormat="MM/dd/yyyy"
-              /> */}
+              <label htmlFor="production-date" className="floating-label">Date</label>
+              <img src={CalendarIcon} alt="CalendarIcon" className="calendar-icon" />
             </div>
           </div>
           <div className="right-column">

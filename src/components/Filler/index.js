@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { LoremIpsum } from "lorem-ipsum";
 import "./style.css";
 import { Copied } from "../Shared/Copied";
+import { FaMinus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 
-export class Filler extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      paragraphCount: 3,
-      wordcount: 500,
-      copied: false
-    };
-    this.textareaRef = React.createRef();
-    this.updateWordcount =  this.updateWordcount.bind(this);
-  }
+export const Filler = () => {
+  const [paragraphCount, setParagraphCount] = useState(3);
+  const [wordCount, setWordCount] = useState(500);
+  const [copied, setCopied] = useState(false); // flag for Copied component animation
+  const [shouldCopy, setShouldCopy] = useState(false); // flag for the copy button
+  const textareaRef = useRef(null);
 
-  generateText() {
-    const wordsPerSentence = this.state.wordcount / this.state.paragraphCount / 4;
+  function generateText() {
+    const wordsPerSentence = wordCount / paragraphCount / 4;
 
     const lorem = new LoremIpsum({
       sentencesPerParagraph: {
@@ -29,52 +26,133 @@ export class Filler extends React.PureComponent {
       },
     });
 
-    let text = lorem.generateParagraphs(this.state.paragraphCount);
-    let numWords = text.split(" ");
-    const correctedLength = numWords.length + this.state.paragraphCount - 1;
-    if (correctedLength < this.state.wordcount) {
-      const tail = lorem.generateWords(this.state.wordcount - numWords.length);
+    let text = lorem.generateParagraphs(paragraphCount);
+    let wordsOfText = text.split(/\s+/); // regex matching spaces (and any repeated)
+    let numWords = wordsOfText.length;
+
+    if (numWords < wordCount) {
+      const tail = lorem.generateWords(wordCount - numWords);
       return text + " " + tail;
-    } else if (correctedLength > this.state.wordcount) {
-      const shortenedArray = numWords.slice(0, this.state.wordcount - this.state.paragraphCount + 1);
+    } 
+    else if (numWords > wordCount) {    
+      const shortenedArray = wordsOfText.slice(0, wordCount);
       return shortenedArray.join(" ");
-    } else {
+    } 
+    else {
       return text;
     }
   }
 
-  updateWordcount(wordcount) {
-    this.setState({ wordcount: wordcount > 99 ? parseInt(wordcount) : 500, copied: true }, () => {
-      this.textareaRef.current.select();
-      document.execCommand("copy");
-      this.textareaRef.current.focus();
-    })
+  const handleWCPCInput = (value, type, max) => {
+    const isWCInput = type === "WC";
+    const isPCInput = type === "PC";
+    let targetVal = isWCInput ? wordCount : paragraphCount;
+    const potentialVal = parseInt(value);
+  
+    if (value === "") {
+      targetVal = 0;
+    } else if (isNaN(potentialVal)) {
+      return;
+    } else {
+      targetVal = potentialVal;
+    }
+  
+    if (targetVal < 0) targetVal = 0;
+    else if (targetVal > max) targetVal = max;
+  
+    if (isWCInput) setWordCount(targetVal);
+    else if (isPCInput) setParagraphCount(targetVal);
+  };
+
+  function incOrDecWCPC(action, type) {
+    const isIncrease = action === "increase";
+    const isDecrease = action === "decrease";
+
+    if (!isIncrease && !isDecrease) return;
+
+    const updateValue = (curr, delta, min) => {
+      const newValue = curr + delta;
+      return newValue >= min ? newValue : min;
+    }
+
+    const updateAction = {
+      WC: () => setWordCount(updateValue(wordCount, (isIncrease ? 50 : -50), 0)),
+      PC: () => setParagraphCount(updateValue(paragraphCount, (isIncrease ? 1 : -1), 0))
+    };
+
+    if (updateAction[type]) 
+      updateAction[type]();
   }
 
-  render() {
-    const text = this.generateText();
+  useEffect(() => {
+    if (shouldCopy && textareaRef.current) {
+      navigator.clipboard.writeText(textareaRef.current.value)
+        .then(() => {
+          // kind of busted, but this is so that the Copied animation shows up
+          setCopied(false);
+          setTimeout(() => setCopied(true), 2);
+        })
+        .catch(() => console.error("Failed to copy text"));
+      setShouldCopy(false);
+    }
+  }, [shouldCopy]);
 
-    return (
-      <div className="flex-row">
-        <div className="flex-item">
-          <div>
-          <label htmlFor="wordcount">Word count:</label>
-          <input onChange={e => this.updateWordcount(e.target.value)} value={this.state.wordcount} step="100" type="number" name="wordcount" min="0" />
-            <span className="semibold pointer" onClick={() => this.updateWordcount(Math.ceil((this.state.wordcount + 99) / 100) * 100)}>&#8593;</span>
-            <span className="semibold pointer" onClick={() => this.updateWordcount(Math.round((this.state.wordcount - 99) / 100) * 100)}>&#8595;</span>
+  const text = useMemo(generateText, [wordCount, paragraphCount]);
+
+  return (
+    <div>
+      <h1>Filler Text Generator</h1>
+      <div className="flex-item">
+        <div className="filler-count">
+          <label htmlFor="wordcount">Word count</label>
+          <div className="filler-number-input">
+            <button onClick={() => incOrDecWCPC("decrease", "WC")} id="filler-button" className="filler-button-minus">
+              <FaMinus className="filler-icon"/>
+            </button>
+            <input 
+              onChange={(e) => handleWCPCInput(e.target.value, "WC", 100000)}
+              value={String(wordCount)}
+              step="50"
+              type="number"
+              name="wordcount"
+              min="0"
+            />
+            <button onClick={() => incOrDecWCPC("increase", "WC")} id="filler-button" className="filler-button-plus">
+              <FaPlus className="filler-icon"/>
+            </button>
           </div>
-          <div>
-          <label htmlFor="paragraphs">Paragraphs:</label>
-            <input onChange={e => this.setState({ paragraphCount: parseInt(e.target.value), copied: true }, () => {
-              this.textareaRef.current.select();
-              document.execCommand("copy");
-              this.textareaRef.current.focus();
-            })} value={this.state.paragraphCount} type="number" name="paragraphs" min="1" />
         </div>
-        {this.state.copied && <Copied />}
+        <div className="filler-count">
+          <label htmlFor="paragraphs">Paragraphs</label>
+          <div className="filler-number-input">
+            <button onClick={() => incOrDecWCPC("decrease", "PC")} id="filler-button" className="filler-button-minus">
+              <FaMinus className="filler-icon"/>
+            </button>
+            <input 
+              onChange={(e) => handleWCPCInput(e.target.value, "PC", 10000)}
+              value={String(paragraphCount)}
+              type="number"
+              name="paragraphs"
+              min="1"
+            />
+            <button onClick={() => incOrDecWCPC("increase", "PC")} id="filler-button" className="filler-button-plus">
+                <FaPlus className="filler-icon"/>
+            </button> 
+          </div>
         </div>
-        <div className="flex-item"><textarea ref={this.textareaRef} style={this.textareaRef.current ? {height: this.textareaRef.current.scrollHeight + "px" } : {}} readOnly value={text} /></div>
       </div>
-    );
-  }
-}
+      <div className="filler-textbox-and-copy">
+        <textarea 
+          ref={textareaRef} 
+          style={{ height: "55vh", width: "60vw" }} 
+          readOnly 
+          value={text} 
+        />
+        <div>
+            <button id="copy" type="button" onClick={() => setShouldCopy(true)}>Copy</button>
+        </div>
+        {copied && <Copied/>}
+      </div>
+    </div>
+  );
+};
