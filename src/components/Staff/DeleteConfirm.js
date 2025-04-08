@@ -47,9 +47,11 @@ export function DeleteConfirm({ memberName, onCancel, onConfirm }) {
               style={{
                 background: "none",
                 border: "none",
+                padding: "0.5rem 1rem",
                 fontSize: "1rem",
                 fontWeight: "bold",
-                cursor: "pointer"
+                cursor: "pointer",
+                color: "#555" 
               }}
             >
               Cancel

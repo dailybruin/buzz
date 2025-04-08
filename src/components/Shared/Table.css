@@ -7,7 +7,28 @@ table.responsiveTable td {
     word-wrap: break-word !important;
 }
 
-table.responsiveTable > thead {
+table.responsiveTable>thead {
     background-color: #ffdd36;
     color: black;
+}
+
+/* Remove default button styling in the table */
+.table-icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: 1.5rem;
+    padding: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+.table-icon-button:last-child {
+    margin-right: 0;
+}
+
+
+.table-actions-cell {
+    display: flex;
+    align-items: center;
 }

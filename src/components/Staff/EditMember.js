@@ -1,8 +1,8 @@
-// src/components/Staff/EditMember.jsx
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { EditMemberForm } from "./EditMemberForm";
-import "../Shared/Modal.css";  // shared modal styles
+import "../Shared/Modal.css"; 
 
 export function EditMember({
   member,
@@ -11,7 +11,7 @@ export function EditMember({
   onCancel,
   onSubmit
 }) {
-  // Render the form into a portal so it appears as a modal
+
   return ReactDOM.createPortal(
     <div className="modal-overlay" onClick={onCancel}>
       <div

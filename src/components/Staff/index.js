@@ -1,152 +1,3 @@
-// import React from "react";
-// import { getStaff, deleteMember, stingMember, patchMember } from "../../services/api";
-// import { CreateTable } from "../Shared/Table";
-// import { AddMember } from "./AddMember";
-// import { DeleteConfirm } from "./DeleteConfirm";
-// import { EditMemberForm } from "./EditMemberForm";
-
-// const StingText = `🐝 Buzzzzz
-
-// You’ve been stung to update something on Buzz! Take a look at https://buzz.dailybruin.com.`;
-
-// export class StaffList extends React.PureComponent {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       data: [],
-//       loading: true,
-//       confirmOpen: false,
-//     confirmMember: null
-//     };
-//     this.transformData = this.transformData.bind(this);
-//     this.tagline = this.tagline.bind(this);
-//     this.sting = this.sting.bind(this);
-//     this.openConfirm   = this.openConfirm.bind(this);
-//  this.closeConfirm  = this.closeConfirm.bind(this);
-//   this.handleDelete  = this.handleDelete.bind(this);
-//   this.handlePatch = this.handlePatch.bind(this);
-//   this.fetchData = this.fetchData.bind(this);
-//   }
-
-//   fetchData() {
-//     getStaff().then(res => {
-//       this.setState({
-//         data: this.transformData(res),
-//         loading: false
-//       });
-//     });
-//   }
-
-//   componentDidMount() {
-//     this.fetchData();
-//   }
-
-//   tagline(someone) {
-//     if (someone.twitter && someone.twitter!="") {
-//       return `Email ${someone.lastName} at ${someone.slug}@dailybruin.com or tweet @${someone.twitter}.`
-//     }
-//     return `Email ${someone.lastName} at ${someone.slug}@dailybruin.com.`
-//   }
-
-//   transformData(data) {
-//     return data.map(x => ({
-//       _id: x._id,
-//       slug:    x.slug,
-//       name: `${x.firstName} ${x.lastName}`,
-//       position: x.position || "",
-//       twitter: x.twitter || "",
-//       tagline: this.tagline(x)
-//     }))
-//   }
-
-//   sting(someone) {
-//     stingMember(someone._id);
-//   }
-
-//   openConfirm(id) {
-//     // find the member object so we can show its name in the modal
-//     const member = this.state.data.find(m => m._id === id);
-//     this.setState({ confirmOpen: true, confirmMember: member });
-//   }
-  
-//   closeConfirm() {
-//     this.setState({ confirmOpen: false, confirmMember: null });
-//   }
-  
-//   handleDelete() {
-//     // only now do we call the API
-//     deleteMember(this.state.confirmMember._id)
-//       .then(() => {
-//         this.closeConfirm();
-//         this.fetchData();
-//       })
-//       .catch(err => {
-//         console.error(err);
-//         alert("Delete failed");
-//         this.closeConfirm();
-//       });
-//   }
-  
-
-//   handlePatch(id, updatedFields) {
-//     // find the slug for this row
-//     const member = this.state.data.find(m => m._id === id);
-//     if (!member) {
-//       return Promise.reject(new Error("Member not found"));
-//     }
-  
-//     // call your curried helper
-//     return patchMember(member.slug)(updatedFields)
-//       .then(({ data, status }) => {
-//         // update local table
-//         this.setState(state => ({
-//           data: state.data.map(m =>
-//             m._id === id
-//               ? this.transformData([data])[0]  // re‑transform the single updated member
-//               : m
-//           )
-//         }));
-//         return { data, status };
-//       });
-//   }
-
-//   render() {
-//     if (this.state.loading) {
-//       return null;
-//     }
-
-//     return (
-//       <>
-//         <h1>Staff List</h1>
-//         {/* {CreateTable(this.state.data, ["name", "position", "twitter", "tagline"], deleteMember, this.handlePatch, undefined)} */}
-//         <CreateTable
-//           data={this.state.data}
-//           columns={["name", "position", "twitter", "tagline"]}
-//           // deleteFunction={id =>
-//           //      deleteMember(id).then(() =>
-//           //        getStaff().then(res =>
-//           //          this.setState({ data: this.transformData(res) })
-//           //        )
-//           //     )
-//           //    }
-//           deleteFunction={this.openConfirm} 
-//           editFunction={this.handlePatch}
-//           stingFunction={undefined}
-//         />
-//         {this.state.confirmOpen && (
-//        <DeleteConfirm
-//           memberName={this.state.confirmMember.name}
-//           onCancel={this.closeConfirm}
-//           onConfirm={this.handleDelete}
-//         />
-//       )}
-//         <AddMember />
-//       </>
-//     )
-//   }
-// }
-
-// src/components/Staff/StaffList.jsx
 import React from "react";
 import {
   getStaff,
@@ -154,7 +5,7 @@ import {
   stingMember,
   patchMember
 } from "../../services/api";
-import { CreateTable } from "../Shared/Table";
+import { CreateStaffTable } from "./StaffTable";
 import { AddMember } from "./AddMember";
 import { DeleteConfirm } from "./DeleteConfirm";
 import { EditMember } from "./EditMember";
@@ -340,7 +191,7 @@ export class StaffList extends React.PureComponent {
           />
         )}
 
-        <CreateTable
+        <CreateStaffTable
           data={data}
           columns={["name", "position", "twitter", "tagline"]}
           deleteFunction={this.openConfirm}
@@ -355,7 +206,6 @@ export class StaffList extends React.PureComponent {
             onConfirm={this.handleDelete}
           />
         )}
-
         <AddMember onMemberAdded={this.fetchData} />
       </>
     );

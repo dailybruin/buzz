@@ -11,17 +11,45 @@
     z-index: 1000;
 }
 
+
 .modal-content {
     position: relative;
-    background: #FFF9E6;
+    background: #f5f1ea;
     padding: 2rem;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     max-width: 700px;
     width: 90%;
     max-height: 90vh;
     overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-title {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.modal-header-icon {
+    background-color: #FCD77F;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #000;
+    cursor: pointer;
 }
 
 .modal-close-button {
@@ -35,22 +63,19 @@
     color: #555;
 }
 
-.modal-title {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    color: #333;
-}
-
 .modal-form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 2rem;
-    row-gap: 1.25rem;
+    row-gap: 1rem;
 }
 
-.modal-form-field {
-    /* spacing for each field */
+
+.modal-checkbox-container {
+    grid-column: 1 / 2;
+    margin-top: 0.5rem;
 }
+
 
 .modal-input {
     width: 100%;
@@ -62,39 +87,24 @@
     background: transparent;
 }
 
+
+.modal-input-readonly {
+    background: #eee;
+    border-bottom: 1px solid #DDD;
+}
+
+
 .modal-error {
     color: red;
     font-size: 0.875rem;
 }
 
-.modal-checkbox-label {
-    display: flex;
-    align-items: center;
-    margin-top: 0.5rem;
-    font-size: 1rem;
-}
-
-.modal-checkbox {
-    margin-right: 0.5rem;
-    width: 1rem;
-    height: 1rem;
-}
-
 .modal-action-buttons {
     display: flex;
     justify-content: flex-end;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
-.modal-cancel-button {
-    padding: 0.75rem 1.5rem;
-    margin-right: 1rem;
-    border: none;
-    background: transparent;
-    font-size: 1rem;
-    cursor: pointer;
-    color: #555;
-}
 
 .modal-submit-button {
     padding: 0.75rem 1.5rem;
@@ -107,16 +117,37 @@
     cursor: pointer;
 }
 
+
+.modal-cancel-button {
+    padding: 0.75rem 1.5rem;
+    margin-right: 1rem;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #555;
+}
+
+.modal-checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.modal-checkbox {
+    margin-right: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+}
+
 .edit-member-card {
-    background: #f5f1ea;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin: 1rem 0;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    margin: 0;
     position: relative;
 }
 
-/* Header container */
 .edit-member-header {
     display: flex;
     justify-content: space-between;
@@ -124,16 +155,31 @@
     margin-bottom: 1.5rem;
 }
 
-/* Title reset */
 .edit-member-header h2 {
     margin: 0;
 }
 
-/* Pencil icon button */
 .edit-member-close {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.25rem;
     color: #555;
+}
+
+.modal-trigger-container {
+    display: flex;
+    justify-content: flex-start;
+    padding: 2em 0.5em;
+}
+
+.modal-trigger-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #FCD77F;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
 }

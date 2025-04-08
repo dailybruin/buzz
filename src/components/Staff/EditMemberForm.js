@@ -1,7 +1,6 @@
-// src/components/Staff/EditMemberForm.jsx
 import React from "react";
-import { FaPencilAlt } from "react-icons/fa";
-import "../Shared/Modal.css";  // or wherever you keep this CSS
+import { FaTimes } from "react-icons/fa";
+import "../Shared/Modal.css";  
 
 export function EditMemberForm({
   member,
@@ -12,7 +11,7 @@ export function EditMemberForm({
 }) {
   return (
     <div className="edit-member-card">
-      {/* Header with title and pencil icon */}
+
       <div className="edit-member-header">
         <h2>Edit Member Info</h2>
         <button
@@ -20,11 +19,12 @@ export function EditMemberForm({
           className="edit-member-close"
           onClick={onCancel}
         >
-          <FaPencilAlt />
+          <FaTimes />
         </button>
       </div>
 
       <form onSubmit={onSubmit}>
+        {/* Two‑column grid */}
         <div className="modal-form-grid">
           <input
             name="firstName"
@@ -40,6 +40,7 @@ export function EditMemberForm({
             onChange={onChange}
             className="modal-input"
           />
+
           <input
             name="initials"
             placeholder="Initials"
@@ -54,6 +55,7 @@ export function EditMemberForm({
             onChange={onChange}
             className="modal-input"
           />
+
           <input
             name="twitter"
             placeholder="Twitter"
@@ -68,19 +70,22 @@ export function EditMemberForm({
             readOnly
             className="modal-input modal-input-readonly"
           />
+
+          <div className="modal-checkbox-container">
+            <label className="modal-checkbox-label">
+              <input
+                type="checkbox"
+                name="multimedia"
+                checked={formValues.multimedia}
+                onChange={onChange}
+                className="modal-checkbox"
+              />
+              Multimedia
+            </label>
+          </div>
         </div>
 
         <div className="modal-action-buttons">
-          <label className="modal-checkbox-label">
-            <input
-              type="checkbox"
-              name="multimedia"
-              checked={formValues.multimedia}
-              onChange={onChange}
-              className="modal-checkbox"
-            />
-            Multimedia
-          </label>
           <button type="submit" className="modal-submit-button">
             Update
           </button>
