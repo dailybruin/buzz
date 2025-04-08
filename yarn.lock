@@ -26,7 +26,7 @@
   resolved "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.16.4.tgz"
   integrity sha512-1o/jo7D+kC9ZjHX5v+EHrdjl3PhxMrLSOTGsOdHJ+KL8HCaEK6ehrVL2RS6oHDZp+L7xLirLrPmQtEng769J/Q==
 
-"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.12.0", "@babel/core@^7.13.0", "@babel/core@^7.4.0-0", "@babel/core@^7.4.4":
+"@babel/core@^7.4.4":
   version "7.16.0"
   resolved "https://registry.npmjs.org/@babel/core/-/core-7.16.0.tgz"
   integrity sha512-mYZEvshBRHGsIAiyH5PzCFTCfbWfoYbO/jcSdXQSUQu1/pW0xDZAUP7KEc32heqWTAfAHhV9j1vH8Sav7l+JNQ==
@@ -945,18 +945,6 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@fortawesome/fontawesome-common-types@6.6.0":
-  version "6.6.0"
-  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.6.0.tgz"
-  integrity sha512-xyX0X9mc0kyz9plIyryrRbl7ngsA9jz77mCZJsUkLl+ZKs0KWObgaEBoSgQiYWAsSmjz/yjl0F++Got0Mdp4Rw==
-
-"@fortawesome/fontawesome-svg-core@~1 || ~6":
-  version "6.6.0"
-  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.6.0.tgz"
-  integrity sha512-KHwPkCk6oRT4HADE7smhfsKudt9N/9lm6EJ5BVg0tD1yPA5hht837fB87F8pn15D8JfTqQOjhKTktwmLMiD7Kg==
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "6.6.0"
-
 "@fortawesome/react-fontawesome@^0.2.2":
   version "0.2.2"
   resolved "https://registry.npmjs.org/@fortawesome/react-fontawesome/-/react-fontawesome-0.2.2.tgz"
@@ -1194,7 +1182,7 @@ ajv-keywords@^3.1.0, ajv-keywords@^3.4.1, ajv-keywords@^3.5.2:
   resolved "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-3.5.2.tgz"
   integrity sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==
 
-ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.4, ajv@^6.9.1, ajv@>=5.0.0:
+ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.4:
   version "6.12.6"
   resolved "https://registry.npmjs.org/ajv/-/ajv-6.12.6.tgz"
   integrity sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
@@ -1481,13 +1469,6 @@ binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
-
-bindings@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz"
-  integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
-  dependencies:
-    file-uri-to-path "1.0.0"
 
 bl@^2.2.1:
   version "2.2.1"
@@ -2735,7 +2716,7 @@ express-session@^1.16.1:
     safe-buffer "5.2.1"
     uid-safe "~2.1.5"
 
-express@^4.0.0, express@^4.16.2, express@^4.16.4:
+express@^4.16.2, express@^4.16.4:
   version "4.17.1"
   resolved "https://registry.npmjs.org/express/-/express-4.17.1.tgz"
   integrity sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==
@@ -3002,19 +2983,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
-
-fsevents@^1.2.7:
-  version "1.2.13"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-1.2.13.tgz"
-  integrity sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==
-  dependencies:
-    bindings "^1.5.0"
-    nan "^2.12.1"
-
-fsevents@~2.3.2:
-  version "2.3.2"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -4237,7 +4205,7 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.npmjs.org/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
-mongoose@*, mongoose@^5.5.10:
+mongoose@^5.5.10:
   version "5.13.13"
   resolved "https://registry.npmjs.org/mongoose/-/mongoose-5.13.13.tgz"
   integrity sha512-M55tpCr/p5i6vdJ54nm4MG6/7SKV4JqlWnqbx6yCRuAuW05CZ7u+gNuHVPQVF9dZ59ALXjOtPEUl+OXklAa7ng==
@@ -4322,11 +4290,6 @@ multicast-dns@^6.0.1:
   dependencies:
     dns-packet "^1.3.1"
     thunky "^1.0.2"
-
-nan@^2.12.1:
-  version "2.17.0"
-  resolved "https://registry.npmjs.org/nan/-/nan-2.17.0.tgz"
-  integrity sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -4937,7 +4900,7 @@ promise@^8.0.3:
   dependencies:
     asap "~2.0.6"
 
-prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1, prop-types@>=15:
+prop-types@^15.5.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5098,7 +5061,7 @@ react-datasheet@^1.3.14:
   resolved "https://registry.npmjs.org/react-datasheet/-/react-datasheet-1.4.9.tgz"
   integrity sha512-/UoIw/bnqeFT205IE+eESm0APLUnSl0ZPqG6mrKszgNB578cm+06GuPg79UxFOiobVeWXtrLwa/yNUQc+OiOfQ==
 
-"react-dom@^0.14.0 || ^15.0.0 || ^16 || ^17", "react-dom@^15.0.0 || ^16.0.0 || ^17.0.0 ", react-dom@^18.3.1, react-dom@>=15.6.2, react-dom@>=16:
+react-dom@^18.3.1:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz"
   integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
@@ -5194,7 +5157,7 @@ react-tabs@^3.0.0:
     clsx "^1.1.0"
     prop-types "^15.5.0"
 
-react@*, "react@^0.14.0 || ^15.0.0 || ^16 || ^17", "react@^0.14.0 || ^15.0.0 || ^16.0.0", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0 ", react@^16.14.0, "react@^16.3.0 || ^17.0.0-0", react@^18.3.1, react@>=15, react@>=15.6.2, react@>=16, react@>=16.3:
+react@^18.3.1:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react/-/react-18.3.1.tgz"
   integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
@@ -6366,7 +6329,7 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-cli@^4.9.1, webpack-cli@4.x.x:
+webpack-cli@^4.9.1:
   version "4.10.0"
   resolved "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.10.0.tgz"
   integrity sha512-NLhDfH/h4O6UOy+0LSso42xvYypClINuMNBVVzX4vX98TmTaTUxwRbXdhucbFMd2qLaCTcLq/PdYrvi8onw90w==
@@ -6465,7 +6428,7 @@ webpack-sources@^1.4.0, webpack-sources@^1.4.1:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-"webpack@^1.0.0 || ^2.0.0 || ^3.0.0 || ^4.0.0", webpack@^4.0.0, "webpack@^4.0.0 || ^5.0.0", webpack@^4.40.0, webpack@>=2, "webpack@4.x.x || 5.x.x":
+webpack@^4.40.0:
   version "4.46.0"
   resolved "https://registry.npmjs.org/webpack/-/webpack-4.46.0.tgz"
   integrity sha512-6jJuJjg8znb/xRItk7bkT0+Q7AHCYjjFnvKIWQPkNIOyRqoCGvkOs0ipeQzrqz4l5FtN5ZI/ukEHroeX/o1/5Q==
