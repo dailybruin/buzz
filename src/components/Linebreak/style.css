@@ -1,28 +1,134 @@
+.checkbox-label {
+  font-size: 1.1em;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;
+  display: flex;
+  align-items: center; 
+  margin-top: -1em;
+}
+
+#checkbox-color {
+  background-color: #FFF4D3;
+}
+
+.checkbox-input {
+  width: 2em; 
+  height: 2em;
+  margin-right: 10px; /* Space between checkbox and label */
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  width: 59%; 
+  margin-bottom: 0.5em;
+}
+
+.word-count-container {
+  align-self: flex-end; 
+  margin-top: 0.1em;
+  margin-right: 17vw; 
+}
+
+.word-count {
+  font-size: 1.1em;
+  font-weight: 400;
+  font-style: italic;
+  font-family: "Work Sans", sans-serif;
+  text-align: right;
+}
+
+.label-container .Original, 
+.label-container .Result {
+  font-size: 1.2em;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 3vw; 
+  border-color: #9c9c9c;
+}
+
 .flex-row {
   display: flex;
-  flex-direction: column;
-  max-width: 75rem;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2em;
+  justify-content: space-between;
+  gap: 4vw; 
 }
 
 .flex-row textarea {
-  height: 20rem;
-  width: 100%;
-  margin: auto;
-  font-size: 1em;
+  flex-grow: 1;
+  width: 30vw; /* Keeps both text areas wide */
+  height: 22.5rem;
+  font-size: 1.2em;
+  font-style: italic;
+  border-radius: 1em;
+  padding: 1em;
 }
 
-.linebreak-middleutils {
+.flex-row-item2 {
+  background-color: #F3f1EA;
+}
+.info-box {
+  font-size: 2.25em;
+  font-weight: 700;
+  font-family: "Work Sans", sans-serif;
+}
+
+.flex-row-item {
+  margin-right: 1em; /* Space between input and output */
+}
+
+.flex-row-item, .flex-row-item2 {
   display: flex;
-  flex-direction: column;
-  padding-left: .9375rem;
-  padding-right: .9375rem;
+  justify-content: left;
 }
 
-@media screen and (min-width: 641px) {
-  .flex-row {
-    flex-direction: row;
+.Original, .Result {
+  font-size: 1.2em;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;
+  margin-top: 2em;
+}
+
+.row > .Original {
+  margin-right: auto;
+}
+
+.row > .Result {
+  margin-left: auto;
+}
+
+.primary {
+  background-color: #FFE082;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+#remove-button {
+  background-color: #FFE082;
+  width: 30vw; 
+  height: 2rem; 
+  background-color: #FFE082; 
+  border-radius: 8px; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  text-align: center;
+  padding: 1.5em 1em; 
+  margin-top: 1em; 
+  border: 3px solid #000000;
+}
+
+@media screen and (max-width: 640px) {
+  .flexcontainer1 {
+    flex-direction: column;
+  }
+
+  .flex-row textarea {
+    width: 100%;
   }
 }

@@ -1,8 +1,11 @@
 import React from "react";
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "./Table.css"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { FaRegCopy } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+
 
 export const CreateTable = (data, columns, deleteFunction, editFunction, sting) => (
   <Table>
@@ -11,7 +14,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
         {columns.map(x =>  <Th key={x}>{x}</Th>)}
         {(deleteFunction || editFunction)
           ? (
-            <Th key="actions">actions</Th>
+            <Th key="actions"></Th>
           )
           : null}
       </Tr>
@@ -30,11 +33,11 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
       })
       .map((item, index) => {
         return (
-          <Tr key={index}>
+          <Tr className="tableRows" key={index}>
             {columns.map(property => {
               const value = item[property];
               try {
-                if (property === "link" && value && new URL(value).hostname === "dailybruin.com") {
+                if (property === "link" && value) {
                   return (
                     <Td key={`${property}-${value}`}>
                     <a href={value} target="_blank" rel="noopener noreferrer">
@@ -62,21 +65,28 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
               }
               catch { }
               return (
-                <Td key={`${property}-${value}`}>{value ? value : '\u00A0'}</Td>
+                <Td key={`${property}-${value}`}>
+                  {/*NOTE: for now, check if value is not null to handle "art in" always blank*/
+                    (value && (property === "artStatus" || property === "status")) ? (
+                      <div className="statusCallout">{value ? value : '\u00A0'}</div>
+                    ) : (
+                      value ? value : '\u00A0'
+                    )}
+                </Td>
               )
             })}
             {(deleteFunction || editFunction || sting)
               ? (<Td className="deleteTableData" key={`delete-${index}`}>
+                {editFunction
+                  ? (<span className="edit" onClick={() => editFunction(item)}><MdEdit size="1.5em"/></span>)
+                  : null}
                 {deleteFunction 
                 ? (<span className="delete" onClick={() => deleteFunction(item["_id"]).then(() => {
                   if (window) {
                     window.location.reload();
                   }
-                })}>Delete</span>)
+                })}><FaTrash size="1.25em"/></span>)
                 : null}
-                {editFunction
-                  ? (<span className="edit" onClick={() => editFunction(item["_id"])}>Edit</span>)
-                  : null}
                 {sting
                   ? (<span className="sting" onClick={() => sting(item["_id"])}>Sting</span>)
                   : null}

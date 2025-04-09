@@ -5,7 +5,7 @@ html, body {
   height: 100vh;
 }
 
-body {
+body, textarea {
   font-family: 'Work Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -13,39 +13,56 @@ body {
 
 h2 {
   margin-bottom: 0.5em;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 2.25em;
 }
 
-p {
-  font-size: 0.9em;
+p, textarea {
+  font-size: 1em;
 }
 
 .app-container {
   display: flex;
   overflow: visible;
   height: 100vh;
+  background-color: #FFFCF4;
 }
 
 .main-content {
-  padding: 2rem;
+  padding: 70px;
   overflow-y: auto;
-  background-color: #f8f8f8;
 }
 
 .react-tabs__tab-list {
   margin-bottom: 0px !important;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 18px;
   border-bottom: 0px solid transparent !important
 }
 
 .react-tabs__tab {
-  border: 0px !important;
+  background-color: #F3F1EA;
+  bottom: 0px !important;
+  border-right: 0.25px solid rgba(0, 0, 0, 0.12) !important;
+  border-left: 0.25px solid rgba(0, 0, 0, 0.12) !important;
+  color: #656565;
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
 }
 
 .react-tabs__tab--selected {
-  background-color: black !important;
-  color: white !important;
+  background-color: #FFE082 !important;
+  color: rgb(0, 0, 0) !important;
+  border-radius: 0 !important;
+  border-top: 5px solid black !important;
+}
+
+.react-tabs__tab:first-child {
+  border-left: 0 !important;
+}
+
+.react-tabs__tab:last-child {
+  border-right: 0 !important;
 }
 
 table {
@@ -59,10 +76,15 @@ table.responsiveTable thead {
 
 table.responsiveTable thead tr th {
   text-align: left;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: capitalize;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding: 1em;
+}
+
+table.responsiveTable td {
+  text-align: left;
+  padding: 1em;
+  width: fit-content;
 }
 
 @media screen and (min-width: 641px) {
@@ -111,21 +133,21 @@ button.primary {
 }
 
 button.delete {
-  background-color: #E63C3C;
+  background-color: #9a9a9a;
   color: white;
 }
 
 span.delete {
-  color: #E63C3C;
+  color: #9a9a9a;
   text-decoration: underline;
   cursor: pointer;
-  margin-right: 2em;
 }
 
 span.edit {
-  color: #1AC4EB;
+  color: #9a9a9a;
   text-decoration: underline;
   cursor: pointer;
+  margin-right: 1em;
 }
 
 span.sting {

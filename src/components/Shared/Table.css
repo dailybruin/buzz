@@ -1,34 +1,28 @@
 table.responsiveTable {
+    border-collapse: collapse;
     table-layout: fixed !important;
     max-width: 100% !important;
 }
 
 table.responsiveTable td {
     word-wrap: break-word !important;
+    border-bottom: 1.5px solid lightgrey;
+    padding-left: 10px;
 }
 
-table.responsiveTable>thead {
-    background-color: #ffdd36;
+table.responsiveTable > thead {
+    background-color: #FFE082;
     color: black;
 }
 
-/* Remove default button styling in the table */
-.table-icon-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: inherit;
-    font-size: 1.5rem;
-    padding: 0.25rem;
-    margin-right: 0.5rem;
+.tableRows {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.table-icon-button:last-child {
-    margin-right: 0;
-}
-
-
-.table-actions-cell {
-    display: flex;
-    align-items: center;
+.statusCallout {
+    padding: 0.5em 1em;
+    background-color: #FFF4D3;
+    border-radius: 2em;
+    width: fit-content;
 }
