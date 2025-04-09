@@ -1,96 +1,116 @@
 import React from "react";
-import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import { Formik, Field, Form as FormikForm, ErrorMessage } from "formik";
 import Modal from "react-modal";
+import { FaPlus } from "react-icons/fa";
+import "./Modal.css";
 
-const Checkbox = ({
-  field: { name, value, onChange, onBlur },
-  form: { errors, touched, setFieldValue },
-  id,
-  className,
-  ...props
-}) => {
-  return (
-      <input
-        name={name}
-        id={id}
-        type="checkbox"
-        value={value}
-        checked={value}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-  );
-};
+Modal.setAppElement("#root");
 
 export class BuzzModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.renderObjectItem = this.renderObjectItem.bind(this);
-  }
-
-  renderObjectItem(key) {
-    const item = this.props.item[key];
-
-    if (item.type === "radio") {
-      return (<div key={key}>
-        <label htmlFor={key}>{key}:{' '}</label>
-        <Field component={Checkbox} name={key} id={key} />
-        <ErrorMessage name={key} component="div" />
-      </div>
-      )}
-  }
-
   render() {
-    const data = Object.keys(this.props.item);
-    const initialValues = data.reduce((acc, curr, index) => {
-      if (typeof this.props.item[curr] !== "object") {
-        acc[curr] = this.props.item[curr];
-      } else {
-        if (this.props.item[curr].type === "radio") {
-          acc[curr] = this.props.item[curr].default ? this.props.item[curr].default : false;
-        }
-      }
-      return acc;
-    }, {});
+    const {
+      isOpen,
+      closeModal,
+      submitFunc,
+      item,
+      label = "New Member Info",
+      submitLabel = "+ Add Member"
+    } = this.props;
+
+    const textFields = [
+      "firstName",
+      "lastName",
+      "initials",
+      "slug",
+      "position",
+      "twitter"
+    ];
+    const checkboxFields = ["multimedia"];
+
+    const initialValues = {
+      ...textFields.reduce((acc, k) => ({ ...acc, [k]: item[k] || "" }), {}),
+      ...checkboxFields.reduce((acc, k) => ({ ...acc, [k]: !!item[k].default }), {})
+    };
+
+    const humanize = s =>
+      s[0].toUpperCase() +
+      s
+        .slice(1)
+        .replace(/([A-Z])/g, " $1")
+        .trim();
 
     return (
-      <Modal onRequestClose={this.props.closeModal} isOpen={this.props.isOpen} contentLabel={this.props.label || "Edit"}>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={closeModal}
+        contentLabel={label}
+        overlayClassName="modal-overlay"
+        className="modal-content"
+      >
+        <div className="modal-header">
+          <h2 className="modal-title">{label}</h2>
+          <button
+            type="button"
+            className="modal-header-icon"
+            onClick={closeModal}
+          >
+            <FaPlus />
+          </button>
+        </div>
+
         <Formik
           initialValues={initialValues}
           onSubmit={(values, actions) => {
-            this.props.submitFunc(values).then(({ data, status }) => {
+            submitFunc(values).then(({ status }) => {
               if (status < 400) {
-                if (window) {
-                  window.location.reload();
-                }
+                closeModal();
+                window.location.reload();
               }
-            })
+            });
           }}
-          render={({ errors, handleChange, status, touched, values, isSubmitting }) => {
-            return (
+        >
+          {({ isSubmitting }) => (
             <FormikForm>
-              {data.map(f => {
-                if (typeof this.props.item[f] !== "object") {
-                  return (
-                    <div key={f}>
-                      <label htmlFor={f}>{f}:{' '}</label>
-                      <Field
-                        type="text"
-                        name={f}
-                      />
-                      <ErrorMessage name={f} component="div" />
-                    </div>
-                  )
-                }
-                return this.renderObjectItem(f);
-                })}
-              {status && status.msg && <div>{status.msg}</div>}
-              <button className="primary" type="submit" disabled={isSubmitting}>
-                <span className="semibold">+</span> Create
-                  </button>
-            </FormikForm>);
-          }}
-        />
+              <div className="modal-form-grid">
+                {textFields.map(key => (
+                  <div key={key} className="modal-form-field">
+                    <Field
+                      name={key}
+                      placeholder={humanize(key)}
+                      className="modal-input"
+                    />
+                    <ErrorMessage
+                      name={key}
+                      component="div"
+                      className="modal-error"
+                    />
+                  </div>
+                ))}
+
+                <div className="modal-checkbox-container">
+                  <label className="modal-checkbox-label">
+                    <Field
+                      type="checkbox"
+                      name="multimedia"
+                      className="modal-checkbox"
+                    />
+                    Multimedia
+                  </label>
+                </div>
+              </div>
+
+              <div className="modal-action-buttons">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="modal-submit-button"
+                >
+                  {submitLabel}
+                </button>
+              </div>
+            </FormikForm>
+          )}
+        </Formik>
       </Modal>
     );
   }

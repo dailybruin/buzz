@@ -20,7 +20,18 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
       </Tr>
     </Thead>
     <Tbody>
-      {data.map((item, index) => {
+      {data
+      .slice()
+      .sort((a, b) => {
+        if (!columns.length) return 0; // Prevent sorting if no columns
+    
+        const firstCol = columns[0]; 
+        const valA = a[firstCol] ? String(a[firstCol]).toLowerCase() : "";
+        const valB = b[firstCol] ? String(b[firstCol]).toLowerCase() : "";
+    
+        return valA.localeCompare(valB);
+      })
+      .map((item, index) => {
         return (
           <Tr className="tableRows" key={index}>
             {columns.map(property => {
