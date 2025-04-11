@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import Copied from "../../components/Shared/Copied";
 import "./style.css";
 
 export const Linebreak = () => {

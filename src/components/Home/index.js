@@ -21,14 +21,9 @@ const Home = () => {
   const[dateString, setDateString] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-
-  // const history = useHistory();
   const location = useLocation();
   const navigate = useNavigate();
 
-  // const handleDateChange = (date) => {
-  //   setSelectedDate(date);
-  // };
 
   const parseParams= () => {
     if (window) {
@@ -47,7 +42,7 @@ const Home = () => {
 
   const navigateDate = (amount) => {
     const date = amount.target.value;
-    console.log("heres teh date", date);
+    // console.log("heres teh date", date);
     if (!date) return;
     setDateString(date);
     const [year,month, day] = date.split('-');
@@ -102,7 +97,7 @@ const Home = () => {
                   Instagram Stories
                   </span>
               </a> */}
-              <a href="/#audits" className="quick-access-item">
+              <a href="https://docs.google.com/spreadsheets/d/1AGlIP5i9QCj0OP3v94MQkMzwfAeCKSLGPYIBZDdA_f8/edit?pli=1&gid=215096720#gid=215096720" target="_blank" className="quick-access-item">
                 <span className="icon-item">
                   <img src={AuditIcon} alt="DesignIcon" />
                   Schedule

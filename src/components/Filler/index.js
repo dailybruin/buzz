@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { LoremIpsum } from "lorem-ipsum";
 import "./style.css";
-import { Copied } from "../Shared/Copied";
+import Copied from "../Shared/Copied";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 
@@ -12,36 +12,87 @@ export const Filler = () => {
   const [shouldCopy, setShouldCopy] = useState(false); // flag for the copy button
   const textareaRef = useRef(null);
 
-  function generateText() {
-    const wordsPerSentence = wordCount / paragraphCount / 4;
+  // function generateText() {
+  //   const wordsPerSentence = wordCount / paragraphCount / 4;
 
+  //   const lorem = new LoremIpsum({
+  //     sentencesPerParagraph: {
+  //       min: 4,
+  //       max: 4
+  //     },
+  //     wordsPerSentence: {
+  //       min: Math.floor(wordsPerSentence),
+  //       max: Math.ceil(wordsPerSentence)
+  //     },
+  //   });
+
+  //   let text = lorem.generateParagraphs(paragraphCount);
+  //   let wordsOfText = text.split(/\s+/); // regex matching spaces (and any repeated)
+  //   let numWords = wordsOfText.length;
+
+  //   if (numWords < wordCount) {
+  //     const tail = lorem.generateWords(wordCount - numWords);
+  //     return text + " " + tail;
+  //   } 
+  //   else if (numWords > wordCount) {    
+  //     const shortenedArray = wordsOfText.slice(0, wordCount);
+  //     return shortenedArray.join(" ");
+  //   } 
+  //   else {
+  //     return text;
+  //   }
+  // }
+  function generateText() {
+    const totalWords = wordCount;
+    const numParagraphs = paragraphCount;
+    
+    // Create a list of words for the total word count
     const lorem = new LoremIpsum({
       sentencesPerParagraph: {
         min: 4,
         max: 4
       },
       wordsPerSentence: {
-        min: Math.floor(wordsPerSentence),
-        max: Math.ceil(wordsPerSentence)
+        min: 6,
+        max: 12
       },
     });
-
-    let text = lorem.generateParagraphs(paragraphCount);
-    let wordsOfText = text.split(/\s+/); // regex matching spaces (and any repeated)
+  
+    // Generate the full text for all paragraphs
+    let fullText = lorem.generateParagraphs(numParagraphs);
+  
+    // Ensure that the total number of words is as close to `wordCount` as possible
+    let wordsOfText = fullText.split(/\s+/);
     let numWords = wordsOfText.length;
-
-    if (numWords < wordCount) {
-      const tail = lorem.generateWords(wordCount - numWords);
-      return text + " " + tail;
-    } 
-    else if (numWords > wordCount) {    
-      const shortenedArray = wordsOfText.slice(0, wordCount);
-      return shortenedArray.join(" ");
-    } 
-    else {
-      return text;
+  
+    if (numWords < totalWords) {
+      // If the total number of words is too few, add extra words
+      const tail = lorem.generateWords(totalWords - numWords);
+      wordsOfText = wordsOfText.concat(tail.split(/\s+/));
+    } else if (numWords > totalWords) {
+      // If the total number of words is too many, trim the extra words
+      wordsOfText = wordsOfText.slice(0, totalWords);
     }
+  
+    // Split the words into paragraphs again, ensuring the total number of paragraphs is respected
+    const wordsPerParagraph = Math.floor(wordsOfText.length / numParagraphs);
+    const paragraphs = [];
+  
+    for (let i = 0; i < numParagraphs; i++) {
+      const start = i * wordsPerParagraph;
+      const end = start + wordsPerParagraph;
+      const paragraph = wordsOfText.slice(start, end).join(" ");
+      paragraphs.push(paragraph);
+    }
+  
+    // Handle any remaining words if they don't fit exactly into paragraphs
+    if (wordsOfText.length % numParagraphs !== 0) {
+      paragraphs[numParagraphs - 1] += " " + wordsOfText.slice(numParagraphs * wordsPerParagraph).join(" ");
+    }
+  
+    return paragraphs.join("\n\n"); // Join paragraphs with double newlines for separation
   }
+  
 
   const handleWCPCInput = (value, type, max) => {
     const isWCInput = type === "WC";

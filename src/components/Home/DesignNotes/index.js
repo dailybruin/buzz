@@ -12,8 +12,11 @@ const DesignNotes = ({ date }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [modalItem, setModalItem] = useState(null);
-  const [submitFunc, setSubmitFunc] = useState(null);
+  const [tabIndex, setTabIndex] = useState(() => {
+    // Initialize tab index from localStorage or default to 0
+    const savedTab = localStorage.getItem("designNotesTab");
+    return savedTab ? parseInt(savedTab) : 0;
+  });
   //const [referText, setReferText] = useState(null);
 
   const { sections, properties } = config.designNotes;
@@ -31,18 +34,6 @@ const DesignNotes = ({ date }) => {
 
   const [editingItem, setEditingItem] = useState(null);
 
-  // const editFunction = (item) => {
-  //   console.log("It made it here", item);
-  //   console.log(properties);
-  //   // const modalItem = properties.reduce((acc, curr) => ({ ...acc, [curr]: item[curr] }), {});
-  //   const modalItem = properties.reduce((acc, curr) => {
-  //     console.log(`Processing property: ${curr}, Value: ${item[curr]}`);
-  //     return { ...acc, [curr]: item[curr] };
-  //   }, {});
-  //   // setShowModal(true);
-  //   setSubmitFunc(() => patchDesignNote(item["_id"]));
-  //   setModalItem(modalItem);
-  // };
   const editFunction = (item) => {
     const modalItem = properties.reduce((acc, curr) => ({
       ...acc,
@@ -50,8 +41,6 @@ const DesignNotes = ({ date }) => {
     }), {});
     modalItem.section = item.section;
     modalItem._id = item._id;
-    console.log("Modal Item", modalItem);
-  
     setEditingItem(modalItem);
   };
 
@@ -59,17 +48,29 @@ const DesignNotes = ({ date }) => {
     return null;
   }
 
+
+
   return (
     <>
-      {/* {showModal && (
-        <BuzzModal
-          submitFunc={submitFunc}
-          closeModal={closeModal}
-          isOpen={showModal}
-          item={modalItem}
-        />
-      )} */}
-      <Tabs>
+    {/* <Tabs
+        selectedIndex={tabIndex}
+        onSelect={(index) => {
+          setTabIndex(index);
+          localStorage.setItem("designNotesTab", index);
+        }}
+      >
+        <TabList>
+          {sections.map(s => <Tab key={s}>{s}</Tab>)}
+        </TabList> */}
+      <Tabs
+              selectedIndex={tabIndex}
+              onSelect={(index) => {
+                setTabIndex(index);
+                localStorage.setItem("designNotesTab", index);
+                // Clear editing state when changing tabs
+                setEditingItem(null);
+              }}
+      >
         <TabList>
           {sections.map(s => <Tab key={s}>{s}</Tab>)}
         </TabList>

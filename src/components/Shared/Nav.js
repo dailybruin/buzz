@@ -10,6 +10,7 @@ import { PiTextAlignLeft, PiTextAlignLeftFill } from "react-icons/pi";
 
 
 export const Nav = () => {
+
   return (
     <div className="navbar">
       <div className="logo">
@@ -24,18 +25,19 @@ export const Nav = () => {
             Home
           </span>
         </NavLink>
-        <NavLink to="/photo" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
+        {/* <NavLink to="/photo" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
           <span className="nav-item">
             <TbCameraFilled className="icon active-icon" />
             <TbCamera className="icon inactive-icon" />
             Photo
           </span>
-        </NavLink>
-        <NavLink to="/staff" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
+        </NavLink> */}
+
+        <NavLink to="/filler" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
           <span className="nav-item">
-            <FaUser className="icon active-icon" />
-            <FaRegUser className="icon inactive-icon" />
-            Staff
+            <PiTextAlignLeftFill className="icon active-icon"/>
+            <PiTextAlignLeft className="icon inactive-icon" />
+            Filler Text
           </span>
         </NavLink>
         <NavLink to="/linebreak" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
@@ -45,13 +47,15 @@ export const Nav = () => {
             Linebreak
           </span>
         </NavLink>
-        <NavLink to="/filler" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
+        <a href="https://docs.google.com/spreadsheets/d/1cq9vRst1a8p1RJtGtL9ubaHlfNEcfMEEk60XOMMQiHw/edit?gid=10#gid=10" target="_blank" 
+        // className={({ isActive }) => (isActive ? "active-link" : undefined)}
+        >
           <span className="nav-item">
-            <PiTextAlignLeftFill className="icon active-icon"/>
-            <PiTextAlignLeft className="icon inactive-icon" />
-            Filler Text
+            <FaUser className="icon active-icon" />
+            <FaRegUser className="icon inactive-icon" />
+            Staff
           </span>
-        </NavLink>
+        </a>
       </nav>
     </div>
   );

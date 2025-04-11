@@ -6,6 +6,15 @@ import { FaRegCopy } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 
+const isValidUrl = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (_) {
+    return false;
+  }
+};
+
 
 export const CreateTable = (data, columns, deleteFunction, editFunction) => (
   <Table>
@@ -40,9 +49,13 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                 if (property === "link" && value) {
                   return (
                     <Td key={`${property}-${value}`}>
-                    <a href={value} target="_blank" rel="noopener noreferrer">
-                      {value}
-                    </a>
+                    {isValidUrl(value) ? (
+                      <a href={value} target="_blank" rel="noopener noreferrer">
+                        {value}
+                      </a>
+                    ) : (
+                      <span style={{ color: "red" }}>{value}</span>
+                    )}
                     {/* Add Copy Button for the link */}
                     <button 
                       onClick={() => navigator.clipboard.writeText(value)} 
@@ -87,9 +100,6 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                   }
                 })}><FaTrash size="1.25em"/></span>)
                 : null}
-                {/* {sting
-                  ? (<span className="sting" onClick={() => sting(item["_id"])}><MdEdit size="1.5em"/></span>)
-                  : null} */}
               </Td>)
               : null}
           </Tr>

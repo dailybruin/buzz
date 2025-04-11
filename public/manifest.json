@@ -1,6 +1,6 @@
 {
-  "short_name": "Buzz",
   "name": "Buzz by Daily Bruin",
+  "short_name": "Buzz",
   "icons": [
     {
       "src": "favicon.png",
