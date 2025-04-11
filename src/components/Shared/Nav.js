@@ -17,7 +17,7 @@ export const Nav = () => {
         <span>Buzz</span>
       </div>
       <nav className="nav-list">
-        <NavLink exact to="/" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
+        <NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
           <span className="nav-item">
             <GoHomeFill className="icon active-icon" />
             <GoHome className="icon inactive-icon" />

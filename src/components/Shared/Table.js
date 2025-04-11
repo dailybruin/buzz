@@ -7,7 +7,7 @@ import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 
 
-export const CreateTable = (data, columns, deleteFunction, editFunction, sting) => (
+export const CreateTable = (data, columns, deleteFunction, editFunction) => (
   <Table>
     <Thead>
       <Tr>
@@ -53,7 +53,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
                   </Td>
                   )
                 }
-                else if (property === "slug" && value) {
+                else if (property === "slug" || property === "referText" && value) {
                   return (
                   <Td key={`${property}-${value}`}>
                     {value} 
@@ -75,10 +75,10 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
                 </Td>
               )
             })}
-            {(deleteFunction || editFunction || sting)
+            {(editFunction && deleteFunction)
               ? (<Td className="deleteTableData" key={`delete-${index}`}>
                 {editFunction
-                  ? (<span className="edit" onClick={() => editFunction(item)}><MdEdit size="1.5em"/></span>)
+                  ? (<span className="edit" onClick={() =>editFunction(item)}><MdEdit size="1.5em"/></span>)
                   : null}
                 {deleteFunction 
                 ? (<span className="delete" onClick={() => deleteFunction(item["_id"]).then(() => {
@@ -87,9 +87,9 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
                   }
                 })}><FaTrash size="1.25em"/></span>)
                 : null}
-                {sting
-                  ? (<span className="sting" onClick={() => sting(item["_id"])}>Sting</span>)
-                  : null}
+                {/* {sting
+                  ? (<span className="sting" onClick={() => sting(item["_id"])}><MdEdit size="1.5em"/></span>)
+                  : null} */}
               </Td>)
               : null}
           </Tr>

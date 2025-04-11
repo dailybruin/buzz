@@ -29,11 +29,30 @@ const DesignNotes = ({ date }) => {
     setShowModal(false);
   };
 
-  const receiveItem = (item) => {
-    const modalItem = properties.reduce((acc, curr) => ({ ...acc, [curr]: item[curr] }), {});
-    setShowModal(true);
-    setSubmitFunc(() => patchDesignNote(item["_id"]));
-    setModalItem(modalItem);
+  const [editingItem, setEditingItem] = useState(null);
+
+  // const editFunction = (item) => {
+  //   console.log("It made it here", item);
+  //   console.log(properties);
+  //   // const modalItem = properties.reduce((acc, curr) => ({ ...acc, [curr]: item[curr] }), {});
+  //   const modalItem = properties.reduce((acc, curr) => {
+  //     console.log(`Processing property: ${curr}, Value: ${item[curr]}`);
+  //     return { ...acc, [curr]: item[curr] };
+  //   }, {});
+  //   // setShowModal(true);
+  //   setSubmitFunc(() => patchDesignNote(item["_id"]));
+  //   setModalItem(modalItem);
+  // };
+  const editFunction = (item) => {
+    const modalItem = properties.reduce((acc, curr) => ({
+      ...acc,
+      [curr]: item[curr],
+    }), {});
+    modalItem.section = item.section;
+    modalItem._id = item._id;
+    console.log("Modal Item", modalItem);
+  
+    setEditingItem(modalItem);
   };
 
   if (loading) {
@@ -42,22 +61,38 @@ const DesignNotes = ({ date }) => {
 
   return (
     <>
-      {showModal && (
+      {/* {showModal && (
         <BuzzModal
           submitFunc={submitFunc}
           closeModal={closeModal}
           isOpen={showModal}
           item={modalItem}
         />
-      )}
+      )} */}
       <Tabs>
         <TabList>
           {sections.map(s => <Tab key={s}>{s}</Tab>)}
         </TabList>
         {sections.map(s => (
           <TabPanel key={s}>
-            {CreateTable(data.filter(x => x.section === s), properties, deleteDesignNote, receiveItem)}
-            <DesignNotesForm date={date} section={s} properties={properties} />
+            {CreateTable(data.filter(x => x.section === s), properties, deleteDesignNote, editFunction)}
+            {/* Show edit form if editingItem matches this section */}
+            {editingItem && editingItem.section === s && (
+              <DesignNotesForm
+                date={date}
+                section={s}
+                properties={properties}
+                initialValues={editingItem}
+              />
+            )}
+            {/* Show regular "Add" form if not editing */}
+            {!editingItem && (
+              <DesignNotesForm
+                date={date}
+                section={s}
+                properties={properties}
+              />
+            )}
           </TabPanel>
         ))}
       </Tabs>
