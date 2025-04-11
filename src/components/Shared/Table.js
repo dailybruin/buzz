@@ -6,8 +6,17 @@ import { FaRegCopy } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 
+const isValidUrl = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (_) {
+    return false;
+  }
+};
 
-export const CreateTable = (data, columns, deleteFunction, editFunction, sting) => (
+
+export const CreateTable = (data, columns, deleteFunction, editFunction) => (
   <Table>
     <Thead>
       <Tr>
@@ -40,9 +49,13 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
                 if (property === "link" && value) {
                   return (
                     <Td key={`${property}-${value}`}>
-                    <a href={value} target="_blank" rel="noopener noreferrer">
-                      {value}
-                    </a>
+                    {isValidUrl(value) ? (
+                      <a href={value} target="_blank" rel="noopener noreferrer">
+                        {value}
+                      </a>
+                    ) : (
+                      <span style={{ color: "red" }}>{value}</span>
+                    )}
                     {/* Add Copy Button for the link */}
                     <button 
                       onClick={() => navigator.clipboard.writeText(value)} 
@@ -53,7 +66,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
                   </Td>
                   )
                 }
-                else if (property === "slug" && value) {
+                else if (property === "slug" || property === "referText" && value) {
                   return (
                   <Td key={`${property}-${value}`}>
                     {value} 
@@ -75,10 +88,10 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
                 </Td>
               )
             })}
-            {(deleteFunction || editFunction || sting)
+            {(editFunction && deleteFunction)
               ? (<Td className="deleteTableData" key={`delete-${index}`}>
                 {editFunction
-                  ? (<span className="edit" onClick={() => editFunction(item)}><MdEdit size="1.5em"/></span>)
+                  ? (<span className="edit" onClick={() =>editFunction(item)}><MdEdit size="1.5em"/></span>)
                   : null}
                 {deleteFunction 
                 ? (<span className="delete" onClick={() => deleteFunction(item["_id"]).then(() => {
@@ -87,9 +100,6 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, sting) 
                   }
                 })}><FaTrash size="1.25em"/></span>)
                 : null}
-                {sting
-                  ? (<span className="sting" onClick={() => sting(item["_id"])}>Sting</span>)
-                  : null}
               </Td>)
               : null}
           </Tr>
