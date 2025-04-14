@@ -28,3 +28,56 @@
 .react-tabs__tab--focus {
     border-bottom: 0px !important;
 }
+
+@media screen and (max-width: 768px) {
+    table.responsiveTable,
+    table.responsiveTable thead,
+    table.responsiveTable tbody,
+    table.responsiveTable th,
+    table.responsiveTable td,
+    table.responsiveTable tr {
+      display: block;
+      width: 100%;
+    }
+  
+    table.responsiveTable thead {
+      display: none;
+    }
+  
+    table.responsiveTable tr {
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+  
+    table.responsiveTable td {
+      text-align: left;
+      padding: 0.75rem 0.5rem;
+      border: none;
+      position: relative;
+    }
+  
+    table.responsiveTable td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.3rem;
+      color: #444;
+    }
+  
+    .edit, .delete {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      display: inline-block;
+    }
+  
+    .statusCallout {
+      font-size: 0.9rem;
+      padding: 0.25em 0.75em;
+      border-radius: 1em;
+    }
+  }
+  

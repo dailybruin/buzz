@@ -17,7 +17,8 @@ const isValidUrl = (url) => {
 
 
 export const CreateTable = (data, columns, deleteFunction, editFunction) => (
-  <Table>
+  <div className="tableWrapper">
+  <Table className="responsiveTable">
     <Thead>
       <Tr>
         {columns.map(x =>  <Th key={x}>{x}</Th>)}
@@ -48,7 +49,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
               try {
                 if (property === "link" && value) {
                   return (
-                    <Td key={`${property}-${value}`}>
+                    <Td key={`${property}-${value}`} data-label={property}>
                     {isValidUrl(value) ? (
                       <a href={value} target="_blank" rel="noopener noreferrer">
                         {value}
@@ -68,7 +69,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                 }
                 else if (property === "slug" || property === "referText" && value) {
                   return (
-                  <Td key={`${property}-${value}`}>
+                  <Td key={`${property}-${value}`} data-label={property}>
                     {value} 
                     <button onClick={() => navigator.clipboard.writeText(value)} style={{ marginLeft: '2px',backgroundColor: "white", color: "black" }}>
                     <FaRegCopy/>
@@ -78,7 +79,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
               }
               catch { }
               return (
-                <Td key={`${property}-${value}`}>
+                <Td key={`${property}-${value}`} data-label={property}>
                   {/*NOTE: for now, check if value is not null to handle "art in" always blank*/
                     (value && (property === "artStatus" || property === "status")) ? (
                       <div className="statusCallout">{value ? value : '\u00A0'}</div>
@@ -89,7 +90,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
               )
             })}
             {(editFunction && deleteFunction)
-              ? (<Td className="deleteTableData" key={`delete-${index}`}>
+              ? (<Td className="deleteTableData" key={`delete-${index}`} data-label="Actions">
                 {editFunction
                   ? (<span className="edit" onClick={() =>editFunction(item)}><MdEdit size="1.5em"/></span>)
                   : null}
@@ -107,4 +108,5 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
       })}
     </Tbody>
   </Table>
+</div>
 )

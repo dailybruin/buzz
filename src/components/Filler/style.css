@@ -107,3 +107,80 @@ input[type="number"], textarea {
   margin-top: 1em; 
   border: 3px solid #000000;
 }
+
+@media screen and (max-width: 768px) {
+  .flex-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5em;
+  }
+
+  .filler-count {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .filler-number-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 2px solid #9C9C9C;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #FFFCF4;
+  }
+
+  .filler-count input {
+    border: none;
+    font-size: 1.25em;
+    text-align: center;
+    flex-grow: 1;
+    width: auto;
+    background-color: transparent;
+  }
+
+  .filler-button-plus, .filler-button-minus {
+    background-color: transparent;
+    border: none;
+    padding: 0.5em 1em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .filler-icon {
+    width: 1.25em;
+    height: auto;
+    color: #9C9C9C;
+  }
+  
+
+  .filler-textbox-and-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .filler-textbox-and-copy textarea {
+    width: 90vw;
+    height: 45vh;
+    font-size: 1em;
+  }
+
+  #copy {
+    width: 100%;
+    padding: 1em;
+    font-size: 1em;
+  }
+
+  h1 {
+    font-size: 1.8em;
+    text-align: center;
+  }
+
+  label {
+    font-size: 1.2em;
+  }
+}

@@ -1,0 +1,75 @@
+/* DesignNotesForm.css */
+
+.design-form-container {
+    background: #fff8dc;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .design-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .design-form-grid-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .design-form-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .design-form-input,
+  .design-form-select {
+    width: 100%;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 1rem;
+    outline: none;
+    background: #FFE082;
+  }
+  
+  .design-form-textinput {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #333;
+  }
+  
+  .design-form-button {
+    margin-top: 1.5rem;
+    padding: 10px 20px;
+    background: #FFE082;
+    color: #000;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .design-form-button:hover {
+    background: #f4c430;
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .design-form-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .design-form-container {
+      padding: 1rem;
+    }
+  
+    .design-form-button {
+      width: 100%;
+    }
+  }
+  

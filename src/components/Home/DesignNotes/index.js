@@ -6,7 +6,6 @@ import { CreateTable } from "../../Shared/Table";
 import { getDesignNotes, deleteDesignNote, patchDesignNote } from '../../../services/api';
 import { DesignNotesForm } from './Form';
 import config from "../../../config";
-import { BuzzModal } from '../../Shared/Modal';
 
 const DesignNotes = ({ date }) => {
   const [data, setData] = useState(null);
@@ -17,7 +16,6 @@ const DesignNotes = ({ date }) => {
     const savedTab = localStorage.getItem("designNotesTab");
     return savedTab ? parseInt(savedTab) : 0;
   });
-  //const [referText, setReferText] = useState(null);
 
   const { sections, properties } = config.designNotes;
 
@@ -52,24 +50,14 @@ const DesignNotes = ({ date }) => {
 
   return (
     <>
-    {/* <Tabs
+      <Tabs
         selectedIndex={tabIndex}
         onSelect={(index) => {
           setTabIndex(index);
           localStorage.setItem("designNotesTab", index);
+          // Clear editing state when changing tabs
+          setEditingItem(null);
         }}
-      >
-        <TabList>
-          {sections.map(s => <Tab key={s}>{s}</Tab>)}
-        </TabList> */}
-      <Tabs
-              selectedIndex={tabIndex}
-              onSelect={(index) => {
-                setTabIndex(index);
-                localStorage.setItem("designNotesTab", index);
-                // Clear editing state when changing tabs
-                setEditingItem(null);
-              }}
       >
         <TabList>
           {sections.map(s => <Tab key={s}>{s}</Tab>)}
