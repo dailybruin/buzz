@@ -12,7 +12,7 @@ const config = {
     "Stonewall": ["header", "body"]
   },
   designNotes: {
-    sections: ["news", "opinion", "sports", "arts", "inserts"],
+    sections: ["news", "opinion", "arts", "sports",  "inserts"],
     properties: ["placement", "slug", "art", "artStatus", "wordCount", "comments", "status", "link", "referText"],
     placeholders: {
       "comments": "refers/flags/etc."

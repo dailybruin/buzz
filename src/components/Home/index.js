@@ -11,9 +11,6 @@ import DesignIcon from './icons/Design.svg';
 import InstaIcon from './icons/Instagram.svg';
 import BubbleIcon from './icons/Bubble.svg';
 import CalendarIcon from './icons/Calendar.svg';
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-
 
 const Home = () => {
   const[loading, setLoading] = useState(true);
@@ -85,30 +82,13 @@ const Home = () => {
           <div className="right-column">
           <h2>Quick Access</h2>
             <div className="quick-access-grid">
-              <a href="#design-notes" className="quick-access-item">
-                <span className="icon-item">
-                  <img src={DesignIcon} alt="DesignIcon" />
-                  Design Notes
-                </span>
-              </a>
-              {/* <a href="/#instagram-stories" className="quick-access-item">
-                <span className="icon-item">
-                  <img src={InstaIcon} alt="DesignIcon" />
-                  Instagram Stories
-                  </span>
-              </a> */}
               <a href="https://docs.google.com/spreadsheets/d/1AGlIP5i9QCj0OP3v94MQkMzwfAeCKSLGPYIBZDdA_f8/edit?pli=1&gid=215096720#gid=215096720" target="_blank" className="quick-access-item">
                 <span className="icon-item">
                   <img src={AuditIcon} alt="DesignIcon" />
                   Schedule
                   </span>
                 </a>
-              {/*<a href="/#opinion-modulars" className="quick-access-item">
-                <span className="icon-item">
-                  <img src={BubbleIcon} alt="DesignIcon" />
-                  Opinion Modulars
-                  </span>
-              </a> */}
+
             </div>
           </div>
         </div>
