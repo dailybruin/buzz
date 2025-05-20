@@ -84,8 +84,14 @@ const Home = () => {
             <div className="quick-access-grid">
               <a href="https://docs.google.com/spreadsheets/d/1AGlIP5i9QCj0OP3v94MQkMzwfAeCKSLGPYIBZDdA_f8/edit?pli=1&gid=215096720#gid=215096720" target="_blank" className="quick-access-item">
                 <span className="icon-item">
-                  <img src={AuditIcon} alt="DesignIcon" />
+                  <img src={DesignIcon} alt="DesignIcon" />
                   Schedule
+                  </span>
+                </a>
+              <a href="https://docs.google.com/spreadsheets/d/1tBhg1Vu2pNKKfJYoAOM528_I6S8AoUhG_hymYb0jXUk/edit?gid=0#gid=0" target="_blank" className="quick-access-item">
+                <span className="icon-item">
+                  <img src={AuditIcon} alt="DesignIcon" />
+                  Photo Initials
                   </span>
                 </a>
 

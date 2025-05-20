@@ -160,44 +160,44 @@ export const DesignNotesForm = ( {date, section, properties, initialValues } ) =
               //   </button>
               // </FormikForm>
               <FormikForm className="design-form-container">
-  <h2 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem" }}>
-    New Member Info
-  </h2>
+            <h2 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem" }}>
+              New Member Info
+            </h2>
 
-  <div className="design-form-grid">
-    {properties.map((f) => (
-      <div key={f} className="design-form-grid-item">
-        <label htmlFor={f} className="design-form-label">
-          {f.replace(/([A-Z])/g, " $1").trim()}
-        </label>
+            <div className="design-form-grid">
+              {properties.map((f) => (
+                <div key={f} className="design-form-grid-item">
+                  <label htmlFor={f} className="design-form-label">
+                    {f.replace(/([A-Z])/g, " $1").trim()}
+                  </label>
 
-        {f === "artStatus" ? (
-          <Field as="select" name={f} className="design-form-select">
-            <option value="Art In">Art In</option>
-            <option value="Photo edited, no Camayak">Photo edited, no Camayak</option>
-            <option value="Waiting for courtesies">Waiting for courtesies</option>
-          </Field>
-        ) : (
-          <Field
-            type="text"
-            name={f}
-            placeholder={config.designNotes.placeholders[f] || ""}
-            className="design-form-input design-form-textinput"
-          />
-        )}
-        <ErrorMessage
-          name={f}
-          component="div"
-          style={{ color: "red", fontSize: "0.8rem", marginTop: "5px" }}
-        />
-      </div>
-    ))}
-  </div>
+                  {f === "artStatus" ? (
+                    <Field as="select" name={f} className="design-form-select">
+                      <option value="Art In">Art In</option>
+                      <option value="Photo edited, no Camayak">Photo edited, no Camayak</option>
+                      <option value="Waiting for courtesies">Waiting for courtesies</option>
+                    </Field>
+                  ) : (
+                    <Field
+                      type="text"
+                      name={f}
+                      placeholder={config.designNotes.placeholders[f] || ""}
+                      className="design-form-input design-form-textinput"
+                    />
+                  )}
+                  <ErrorMessage
+                    name={f}
+                    component="div"
+                    style={{ color: "red", fontSize: "0.8rem", marginTop: "5px" }}
+                  />
+                </div>
+              ))}
+            </div>
 
-  <button type="submit" disabled={isSubmitting} className="design-form-button">
-    Submit
-  </button>
-</FormikForm>
+            <button type="submit" disabled={isSubmitting} className="design-form-button">
+              Submit
+            </button>
+          </FormikForm>
 
             )}
           </Formik>
