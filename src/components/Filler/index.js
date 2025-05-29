@@ -90,7 +90,7 @@ export const Filler = () => {
       paragraphs[numParagraphs - 1] += " " + wordsOfText.slice(numParagraphs * wordsPerParagraph).join(" ");
     }
   
-    return paragraphs.join("\n\n"); // Join paragraphs with double newlines for separation
+    return paragraphs.join("\n"); // Join paragraphs with double newlines for separation
   }
   
 
