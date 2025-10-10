@@ -11,7 +11,11 @@ services:
       - db_mongo
     volumes:
       - .:/usr/src/app/:rw
+      - node_modules:/usr/src/app/node_modules
   db_mongo:
     image: mongo
     ports:
       - "27017:27017"
+
+volumes:
+  node_modules:

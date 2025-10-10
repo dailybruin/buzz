@@ -47,7 +47,7 @@ export const Nav = () => {
             Linebreak
           </span>
         </NavLink>
-        <a href="https://docs.google.com/spreadsheets/d/1cq9vRst1a8p1RJtGtL9ubaHlfNEcfMEEk60XOMMQiHw/edit?gid=10#gid=10" target="_blank"         >
+  <a href="https://docs.google.com/spreadsheets/d/1ElA8T4ju6M0S7RXvDVk4KzKhtL-eFbN6y_5wup7OQu4/edit?gid=10#gid=10" target="_blank"         >
           <span className="nav-item">
             <FaUser className="icon active-icon" />
             <FaRegUser className="icon inactive-icon" />
