@@ -8,9 +8,7 @@ import { BsTextWrap } from "react-icons/bs";
 import { LuWrapText } from "react-icons/lu";
 import { PiTextAlignLeft, PiTextAlignLeftFill } from "react-icons/pi";
 
-
 export const Nav = () => {
-
   return (
     <div className="navbar">
       <div className="logo">
@@ -18,7 +16,10 @@ export const Nav = () => {
         <span>Buzz</span>
       </div>
       <nav className="nav-list">
-        <NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "active-link" : undefined)}
+        >
           <span className="nav-item">
             <GoHomeFill className="icon active-icon" />
             <GoHome className="icon inactive-icon" />
@@ -33,21 +34,30 @@ export const Nav = () => {
           </span>
         </NavLink> */}
 
-        <NavLink to="/filler" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
+        <NavLink
+          to="/filler"
+          className={({ isActive }) => (isActive ? "active-link" : undefined)}
+        >
           <span className="nav-item">
-            <PiTextAlignLeftFill className="icon active-icon"/>
+            <PiTextAlignLeftFill className="icon active-icon" />
             <PiTextAlignLeft className="icon inactive-icon" />
             Filler Text
           </span>
         </NavLink>
-        <NavLink to="/linebreak" className={({ isActive }) => (isActive ? "active-link" : undefined)}>
+        <NavLink
+          to="/linebreak"
+          className={({ isActive }) => (isActive ? "active-link" : undefined)}
+        >
           <span className="nav-item">
             <LuWrapText className="icon active-icon" />
             <BsTextWrap className="icon inactive-icon" />
             Linebreak
           </span>
         </NavLink>
-  <a href="https://docs.google.com/spreadsheets/d/1ElA8T4ju6M0S7RXvDVk4KzKhtL-eFbN6y_5wup7OQu4/edit?gid=10#gid=10" target="_blank"         >
+        <a
+          href="https://docs.google.com/spreadsheets/d/1ElA8T4ju6M0S7RXvDVk4KzKhtL-eFbN6y_5wup7OQu4/edit?gid=10#gid=10"
+          target="_blank"
+        >
           <span className="nav-item">
             <FaUser className="icon active-icon" />
             <FaRegUser className="icon inactive-icon" />

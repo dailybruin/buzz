@@ -82,7 +82,7 @@ const Home = () => {
           <div className="right-column">
           <h2>Quick Access</h2>
             <div className="quick-access-grid">
-              <a href="https://docs.google.com/spreadsheets/d/1AGlIP5i9QCj0OP3v94MQkMzwfAeCKSLGPYIBZDdA_f8/edit?pli=1&gid=215096720#gid=215096720" target="_blank" className="quick-access-item">
+              <a href="https://docs.google.com/spreadsheets/d/1iLs3Myy37OJnfViilWHKjaNm1OT0A8k0tYQJS58wWOU/edit?gid=0#gid=0" target="_blank" className="quick-access-item">
                 <span className="icon-item">
                   <img src={DesignIcon} alt="DesignIcon" />
                   Schedule
