@@ -57,7 +57,12 @@ export const DesignNotesForm = ( {date, section, properties, initialValues } ) =
           padding: "1.5em 1em"
         }}>
           <Formik
-            initialValues={initialValues || properties.reduce((acc, curr) => ({ ...acc, [curr]: "" }), {})}
+            initialValues={initialValues || properties.reduce((acc, curr) => {
+              if (curr === "placed" || curr === "opinionated") {
+                return { ...acc, [curr]: false };
+              }
+              return { ...acc, [curr]: "" };
+            }, {})}
             onSubmit={(values, actions) => {
               const submitFunc = initialValues
               ? submitExistingNote
@@ -171,12 +176,23 @@ export const DesignNotesForm = ( {date, section, properties, initialValues } ) =
                     {f.replace(/([A-Z])/g, " $1").trim()}
                   </label>
 
-                  {f === "artStatus" ? (
-                    <Field as="select" name={f} className="design-form-select">
-                      <option value="Art In">Art In</option>
-                      <option value="Photo edited, no Camayak">Photo edited, no Camayak</option>
-                      <option value="Waiting for courtesies">Waiting for courtesies</option>
-                    </Field>
+                  {f === "placed" || f === "opinionated" ? (
+                    <Field
+                      type="checkbox"
+                      name={f}
+                      className="design-form-checkbox"
+                      style={{ width: "20px", height: "20px", cursor: "pointer" }}
+                    />
+                  ) : f === "pullQuote" ? (
+                    <Field
+                      as="textarea"
+                      name={f}
+                      placeholder={config.designNotes.placeholders[f] || ""}
+                      className="design-form-input design-form-textarea"
+                      rows={3}
+                      maxLength={85} // hard capped length rn 
+                      style={{ width: "100%", minHeight: "60px", resize: "vertical" }}
+                    />
                   ) : (
                     <Field
                       type="text"

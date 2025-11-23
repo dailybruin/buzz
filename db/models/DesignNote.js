@@ -7,7 +7,9 @@ const designNoteSchema = mongoose.Schema({
   placement: { type: String, default: "" },
   slug: { type: String, default: "" },
   art: { type: String, default: "" },
-  artStatus: { type: String, default: "" },
+  placed: { type: Boolean, default: false },
+  opinionated: { type: Boolean, default: false },
+  pullQuote: { type: String, default: "" },
   comments: { type: String, default: "" },
   date: { type: Date, defautl: Date.now },
   // You would think this would be a number
