@@ -16,12 +16,26 @@ const isValidUrl = (url) => {
 };
 
 
+
 export const CreateTable = (data, columns, deleteFunction, editFunction) => (
   <div className="tableWrapper">
-  <Table className="responsiveTable">
-    <Thead>
-      <Tr>
-        {columns.map(x =>  <Th key={x}>{x}</Th>)}
+    <Table className="responsiveTable">
+      <Thead>
+        <Tr>
+          {columns.map((col, idx) => (
+           <Th key={`col-${idx}`}>
+             {col.includes(" ")
+               ? col.split(" ").map((word, i) => (
+                   <React.Fragment key={i}>
+                     {word}
+                     <br />
+                   </React.Fragment>
+                 ))
+               : col}
+           </Th>
+         ))}
+
+
         {(deleteFunction || editFunction)
           ? (
             <Th key="actions"></Th>

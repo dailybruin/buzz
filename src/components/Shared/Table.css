@@ -1,6 +1,14 @@
+.tableWrapper {
+    overflow-x: auto;   /* 1: Enables horizontal scrolling when needed */
+    width: 100%;        /* 2: Ensures wrapper stretches full width */
+}
+
+
+
+
 table.responsiveTable {
     border-collapse: collapse;
-    table-layout: fixed !important;
+    min-width: max-content !important;
     max-width: 100% !important;
 }
 
@@ -10,9 +18,12 @@ table.responsiveTable td {
     padding-left: 10px;
 }
 
+
+
 table.responsiveTable > thead {
     background-color: #FFE082;
     color: black;
+    text-align: center;
 }
 
 .tableRows {
