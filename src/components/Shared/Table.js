@@ -90,13 +90,24 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                     </button>
                   </Td>)
                 }
+                else if (property === "placed" || property === "opinionated") {
+                  return (
+                    <Td key={`${property}-${index}`} data-label={property}>
+                      {value === true || value === "true" ? "yes" : "no"}
+                    </Td>
+                  )
+                }
               }
               catch { }
               return (
                 <Td key={`${property}-${value}`} data-label={property}>
                   {/*NOTE: for now, check if value is not null to handle "art in" always blank*/
-                    (value && (property === "artStatus" || property === "status")) ? (
+                    (value && property === "status") ? (
                       <div className="statusCallout">{value ? value : '\u00A0'}</div>
+                    ) : property === "pullQuote" ? (
+                      <div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word", maxWidth: "300px" }}>
+                        {value ? value : '\u00A0'}
+                      </div>
                     ) : (
                       value ? value : '\u00A0'
                     )}
