@@ -22,16 +22,16 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
     <Table className="responsiveTable">
       <Thead>
         <Tr>
-          {columns.map((col, idx) => (
-           <Th key={`col-${idx}`}>
-             {col.includes(" ")
-               ? col.split(" ").map((word, i) => (
+          {columns.map(({key,label}, idx) => (
+           <Th key={`col-${key}`}>
+             {label.includes(" ")
+               ? label.split(" ").map((word, i) => (
                    <React.Fragment key={i}>
                      {word}
                      <br />
                    </React.Fragment>
                  ))
-               : col}
+               : label}
            </Th>
          ))}
 
@@ -49,21 +49,23 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
       .sort((a, b) => {
         if (!columns.length) return 0; // Prevent sorting if no columns
     
-        const firstCol = columns[0]; 
-        const valA = a[firstCol] ? String(a[firstCol]).toLowerCase() : "";
-        const valB = b[firstCol] ? String(b[firstCol]).toLowerCase() : "";
+        const firstCol = columns.length > 0 ? columns[0].key : null;
+        const valA = firstCol && a[firstCol] ? String(a[firstCol]).toLowerCase() : "";
+        const valB = firstCol && b[firstCol] ? String(b[firstCol]).toLowerCase() : "";
+
+        
     
         return valA.localeCompare(valB);
       })
       .map((item, index) => {
         return (
           <Tr className="tableRows" key={index}>
-            {columns.map(property => {
-              const value = item[property];
+            {columns.map(({key, label}) => {
+              const value = item[key];
               try {
-                if (property === "link" && value) {
+                if (key === "link" && value) {
                   return (
-                    <Td key={`${property}-${value}`} data-label={property}>
+                    <Td key={`${key}-${value}`} data-label={label}>
                     {isValidUrl(value) ? (
                       <a href={value} target="_blank" rel="noopener noreferrer">
                         {value}
@@ -81,18 +83,18 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                   </Td>
                   )
                 }
-                else if (property === "slug" || property === "referText" && value) {
+                else if (key === "slug" || key === "referText" && value) {
                   return (
-                  <Td key={`${property}-${value}`} data-label={property}>
+                  <Td key={`${key}-${value}`} data-label={label}>
                     {value} 
                     <button onClick={() => navigator.clipboard.writeText(value)} style={{ marginLeft: '2px',backgroundColor: "white", color: "black" }}>
                     <FaRegCopy/>
                     </button>
                   </Td>)
                 }
-                else if (property === "placed" || property === "opinionated") {
+                else if (key === "placed" || key === "opinionated") {
                   return (
-                    <Td key={`${property}-${index}`} data-label={property}>
+                    <Td key={`${key}-${index}`} data-label={key}>
                       {value === true || value === "true" ? "yes" : "no"}
                     </Td>
                   )
@@ -100,11 +102,11 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
               }
               catch { }
               return (
-                <Td key={`${property}-${value}`} data-label={property}>
+                <Td key={`${key}-${value}`} data-label={key}>
                   {/*NOTE: for now, check if value is not null to handle "art in" always blank*/
-                    (value && property === "status") ? (
+                    (value && key === "status") ? (
                       <div className="statusCallout">{value ? value : '\u00A0'}</div>
-                    ) : property === "pullQuote" ? (
+                    ) : key === "pullQuote" ? (
                       <div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word", maxWidth: "300px" }}>
                         {value ? value : '\u00A0'}
                       </div>

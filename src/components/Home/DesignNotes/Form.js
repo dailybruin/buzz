@@ -58,10 +58,12 @@ export const DesignNotesForm = ( {date, section, properties, initialValues } ) =
         }}>
           <Formik
             initialValues={initialValues || properties.reduce((acc, curr) => {
-              if (curr === "placed" || curr === "opinionated") {
-                return { ...acc, [curr]: false };
-              }
-              return { ...acc, [curr]: "" };
+              if (curr.key === "placed" || curr.key === "opinionated") {
+               acc[curr.key] = false;}
+               else{
+                acc[curr.key] = "";
+               }
+               return acc;
             }, {})}
             onSubmit={(values, actions) => {
               const submitFunc = initialValues
@@ -170,24 +172,24 @@ export const DesignNotesForm = ( {date, section, properties, initialValues } ) =
             </h2>
 
             <div className="design-form-grid">
-              {properties.map((f) => (
-                <div key={f} className="design-form-grid-item">
-                  <label htmlFor={f} className="design-form-label">
-                    {f.replace(/([A-Z])/g, " $1").trim()}
+              {properties.map(({key,label}) => (
+                <div key={key} className="design-form-grid-item">
+                  <label htmlFor={key} className="design-form-label">
+                    {label}
                   </label>
 
-                  {f === "placed" || f === "opinionated" ? (
+                  {key === "placed" || key === "opinionated" ? (
                     <Field
                       type="checkbox"
-                      name={f}
+                      name={key}
                       className="design-form-checkbox"
                       style={{ width: "20px", height: "20px", cursor: "pointer" }}
                     />
-                  ) : f === "pullQuote" ? (
+                  ) : key === "pullQuote" ? (
                     <Field
                       as="textarea"
-                      name={f}
-                      placeholder={config.designNotes.placeholders[f] || ""}
+                      name={key}
+                      placeholder={config.designNotes.placeholders[key] || ""}
                       className="design-form-input design-form-textarea"
                       rows={3}
                       maxLength={85} // hard capped length rn 
@@ -196,13 +198,13 @@ export const DesignNotesForm = ( {date, section, properties, initialValues } ) =
                   ) : (
                     <Field
                       type="text"
-                      name={f}
-                      placeholder={config.designNotes.placeholders[f] || ""}
+                      name={key}
+                      placeholder={config.designNotes.placeholders[key] || ""}
                       className="design-form-input design-form-textinput"
                     />
                   )}
                   <ErrorMessage
-                    name={f}
+                    name={key}
                     component="div"
                     style={{ color: "red", fontSize: "0.8rem", marginTop: "5px" }}
                   />
