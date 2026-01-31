@@ -13,8 +13,19 @@ const config = {
   },
   designNotes: {
     sections: ["news", "opinion", "arts", "sports",  "inserts"],
-    properties: ["placement", "slug", "art", "word Count", "status", "link", "placed", "opinionated",
-      "refer Text", "pull Quote", "comments"],
+    properties: [
+      {key: "placement", label: "Placement"},
+      {key:"slug", label: "Slug"},
+      {key: "art", label: "Art"},
+      {key: "wordCount", label: "Word Count"},
+      {key:"status", label: "Status"},
+      {key: "link", label: "Link"},
+      { key: "placed", label: "Placed" },
+      { key: "opinionated", label: "Opinionated" },
+      { key: "referText", label: "Refer Text" },
+      { key: "pullQuote", label: "Pull Quote" },
+      { key: "comments", label: "Comments"},
+    ],
     placeholders: {
       "comments": "refers/flags/etc."
     }
