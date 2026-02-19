@@ -16,9 +16,16 @@ Figma Link: https://www.figma.com/design/r2RNwGFdQtzBkVkH7v93uS/Buzz?node-id=11-
 
 
 **Backend:**
+![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/-Express-000000?style=flat-square&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white) 
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white) 
 ![Kubernetes](https://img.shields.io/badge/-Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
+
+**Tools & Libraries:**
+![Webpack](https://img.shields.io/badge/-Webpack-8DD6F9?style=flat-square&logo=webpack&logoColor=black)
+![Passport.js](https://img.shields.io/badge/-Passport.js-34E27A?style=flat-square&logo=passport&logoColor=black)
+Slack OAuth
 
 ## How do I install Buzz?
 To install buzz onto your local machine. 
@@ -98,24 +105,23 @@ BUZZ/
 │       ├── User.js
 │       └── index.js
 ├── login/
-├── node_modules/
 ├── public/
 ├── routes/
-│   └── api/
-│       ├── designNotes.js
-│       ├── index.js
-│       ├── member.js
-│       ├── modulars.js
-│       ├── schedule.js
-│       ├── story.js
-│       ├── utils.js
-│       ├── auth.js
-│       ├── index.js
-│       └── session.js
+│   ├── api/
+│   │   ├── designNotes.js
+│   │   ├── index.js
+│   │   ├── member.js
+│   │   ├── modulars.js
+│   │   ├── schedule.js
+│   │   ├── story.js
+│   │   └── utils.js
+│   ├── auth.js
+│   ├── index.js
+│   └── session.js
 ├── src/
 │   ├── components/
 │   │   ├── Filler/
-│   │   ├── H/
+│   │   ├── Home/
 │   │   ├── Linebreak/
 │   │   ├── PhotoInitials/
 │   │   ├── Shared/
@@ -137,17 +143,16 @@ BUZZ/
 ├── Dockerfile
 ├── index.js
 ├── package-lock.json
-└── package.json
+├── package.json
+├── webpack.common.js
+├── webpack.dev.js
+└── webpack.prod.js
 ```
 
 ## Deployment
 
-1. `webpack -p`
+1. `webpack --config webpack.prod.js`
 
 2. `docker-compose build`
 
 3. `docker-compose up`
-
-4. `docker tag`
-
-5. `docker push`
