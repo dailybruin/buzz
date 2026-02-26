@@ -52,6 +52,15 @@ table.responsiveTable td.pullQuoteCol {
   overflow-wrap: break-word;
 }
 
+/*IF overall table column title padding is allowed to be overwritten:
+table.responsiveTable th.opinionatedCol,
+table.responsiveTable td.opinionatedCol {
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+}
+*/
+
 @media screen and (max-width: 768px) {
     table.responsiveTable {
         width: 100%;
@@ -101,7 +110,7 @@ table.responsiveTable td.pullQuoteCol {
         border-radius: 1em;
     }
 
-    /* widen pullquote*/
+    
 
     
 
