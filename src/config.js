@@ -21,7 +21,7 @@ const config = {
       {key:"status", label: "Status"},
       {key: "link", label: "Link"},
       { key: "placed", label: "Placed" },
-      { key: "opinionated", label: "Opinionated" },
+      { key: "opinionated", label: "Column" },
       { key: "referText", label: "Refer Text" },
       { key: "pullQuote", label: "Pull Quote" },
       { key: "comments", label: "Comments"},
