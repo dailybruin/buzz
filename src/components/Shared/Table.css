@@ -38,6 +38,29 @@ table.responsiveTable > thead {
     width: fit-content;
 }
 
+/* pull quote column width*/
+table.responsiveTable th.pullQuoteCol,
+table.responsiveTable td.pullQuoteCol {
+  width: 500px;
+  max-width: 500px;
+}
+
+/* Force wrapping inside the cell */
+.pullQuoteText {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/*IF overall table column title padding is allowed to be overwritten:
+table.responsiveTable th.opinionatedCol,
+table.responsiveTable td.opinionatedCol {
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+}
+*/
+
 @media screen and (max-width: 768px) {
     table.responsiveTable {
         width: 100%;
@@ -87,6 +110,9 @@ table.responsiveTable > thead {
         border-radius: 1em;
     }
 
+    
+
+    
 
     
 }

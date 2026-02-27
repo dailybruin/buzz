@@ -92,28 +92,47 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                     </button>
                   </Td>)
                 }
+                //change yes to checkbox
                 else if (key === "placed" || key === "opinionated") {
+                  const checked = value === true || value === "true";
+                  const isOpinionated = key === "opinionated";
+
                   return (
-                    <Td key={`${key}-${index}`} data-label={key}>
-                      {value === true || value === "true" ? "yes" : "no"}
+                    <Td
+                      key={`${key}-${index}`}
+                      data-label={label}
+                      className={isOpinionated ? "opinionatedCol" : undefined}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        readOnly
+                        className="tableCheckbox"
+                        aria-label={label}
+                      />
                     </Td>
-                  )
+                  );
                 }
               }
               catch { }
               return (
-                <Td key={`${key}-${value}`} data-label={key}>
+                <Td
+                  key={`${key}-${value}`}
+                  data-label={key}
+                  className={key === "pullQuote" ? "pullQuoteCol" : undefined}
+                >
                   {/*NOTE: for now, check if value is not null to handle "art in" always blank*/
                     (value && key === "status") ? (
                       <div className="statusCallout">{value ? value : '\u00A0'}</div>
                     ) : key === "pullQuote" ? (
-                      <div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word", maxWidth: "300px" }}>
+                      <div className="pullQuoteText">
                         {value ? value : '\u00A0'}
                       </div>
                     ) : (
                       value ? value : '\u00A0'
                     )}
                 </Td>
+
               )
             })}
             {(editFunction && deleteFunction)
