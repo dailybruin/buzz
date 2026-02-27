@@ -17,7 +17,7 @@ const isValidUrl = (url) => {
 
 
 
-export const CreateTable = (data, columns, deleteFunction, editFunction) => (
+export const CreateTable = (data, columns, deleteFunction, editFunction, patchFunction) => (
   <div className="tableWrapper">
     <Table className="responsiveTable">
       <Thead>
@@ -96,6 +96,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                 else if (key === "placed" || key === "opinionated") {
                   const checked = value === true || value === "true";
                   const isOpinionated = key === "opinionated";
+                  const canToggle = !!patchFunction && item._id;
 
                   return (
                     <Td
@@ -106,9 +107,19 @@ export const CreateTable = (data, columns, deleteFunction, editFunction) => (
                       <input
                         type="checkbox"
                         checked={checked}
-                        readOnly
-                        className="tableCheckbox"
+                        readOnly={!canToggle}
+                        className={`tableCheckbox ${canToggle ? "tableCheckbox--clickable" : ""}`}
                         aria-label={label}
+                        onChange={canToggle ? () => {
+                          const newValue = !checked;
+                          patchFunction(item, key, newValue)
+                            .then((res) => {
+                              if (res && res.status < 400 && window) {
+                                window.location.reload();
+                              }
+                            })
+                            .catch(() => { /* patch failed, page stays as-is */ });
+                        } : undefined}
                       />
                     </Td>
                   );

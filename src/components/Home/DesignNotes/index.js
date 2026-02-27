@@ -35,7 +35,7 @@ const DesignNotes = ({ date }) => {
   const editFunction = (item) => {
     const modalItem = properties.reduce((acc, curr) => ({
       ...acc,
-      [curr]: item[curr],
+      [curr.key]: item[curr.key],
     }), {});
     modalItem.section = item.section;
     modalItem._id = item._id;
@@ -64,7 +64,7 @@ const DesignNotes = ({ date }) => {
         </TabList>
         {sections.map(s => (
           <TabPanel key={s}>
-            {CreateTable(data.filter(x => x.section === s), properties, deleteDesignNote, editFunction)}
+            {CreateTable(data.filter(x => x.section === s), properties, deleteDesignNote, editFunction, (item, field, value) => patchDesignNote(item._id)({ [field]: value }))}
             {/* Show edit form if editingItem matches this section */}
             {editingItem && editingItem.section === s && (
               <DesignNotesForm

@@ -1,3 +1,7 @@
+.tableCheckbox--clickable {
+    cursor: pointer;
+}
+
 .tableWrapper {
     overflow-x: auto;   /* 1: Enables horizontal scrolling when needed */
     width: 100%;        /* 2: Ensures wrapper stretches full width */
