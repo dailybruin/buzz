@@ -1,3 +1,7 @@
+/* Responsive: expand form columns when sidebar is collapsed */
+.navbar.collapsed ~ .main-content .design-form-grid {
+  grid-template-columns: 1fr;
+}
 /* DesignNotesForm.css */
 
 .design-form-container {
