@@ -12,7 +12,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 
 export const Nav = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <div className={`navbar ${open ? "" : "collapsed"}`}>
       <div style={{ display: "flex", 
