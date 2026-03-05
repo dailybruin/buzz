@@ -65,7 +65,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, patchFu
               try {
                 if (key === "link" && value) {
                   return (
-                    <Td key={`${key}-${value}`} data-label={label}>
+                    <Td key={`${key}-${value}`} data-label={label} className="linkCol">
                     {isValidUrl(value) ? (
                       <a href={value} target="_blank" rel="noopener noreferrer">
                         {value}
@@ -85,7 +85,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, patchFu
                 }
                 else if (key === "slug" || key === "referText" && value) {
                   return (
-                  <Td key={`${key}-${value}`} data-label={label}>
+                  <Td key={`${key}-${value}`} data-label={label} className={key === "referText" ? "referTextCol" : key === "slug" ? "slugCol" : undefined}>
                     {value} 
                     <button onClick={() => navigator.clipboard.writeText(value)} style={{ marginLeft: '2px',backgroundColor: "white", color: "black" }}>
                     <FaRegCopy/>
@@ -130,7 +130,7 @@ export const CreateTable = (data, columns, deleteFunction, editFunction, patchFu
                 <Td
                   key={`${key}-${value}`}
                   data-label={key}
-                  className={key === "pullQuote" ? "pullQuoteCol" : undefined}
+                  className={key === "pullQuote" ? "pullQuoteCol" : "textCol"}
                 >
                   {/*NOTE: for now, check if value is not null to handle "art in" always blank*/
                     (value && key === "status") ? (

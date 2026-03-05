@@ -56,6 +56,58 @@ table.responsiveTable td.pullQuoteCol {
   overflow-wrap: break-word;
 }
 
+/* link column width*/
+table.responsiveTable th.linkCol,
+table.responsiveTable td.linkCol {
+  max-width: 300px;
+}
+
+/* Force wrapping and breaking in link column */
+.linkCol a {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* refer text column width*/
+table.responsiveTable th.referTextCol,
+table.responsiveTable td.referTextCol {
+  max-width: 300px;
+}
+
+/* Force wrapping and breaking in refer text column */
+.referTextCol {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* slug column width*/
+table.responsiveTable th.slugCol,
+table.responsiveTable td.slugCol {
+  max-width: 300px;
+}
+
+/* Force wrapping and breaking in slug column */
+.slugCol {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* general text column width for all other columns except pullQuote*/
+table.responsiveTable th.textCol,
+table.responsiveTable td.textCol {
+  max-width: 300px;
+}
+
+/* Force wrapping and breaking in general text columns */
+.textCol {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
 /*IF overall table column title padding is allowed to be overwritten:
 table.responsiveTable th.opinionatedCol,
 table.responsiveTable td.opinionatedCol {
