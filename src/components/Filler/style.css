@@ -50,6 +50,7 @@ input[type="number"], textarea {
 
 .filler-number-input input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 #filler-button {
@@ -111,13 +112,18 @@ input[type="number"], textarea {
 @media screen and (max-width: 768px) {
   .flex-item {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 1.5em;
+    width: 100%;
   }
 
   .filler-count {
     margin-right: 0;
     width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .filler-number-input {
@@ -128,6 +134,7 @@ input[type="number"], textarea {
     border-radius: 10px;
     overflow: hidden;
     background-color: #FFFCF4;
+    box-sizing: border-box;
   }
 
   .filler-count input {
@@ -135,7 +142,8 @@ input[type="number"], textarea {
     font-size: 1.25em;
     text-align: center;
     flex-grow: 1;
-    width: auto;
+    width: 100%;
+    min-width: 0;
     background-color: transparent;
   }
 
@@ -147,6 +155,7 @@ input[type="number"], textarea {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
   
   .filler-icon {
@@ -164,9 +173,10 @@ input[type="number"], textarea {
   }
 
   .filler-textbox-and-copy textarea {
-    width: 90vw;
-    height: 45vh;
+    width: 100% !important;
+    height: 45vh !important;
     font-size: 1em;
+    box-sizing: border-box;
   }
 
   #copy {

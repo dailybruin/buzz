@@ -1,8 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body, textarea {
@@ -23,22 +27,45 @@ p, textarea {
 
 .app-container {
   display: flex;
-  overflow: visible;
+  overflow-x: hidden; /* Block horizontal stretching natively */
   height: 100vh;
+  width: 100%;
   background-color: #FFFCF4;
 }
 
 .main-content {
-  padding: 70px;
+  padding: 40px 60px;
+  flex: 1;  
+  min-width: 0; /* CRITICAL FIX: allow flex child to shrink properly */
   overflow-y: auto;
-  flex: 1;
+  overflow-x: hidden !important; /* CRITICAL FIX: trap horizontal pan sliding */
+  box-sizing: border-box;
+  max-width: 100vw;
+}
+
+@media screen and (max-width: 768px) {
+  .app-container {
+    display: block; /* Break flexbox left-shift issues! */
+  }
+
+  .main-content {
+    padding: 20px 15px;
+    width: 100%; /* Force perfect viewport match */
+  }
+
+  .react-tabs__tab {
+    font-size: 13px !important;
+  }
 }
 
 .react-tabs__tab-list {
   margin-bottom: 0px !important;
   font-weight: 500;
   font-size: 18px;
-  border-bottom: 0px solid transparent !important
+  border-bottom: 0px solid transparent !important;
+  display: flex !important;
+  width: 100%;
+  padding: 0;
 }
 
 .react-tabs__tab {
@@ -49,6 +76,10 @@ p, textarea {
   color: #656565;
   padding-top: 1em !important;
   padding-bottom: 1em !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  flex: 1;
+  text-align: center;
 }
 
 .react-tabs__tab--selected {
