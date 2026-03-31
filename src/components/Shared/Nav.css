@@ -11,7 +11,7 @@
   z-index: 10;
 }
 .navbar.collapsed {
-  width: 0; /* collapsed width (only logo & hamburger visible) */
+  width: 0; 
   padding: 0;
   align-items: center;
 }
@@ -86,7 +86,7 @@
   color: #000000;
   font-size: 20px;
   transition: background-color 0.3s ease;
-  width: 130px;
+  width: 100%;
   line-height: 1;
 }
 
@@ -139,15 +139,32 @@
 @media screen and (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 0.5rem 1em;
-    position: relative;
-    width: fit-content; 
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 1rem 1.5rem;
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: auto;
+    max-height: 50vh;
+    z-index: 1000;
+    width: 92%;
+    background-color: #FFF4D3;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    border-radius: 24px;
+    overflow-y: auto;
   }
 
-  .navbar.expanded {
-    width: 100%; 
+  .navbar.collapsed {
+    width: fit-content;
+    height: fit-content;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    left: 10px;
+    top: 10px;
+    transform: none;
+    padding: 0;
   }
 
   .logo {
@@ -162,6 +179,7 @@
 
   .nav-list a {
     width: 100%;
+    justify-content: center;
     padding: 10px;
     font-size: 18px;
   }
@@ -191,4 +209,27 @@
 /* Optional: fade-in animation when expanding nav-list */
 .nav-list.open {
   animation: fadeIn 0.3s ease-in-out;
+}
+
+/* DESKTOP PERMA-OPEN OVERRIDES */
+@media screen and (min-width: 769px) {
+  .navbar.collapsed {
+    width: 175px !important;
+    padding: 1rem !important;
+  }
+  .nav-item.collapsed {
+    display: flex !important;
+  }
+  .nav-list:not(.open) {
+    max-height: 2000px !important;
+  }
+  .navbar.collapsed .nav-list {
+    display: flex !important;
+  }
+  .chevron-toggle {
+    display: none !important;
+  }
+  .logo {
+    cursor: default !important;
+  }
 }

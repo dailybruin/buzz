@@ -50,10 +50,10 @@ table.responsiveTable td.pullQuoteCol {
 }
 
 /* Force wrapping inside the cell */
-.pullQuoteText {
+.pullQuoteText, .linkCol a, .referTextCol, .slugCol, .textCol {
   white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }
 
 /* link column width*/
@@ -62,24 +62,10 @@ table.responsiveTable td.linkCol {
   max-width: 300px;
 }
 
-/* Force wrapping and breaking in link column */
-.linkCol a {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
 /* refer text column width*/
 table.responsiveTable th.referTextCol,
 table.responsiveTable td.referTextCol {
   max-width: 300px;
-}
-
-/* Force wrapping and breaking in refer text column */
-.referTextCol {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
 }
 
 /* slug column width*/
@@ -88,24 +74,10 @@ table.responsiveTable td.slugCol {
   max-width: 300px;
 }
 
-/* Force wrapping and breaking in slug column */
-.slugCol {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
 /* general text column width for all other columns except pullQuote*/
 table.responsiveTable th.textCol,
 table.responsiveTable td.textCol {
   max-width: 300px;
-}
-
-/* Force wrapping and breaking in general text columns */
-.textCol {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
 }
 
 /*IF overall table column title padding is allowed to be overwritten:
@@ -119,17 +91,15 @@ table.responsiveTable td.opinionatedCol {
 
 @media screen and (max-width: 768px) {
     table.responsiveTable {
-        width: 100%;
+        width: 100% !important;
+        min-width: 0 !important;
         display: block;
+        box-sizing: border-box;
     }
 
-    table.responsiveTable td {
-        padding: 1em;
-        font-size: 0.70em;
-    }
-
-    table.responsiveTable th {
-        font-size: 0.9em;
+    /* WE MUST HIDE THE DESKTOP THEAD AT 768PX */
+    table.responsiveTable thead {
+        display: none !important;
     }
 
     table.responsiveTable tr {
@@ -140,20 +110,34 @@ table.responsiveTable td.opinionatedCol {
         border-radius: 8px;
         background-color: #fff;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        box-sizing: border-box;
     }
+
+    /* Target generic td because .pivoted might not exist structurally yet! */
     table.responsiveTable td {
-        text-align: left;
-        padding: 0.75rem 0.5rem;
+        text-align: left !important;
+        padding: 0.75rem 0.5rem !important;
         border: none;
-        position: relative;
+        display: flex !important;
+        align-items: flex-start;
+        gap: 1em;
+        width: 100% !important;
+        box-sizing: border-box;
+        font-size: 0.85em; /* normalized from 0.70em */
     }
-    table.responsiveTable td::before {
-        content: attr(data-label);
+
+    /* Format the library's injected mobile label node */
+    table.responsiveTable .tdBefore {
+        display: block !important;
         font-weight: bold;
-        display: block;
-        margin-bottom: 0.3rem;
+        width: 100px !important;
+        min-width: 100px;
+        margin-bottom: 0 !important;
         color: #444;
+        flex-shrink: 0;
     }
+
     .edit,
     .delete {
         font-size: 1.2rem;
@@ -165,10 +149,4 @@ table.responsiveTable td.opinionatedCol {
         padding: 0.25em 0.75em;
         border-radius: 1em;
     }
-
-    
-
-    
-
-    
 }

@@ -55,13 +55,9 @@ export const Linebreak = () => {
       <div className="info-box">
         Linebreak Formatter
       </div>
-      <div className="label-container">
-        <div className="Original">Original</div>
-        <div className="Result">Result</div>
-      </div>
-
       <div className="input-container">
-        <div className="flex-row">
+        <div className="flex-col" id="original-col">
+          <div className="Original">Original</div>
           <textarea
             value={text}
             onChange={handleChange}
@@ -69,7 +65,8 @@ export const Linebreak = () => {
             placeholder="Input text here..."
           />
         </div>
-        <div className="flex-row">
+        <div className="flex-col" id="result-col">
+          <div className="Result">Result</div>
           <textarea
             ref={textInput}
             value={formattedText}

@@ -25,7 +25,7 @@
 }
 
 .word-count-container {
-  align-self: flex-end; 
+  align-self: flex-end;
   margin-top: 0.1em;
   margin-right: 17vw; 
 }
@@ -35,7 +35,7 @@
   font-weight: 400;
   font-style: italic;
   font-family: "Work Sans", sans-serif;
-  text-align: right;
+  text-align: left;
 }
 
 .label-container .Original, 
@@ -52,6 +52,24 @@
   gap: 3vw; 
   border-color: #9c9c9c;
 }
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  width: 48%; /* ensures they sit comfortably side-by-side on desktop */
+}
+
+.flex-col textarea {
+  flex-grow: 1;
+  width: 100%;
+  height: 22.5rem;
+  font-size: 1.2em;
+  font-style: italic;
+  border-radius: 1em;
+  padding: 1em;
+  box-sizing: border-box; /* keeps padding safe! */
+}
+
 
 .flex-row {
   display: flex;
@@ -134,16 +152,37 @@
 } */
 
 @media screen and (max-width: 640px) {
-  .input-container,
-  .flex-row {
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .input-container {
+    display: contents; /* Allows children to participate in .row's flexbox */
+  }
+
+  .info-box { order: 1; }
+  #original-col { order: 2; margin-bottom: 0.5em; }
+  .flex-row { order: 3; }
+  .middleutils { order: 4; }
+  #result-col { order: 5; margin-top: 1em; }
+  .word-count-container { order: 6; }
+
+  .flex-col {
     flex-direction: column;
     width: 100%;
     gap: 1em;
   }
 
-  .flex-row textarea {
+  .flex-col textarea {
     width: 100%;
     height: 15rem;
+    box-sizing: border-box;
+  }
+
+  .flex-row-item {
+    margin-right: 0; 
   }
 
   .label-container {
@@ -161,10 +200,9 @@
 
   #remove-button {
     width: 100%;
-    font-size: 0.25em;
+    font-size: 1.25em; /* Raised slightly from 0.25em */
     padding: 1em;
   }
-
 
   .checkbox-label {
     margin-top: 1em;

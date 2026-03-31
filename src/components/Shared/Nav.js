@@ -17,16 +17,16 @@ export const Nav = () => {
     <div className={`navbar ${open ? "" : "collapsed"}`}>
       <div style={{ display: "flex", 
         width: "100%", 
-        justifyContent: "space-between", 
+        justifyContent: open && window.innerWidth <= 768 ? "center" : "flex-start", 
         alignItems: "center"
         }}
         >
-        <div className="logo">
+        <div className="logo" onClick={() => setOpen(!open)} style={{ cursor: "pointer", margin: 0, paddingBottom: open && window.innerWidth <= 768 ? "10px" : "25px", borderBottom: open && window.innerWidth <= 768 ? "1px solid #FFE082" : "none" }}>
           <img src="/Bee.png" alt="Buzz Logo" className="logo-image" />
           <span>Buzz</span>
-          <button className="chevron-toggle" onClick={() => setOpen(!open)}>
+          <div className="chevron-toggle">
             {open ? <FiChevronLeft size={15} /> : <FiChevronRight size={15} />}
-          </button>
+          </div>
         </div>
       </div>
       
